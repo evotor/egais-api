@@ -5,7 +5,9 @@ import ru.evotor.egais.api.provider.EgaisApi
 
 object ConfirmTicketContract {
     @JvmField
-    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, "ConfirmTicket")
+    val PATH = "ConfirmTicket"
+    @JvmField
+    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, PATH)
 
     /**
      * UUID подтверждения. Не может быть null.

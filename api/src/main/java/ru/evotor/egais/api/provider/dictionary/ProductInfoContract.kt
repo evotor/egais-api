@@ -5,7 +5,9 @@ import ru.evotor.egais.api.provider.EgaisApi
 
 object ProductInfoContract {
     @JvmField
-    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, "ProductInfo")
+    val PATH = "ProductInfo"
+    @JvmField
+    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, PATH)
 
     /**
      * Тип продукции (АП | ССП | ССНП | Спирт). Не может быть null.

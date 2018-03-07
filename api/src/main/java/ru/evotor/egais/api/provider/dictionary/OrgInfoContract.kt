@@ -3,16 +3,18 @@ package ru.evotor.egais.api.provider.dictionary
 import android.net.Uri
 import ru.evotor.egais.api.provider.EgaisApi
 
-object OrganizationContract {
+object OrgInfoContract {
     @JvmField
-    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, "Organization")
+    val PATH = "OrgInfo"
+    @JvmField
+    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, PATH)
 
     /**
      * Код организации. Не может быть null.
      *
      * Тип: STRING
      */
-    const val COLUMN_REG_ID = "REG_ID"
+    const val COLUMN_CLIENT_REG_ID = "CLIENT_REG_ID"
 
     /**
      * Тип организации. Может быть null.
@@ -74,4 +76,12 @@ object OrganizationContract {
      * Тип: STRING
      */
     const val COLUMN_STATE = "STATE"
+
+    /**
+     * Версия протокола для накладных: 1, 2 или 3.
+     *
+     * Тип: STRING
+     */
+    const val COLUMN_VERSION_WB = "VERSION_WB"
+
 }

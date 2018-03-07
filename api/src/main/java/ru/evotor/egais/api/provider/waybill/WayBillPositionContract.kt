@@ -5,7 +5,9 @@ import ru.evotor.egais.api.provider.EgaisApi
 
 object WayBillPositionContract {
     @JvmField
-    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, "WayBillPosition")
+    val PATH = "WayBillPosition"
+    @JvmField
+    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, PATH)
 
     /**
      * UUID накладной. Не может быть null.
