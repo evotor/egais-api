@@ -1,13 +1,13 @@
 package ru.evotor.egais.api.provider.waybillact
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.EgaisApi
+import ru.evotor.egais.api.provider.api.DictionaryApi
 
 object ConfirmTicketContract {
     @JvmField
     val PATH = "ConfirmTicket"
     @JvmField
-    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(DictionaryApi.BASE_URI, PATH)
 
     /**
      * UUID подтверждения. Не может быть null.
