@@ -1,4 +1,4 @@
-package ru.evotor.egais.api.provider
+package ru.evotor.egais.api.provider.api
 
 import android.content.Context
 import android.database.Cursor
@@ -10,8 +10,10 @@ import ru.evotor.egais.api.model.dictionary.WBTypeUsed
 import ru.evotor.egais.api.provider.dictionary.OrgInfoContract
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
 
-object EgaisApi {
-    const val AUTHORITY = "ru.evotor.egais.api"
+object DictionaryApi {
+
+    const val AUTHORITY = "ru.evotor.egais.dictionary.api"
+
     @JvmField
     val BASE_URI = Uri.parse("content://${AUTHORITY}")
 

@@ -1,13 +1,13 @@
 package ru.evotor.egais.api.provider.dictionary
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.EgaisApi
+import ru.evotor.egais.api.provider.api.DictionaryApi
 
 object OrgInfoContract {
     @JvmField
     val PATH = "OrgInfo"
     @JvmField
-    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(DictionaryApi.BASE_URI, PATH)
 
     /**
      * Код организации. Не может быть null.

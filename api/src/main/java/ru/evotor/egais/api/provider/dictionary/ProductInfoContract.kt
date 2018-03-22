@@ -1,13 +1,13 @@
 package ru.evotor.egais.api.provider.dictionary
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.EgaisApi
+import ru.evotor.egais.api.provider.api.DictionaryApi
 
 object ProductInfoContract {
     @JvmField
     val PATH = "ProductInfo"
     @JvmField
-    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(DictionaryApi.BASE_URI, PATH)
 
     /**
      * Тип продукции (АП | ССП | ССНП | Спирт). Не может быть null.

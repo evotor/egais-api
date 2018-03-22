@@ -1,13 +1,13 @@
 package ru.evotor.egais.api.provider.waybill
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.EgaisApi
+import ru.evotor.egais.api.provider.api.WayBillApi
 
 object WayBillContract {
     @JvmField
     val PATH = "WayBill"
     @JvmField
-    val URI = Uri.withAppendedPath(EgaisApi.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(WayBillApi.BASE_URI, PATH)
 
     /**
      * UUID накладной. Не может быть null.
@@ -28,7 +28,7 @@ object WayBillContract {
      *
      * Тип: STRING
      */
-    const val COLUMN_OWNER_REG_ID = "OWNER_REG_ID"
+    const val COLUMN_OWNER = "OWNER"
 
     /**
      * Тип накладной. Не может быть null.
@@ -80,21 +80,21 @@ object WayBillContract {
      *
      * Тип: STRING
      */
-    const val COLUMN_SHIPPER_CLIENT_REG_ID = "SHIPPER_CLIENT_REG_ID"
+    const val COLUMN_SHIPPER_ID = "SHIPPER_ID"
 
     /**
      * Грузополучатель. Не может быть null.
      *
      * Тип: STRING
      */
-    const val COLUMN_CONSIGNEE_CLIENT_REG_ID = "CONSIGNEE_CLIENT_REG_ID"
+    const val COLUMN_CONSIGNEE_ID = "CONSIGNEE_ID"
 
     /**
      * Поставщик. Может быть null.
      *
      * Тип: STRING
      */
-    const val COLUMN_SUPPLIER_CLIENT_REG_ID = "SUPPLIER_CLIENT_REG_ID"
+    const val COLUMN_SUPPLIER_ID = "SUPPLIER_ID"
 
     /**
      * Основание. Может быть null.
@@ -116,6 +116,14 @@ object WayBillContract {
      * Тип: STRING
      */
     const val COLUMN_STATE = "STATE"
+
+    /**
+     * Текущий статус накладной. Не может быть null.
+     *
+     * Тип: STRING
+     */
+    const val COLUMN_TTN_INFORM_B_REG_ID = "TTN_INFORM_B_REG_ID"
+
 
     /**
      * Транспорт. Тип перевозки. Может быть null.
@@ -183,7 +191,14 @@ object WayBillContract {
      *
      * Тип: STRING
      */
-    const val COLUMN_INFORM_F2_WB_REG_ID = "INFORM_F2_WB_REG_ID"
+    const val COLUMN_WB_REG_ID = "WB_REG_ID"
+
+  /**
+     * Версия
+     *
+     * Тип: STRING
+     */
+    const val COLUMN_VERSION = "VERSION"
 
     /**
      * Номер фиксации накладной(отгрузки) в ЕГАИС. Не может быть null.
