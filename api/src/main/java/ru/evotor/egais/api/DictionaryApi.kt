@@ -1,4 +1,4 @@
-package ru.evotor.egais.api.provider.api
+package ru.evotor.egais.api
 
 import android.content.Context
 import android.database.Cursor
@@ -7,15 +7,11 @@ import ru.evotor.egais.api.model.dictionary.OrgInfo
 import ru.evotor.egais.api.model.dictionary.ProductInfo
 import ru.evotor.egais.api.model.dictionary.ProductType
 import ru.evotor.egais.api.model.dictionary.WBTypeUsed
+import ru.evotor.egais.api.provider.MainContract
 import ru.evotor.egais.api.provider.dictionary.OrgInfoContract
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
 
 object DictionaryApi {
-
-    const val AUTHORITY = "ru.evotor.egais.dictionary.api"
-
-    @JvmField
-    val BASE_URI = Uri.parse("content://${AUTHORITY}")
 
     @JvmStatic
     fun getOrgInfos(context: Context): ru.evotor.egais.api.provider.Cursor<OrgInfo?>? {

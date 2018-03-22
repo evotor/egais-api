@@ -1,61 +1,41 @@
 package ru.evotor.egais.api.provider.waybillact
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.api.DictionaryApi
+import ru.evotor.egais.api.provider.dictionary.DictionaryContract
 
-object ConfirmTicketContract {
-    @JvmField
+internal object ConfirmTicketContract {
     val PATH = "ConfirmTicket"
-    @JvmField
-    val URI = Uri.withAppendedPath(DictionaryApi.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(DictionaryContract.BASE_URI, PATH)
 
     /**
-     * UUID подтверждения. Не может быть null.
-     *
-     * Тип: STRING
+     * UUID подтверждения.
      */
     const val COLUMN_UUID = "UUID"
 
     /**
-     * Идентификатор документа (клиентский, к заполнению необязательный). Может быть null.
-     *
-     * Тип: STRING
+     * Идентификатор документа (клиентский, к заполнению необязательный).
      */
     const val COLUMN_IDENTITY = "IDENTITY"
 
     /**
-     * Тип подтверждения: Принимаем/отказываем. Не может быть null.
-     *
-     * Возможные значения:
-     * - ACCEPTED - Принимаем
-     * - REJECTED - отказываем
-     *
-     * Тип: STRING
+     * Тип подтверждения: Принимаем/отказываем.
      */
     const val COLUMN_IS_CONFIRM = "IS_CONFIRM"
 
     /**
-     * Номер подтверждения. Не может быть null.
-     *
-     * Тип: STRING
+     * Номер подтверждения.
      */
     const val COLUMN_NUMBER = "NUMBER"
     /**
-     * Дата составления подтверждения. Не может быть null.
-     *
-     * Тип: LONG
+     * Дата составления подтверждения.
      */
     const val COLUMN_DATE = "DATE"
     /**
-     * ИД накладной в системе. Не может быть null.
-     *
-     * Тип: STRING
+     * ИД накладной в системе.
      */
     const val COLUMN_WB_REG_ID = "WB_REG_ID"
     /**
-     * Заметки. Может быть null.
-     *
-     * Тип: STRING
+     * Заметки.
      */
     const val COLUMN_NOTE = "NOTE"
 }

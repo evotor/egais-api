@@ -11,24 +11,24 @@ import java.util.*
  * @property regionCode Код региона
  * @property area Область
  * @property city Город
- * @property place TODO
+ * @property place Район
  * @property street Улица
  * @property house Дом
- * @property building TODO
- * @property liter TODO
+ * @property building Строение
+ * @property liter Литера
  * @property description Описание
  */
 data class OrgAddress(
-        @JvmField val uuid: UUID,
-        @JvmField val country: String?,
-        @JvmField val index: String?,
-        @JvmField val regionCode: String?,
-        @JvmField val area: String?,
-        @JvmField val city: String?,
-        @JvmField val place: String?,
-        @JvmField val street: String?,
-        @JvmField val house: String?,
-        @JvmField val building: String?,
-        @JvmField val liter: String?,
-        @JvmField val description: String?
+        val uuid: UUID,
+        val country: String?,
+        val index: String?,
+        val regionCode: String?,
+        val area: String?,
+        val city: String?,
+        val place: String?,
+        val street: String?,
+        val house: String?,
+        val building: String?,
+        val liter: String?,
+        val description: String?
 )

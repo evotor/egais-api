@@ -1,7 +1,5 @@
 package ru.evotor.egais.api.model.dictionary
 
-import ru.evotor.egais.api.model.Version
-
 /**
  *  Информация об организации
  *
@@ -18,61 +16,18 @@ import ru.evotor.egais.api.model.Version
  * @param versionWB Версия схемы накладной принимаемая организацией
  */
 data class OrgInfo(
-        @JvmField var type: Type,
-        @JvmField val clientRegId: String,
-        @JvmField val fullName: String,
-        @JvmField val shortName: String?,
-        @JvmField val inn: String?,
-        @JvmField val kpp: String?,
-        @JvmField val unp: String?,
-        @JvmField val rnn: String?,
-        @JvmField val address: OrgAddress?,
-        @JvmField var state: String?,
-        @JvmField var versionWB: WBTypeUsed?
+        val type: Type?,
+        val clientRegId: String,
+        val fullName: String,
+        val shortName: String?,
+        val inn: String?,
+        val kpp: String?,
+        val unp: String?,
+        val rnn: String?,
+        val address: OrgAddress?,
+        val state: String?,
+        val versionWB: WBTypeUsed?
 ) {
-
-    companion object {
-
-        private val DASH = "-"
-
-        fun createDescription(orgInfo: OrgInfo?): String {
-            if (orgInfo == null) {
-                return DASH
-            }
-
-            val b: Boolean? = orgInfo.fullName?.trim { it <= ' ' }?.isEmpty()
-
-            if (orgInfo.shortName != null && !orgInfo.shortName.trim { it <= ' ' }.isEmpty()) {
-                return orgInfo.shortName
-            } else if (b != null && !b) {
-                return orgInfo.fullName
-            } else {
-                return DASH
-            }
-        }
-
-        fun canSendInVersion2Document(orgInfo: OrgInfo?): Boolean {
-            if (orgInfo != null) {
-
-                if (orgInfo.type == null) {
-                    return false
-                }
-            }
-            return true
-        }
-
-        fun calcVersion(orgInfo: OrgInfo?): Version {
-            if (!canSendInVersion2Document(orgInfo)) {
-                return Version.V1
-            }
-
-            return when (orgInfo?.versionWB) {
-                WBTypeUsed.WAYBILL_V2 -> Version.V2
-                WBTypeUsed.WAYBILL_V3 -> Version.V3
-                else -> Version.V2
-            }
-        }
-    }
 
     enum class Type {
         /**

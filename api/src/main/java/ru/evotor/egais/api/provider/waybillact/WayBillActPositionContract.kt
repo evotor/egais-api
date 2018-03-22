@@ -1,39 +1,31 @@
 package ru.evotor.egais.api.provider.waybillact
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.api.DictionaryApi
+import ru.evotor.egais.api.provider.dictionary.DictionaryContract
 
-object WayBillActPositionContract {
+internal object WayBillActPositionContract {
     @JvmField
     val PATH = "WayBillActPosition"
     @JvmField
-    val URI = Uri.withAppendedPath(DictionaryApi.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(DictionaryContract.BASE_URI, PATH)
 
     /**
-     * UUID акта. Не может быть null.
-     *
-     * Тип: STRING
+     * UUID акта.
      */
     const val COLUMN_UUID = "UUID"
 
     /**
-     * Идентификатор позиции внутри накладной. Не может быть null.
-     *
-     * Тип: STRING
+     * Идентификатор позиции внутри накладной.
      */
     const val COLUMN_IDENTITY = "IDENTITY"
 
     /**
-     * Количество. Не может быть null.
-     *
-     * Тип: LONG
+     * Количество.
      */
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
-     * Регистрационный номер раздела справки 2. Может быть null.
-     *
-     * Тип: STRING
+     * Регистрационный номер раздела справки 2.
      */
     const val COLUMN_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"
 }
