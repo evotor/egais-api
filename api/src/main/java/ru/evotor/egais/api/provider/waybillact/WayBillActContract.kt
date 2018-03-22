@@ -1,72 +1,51 @@
 package ru.evotor.egais.api.provider.waybillact
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.api.DictionaryApi
+import ru.evotor.egais.api.provider.dictionary.DictionaryContract
 
-object WayBillActContract {
+internal object WayBillActContract {
     @JvmField
     val PATH = "WayBillAct"
     @JvmField
-    val URI = Uri.withAppendedPath(DictionaryApi.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(DictionaryContract.BASE_URI, PATH)
 
     /**
-     * UUID Акта. Не может быть null.
-     *
-     * Тип: STRING
+     * UUID Акта.
      */
     const val COLUMN_UUID = "UUID"
 
     /**
-     * UUID накладной. Может быть null.
-     *
-     * Тип: STRING
+     * UUID накладной.
      */
     const val COLUMN_WAY_BILL_UUID = "WAY_BILL_UUID"
 
     /**
-     * ИД Акта (клиентский). Может быть null.
-     *
-     * Тип: STRING
+     * ИД Акта (клиентский).
      */
     const val COLUMN_IDENTITY = "IDENTITY"
 
     /**
-     * Тип подтверждения: Принимаем/отказываем. Не может быть null.
-     *
-     * Возможные значения:
-     * - ACCEPTED - Принимаем
-     * - DIFFERENCES - Принимаем частично
-     * - REJECTED - Отказываем
-     *
-     * Тип: STRING
+     * Тип подтверждения: Принимаем/отказываем.
      */
     const val COLUMN_ACCEPT_TYPE = "ACCEPT_TYPE"
 
     /**
-     * Номер акта. Не может быть null.
-     *
-     * Тип: STRING
+     * Номер акта.
      */
     const val COLUMN_NUMBER = "NUMBER"
 
     /**
-     * Дата составления акта. Не может быть null.
-     *
-     * Тип: LONG
+     * Дата составления акта.
      */
     const val COLUMN_CREATION_DATE = "CREATION_DATE"
 
     /**
-     * ИД накладной в системе. Не может быть null.
-     *
-     * Тип: STRING
+     * ИД накладной в системе.
      */
     const val COLUMN_WB_REG_ID = "WB_REG_ID"
 
     /**
-     * Заметки. Может быть null.
-     *
-     * Тип: STRING
+     * Заметки.
      */
     const val COLUMN_NOTE = "NOTE"
 }
