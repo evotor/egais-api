@@ -1,7 +1,11 @@
 package ru.evotor.egais.api.model.document.waybill
 
 /**
- * Тип накладной: WBInvoiceFromMe - расход; WBReturnToMe - возврат мне; WBInvoiceToMe - приход; WBReturnFromMe - возврат от меня;
+ * Тип накладной:
+ * - INVOICE_FROM_ME - расход
+ * - RETURN_TO_ME - возврат мне
+ * - INVOICE_TO_ME - приход
+ * - RETURN_FROM_ME - возврат от меня
  */
 enum class Type {
     /**

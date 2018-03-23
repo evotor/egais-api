@@ -1,7 +1,8 @@
 package ru.evotor.egais.api.model.document.waybill
 
 /**
- * Packed упакованная, Unpacked неупакованная
+ *  - PACKED упакованная
+ *  - UNPACKED неупакованная
  */
 enum class UnitType {
     /**
