@@ -1,4 +1,4 @@
-package ru.evotor.egais.api.provider.api
+package ru.evotor.egais.api
 
 import android.content.Context
 import android.database.Cursor
@@ -14,11 +14,6 @@ import java.math.BigDecimal
 import java.util.*
 
 object ActWriteOffShopApi {
-    const val AUTHORITY = "ru.evotor.egais.actwriteoffshop.api"
-
-    @JvmField
-    val BASE_URI = Uri.parse("content://${AUTHORITY}")
-
     @JvmStatic
     fun getActWriteOffShopList(context: Context): ru.evotor.egais.api.provider.Cursor<ActWriteOffShop?>? {
         return context.contentResolver.query(ActWriteOffShopContract.URI, null, null, null, null)

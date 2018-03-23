@@ -1,14 +1,19 @@
 package ru.evotor.egais.api.provider.actwtiteoff
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.api.ActWriteOffShopApi
+import ru.evotor.egais.api.provider.MainContract
 
 object ActWriteOffShopContract {
+    const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.actwriteoffshop"
+
+    @JvmField
+    val BASE_URI = Uri.parse("content://${AUTHORITY}")
+
     @JvmField
     val PATH = "ActWriteOffShop"
 
     @JvmField
-    val URI = Uri.withAppendedPath(ActWriteOffShopApi.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(BASE_URI, PATH)
 
     /**
      * Уникальный идентификатор акта списания из магазина

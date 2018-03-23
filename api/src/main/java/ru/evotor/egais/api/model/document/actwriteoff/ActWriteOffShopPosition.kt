@@ -15,11 +15,11 @@ import java.util.*
  * @property markList Перечень считанных кодов марок
  */
 data class ActWriteOffShopPosition(
-        val uuid: UUID,
-        var actWriteOffShopId: UUID? = null,
-        val identity: String?,
-        val quantity: BigDecimal,
-        val informBMarkInfoJson: String?,
-        val productInfoAlcCode: String,
-        val markList: List<String>
+        @JvmField val uuid: UUID,
+        @JvmField var actWriteOffShopId: UUID? = null,
+        @JvmField val identity: String?,
+        @JvmField val quantity: BigDecimal,
+        @JvmField val informBMarkInfoJson: String?,
+        @JvmField val productInfoAlcCode: String,
+        @JvmField val markList: List<String>
 )

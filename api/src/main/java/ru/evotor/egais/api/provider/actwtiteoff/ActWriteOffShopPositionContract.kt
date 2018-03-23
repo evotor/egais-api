@@ -1,14 +1,14 @@
 package ru.evotor.egais.api.provider.actwtiteoff
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.api.ActWriteOffShopApi
+import ru.evotor.egais.api.ActWriteOffShopApi
 
 object ActWriteOffShopPositionContract {
     @JvmField
     val PATH = "ActWriteOffShopPosition"
 
     @JvmField
-    val URI = Uri.withAppendedPath(ActWriteOffShopApi.BASE_URI, ActWriteOffShopContract.PATH)
+    val URI = Uri.withAppendedPath(ActWriteOffShopContract.BASE_URI, PATH)
 
     /**
      * Уникальный идентификатор позиции акта списания из магазина
