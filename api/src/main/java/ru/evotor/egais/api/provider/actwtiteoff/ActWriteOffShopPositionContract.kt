@@ -3,7 +3,7 @@ package ru.evotor.egais.api.provider.actwtiteoff
 import android.net.Uri
 import ru.evotor.egais.api.ActWriteOffShopApi
 
-object ActWriteOffShopPositionContract {
+internal object ActWriteOffShopPositionContract {
     @JvmField
     val PATH = "ActWriteOffShopPosition"
 

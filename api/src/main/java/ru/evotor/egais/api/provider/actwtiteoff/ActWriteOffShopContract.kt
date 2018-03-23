@@ -3,7 +3,7 @@ package ru.evotor.egais.api.provider.actwtiteoff
 import android.net.Uri
 import ru.evotor.egais.api.provider.MainContract
 
-object ActWriteOffShopContract {
+internal object ActWriteOffShopContract {
     const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.actwriteoffshop"
 
     @JvmField
