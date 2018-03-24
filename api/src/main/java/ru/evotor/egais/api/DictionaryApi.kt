@@ -2,23 +2,21 @@ package ru.evotor.egais.api
 
 import android.content.Context
 import android.database.Cursor
-import android.net.Uri
 import ru.evotor.egais.api.model.dictionary.OrgInfo
 import ru.evotor.egais.api.model.dictionary.ProductInfo
 import ru.evotor.egais.api.model.dictionary.ProductType
 import ru.evotor.egais.api.model.dictionary.WBTypeUsed
-import ru.evotor.egais.api.provider.MainContract
 import ru.evotor.egais.api.provider.dictionary.OrgInfoContract
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
 
 object DictionaryApi {
 
     @JvmStatic
-    fun getOrgInfos(context: Context): ru.evotor.egais.api.provider.Cursor<OrgInfo?>? {
+    fun getOrgInfos(context: Context): ru.evotor.egais.api.provider.Cursor<OrgInfo>? {
         return context.contentResolver.query(OrgInfoContract.URI, null, null, null, null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<OrgInfo?>(it) {
-                        override fun getValue(): OrgInfo? {
+                    object : ru.evotor.egais.api.provider.Cursor<OrgInfo>(it) {
+                        override fun getValue(): OrgInfo {
                             return createOrgInfo(this)
                         }
                     }
@@ -26,23 +24,23 @@ object DictionaryApi {
     }
 
     @JvmStatic
-    fun getOrgInfoByClientRegId(context: Context, clientRegId: String): ru.evotor.egais.api.provider.Cursor<OrgInfo?>? {
-        return context.contentResolver.query(Uri.withAppendedPath(OrgInfoContract.URI, clientRegId), null, null, null, null)
-                ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<OrgInfo?>(it) {
-                        override fun getValue(): OrgInfo? {
-                            return createOrgInfo(this)
-                        }
+    fun getOrgInfoByClientRegId(context: Context, clientRegId: String): OrgInfo? {
+        return context.contentResolver.query(OrgInfoContract.URI, null, "${OrgInfoContract.COLUMN_CLIENT_REG_ID} = ?", arrayOf(clientRegId), null)
+                ?.let { cursor ->
+                    cursor.use {
+                        if (cursor.moveToFirst()) {
+                            createOrgInfo(cursor)
+                        } else null
                     }
                 }
     }
 
     @JvmStatic
-    fun getProductInfos(context: Context): ru.evotor.egais.api.provider.Cursor<ProductInfo?>? {
+    fun getProductInfos(context: Context): ru.evotor.egais.api.provider.Cursor<ProductInfo>? {
         return context.contentResolver.query(ProductInfoContract.URI, null, null, null, null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<ProductInfo?>(it) {
-                        override fun getValue(): ProductInfo? {
+                    object : ru.evotor.egais.api.provider.Cursor<ProductInfo>(it) {
+                        override fun getValue(): ProductInfo {
                             return createProductInfo(this)
                         }
                     }
@@ -50,18 +48,18 @@ object DictionaryApi {
     }
 
     @JvmStatic
-    fun getProductInfoByAlcCode(context: Context, alcCode: String): ru.evotor.egais.api.provider.Cursor<ProductInfo?>? {
-        return context.contentResolver.query(Uri.withAppendedPath(ProductInfoContract.URI, alcCode), null, null, null, null)
-                ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<ProductInfo?>(it) {
-                        override fun getValue(): ProductInfo? {
-                            return createProductInfo(this)
-                        }
+    fun getProductInfoByAlcCode(context: Context, alcCode: String): ProductInfo? {
+        return context.contentResolver.query(ProductInfoContract.URI, null, "${ProductInfoContract.COLUMN_ALC_CODE} = ?", arrayOf(alcCode), null)
+                ?.let { cursor ->
+                    cursor.use {
+                        if (cursor.moveToFirst()) {
+                            createProductInfo(cursor)
+                        } else null
                     }
                 }
     }
 
-    private fun createOrgInfo(cursor: Cursor): OrgInfo? {
+    private fun createOrgInfo(cursor: Cursor): OrgInfo {
         val columnIndexType = cursor.getColumnIndex(OrgInfoContract.COLUMN_TYPE)
         val columnIndexClientRegId = cursor.getColumnIndex(OrgInfoContract.COLUMN_CLIENT_REG_ID)
         val columnIndexFullName = cursor.getColumnIndex(OrgInfoContract.COLUMN_FULL_NAME)
@@ -88,7 +86,7 @@ object DictionaryApi {
         )
     }
 
-    private fun createProductInfo(cursor: Cursor): ProductInfo? {
+    private fun createProductInfo(cursor: Cursor): ProductInfo {
         val columnIndexType = cursor.getColumnIndex(ProductInfoContract.COLUMN_TYPE)
         val columnIndexFullName = cursor.getColumnIndex(ProductInfoContract.COLUMN_FULL_NAME)
         val columnIndexShortName = cursor.getColumnIndex(ProductInfoContract.COLUMN_SHORT_NAME)
