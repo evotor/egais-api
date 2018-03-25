@@ -73,7 +73,7 @@ object WayBillApi {
         val columnNote = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_NOTE)
         val columnStatus = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_STATUS)
         val columnResolution = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION)
-        val columnTtnInformBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_B_REG_ID)
+        val columnTtnInformBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_B_REG_UUID)
         val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
 
         val transportType = cursor.getString(columnTransportType)
