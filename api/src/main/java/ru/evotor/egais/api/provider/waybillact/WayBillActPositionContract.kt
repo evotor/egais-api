@@ -1,13 +1,12 @@
 package ru.evotor.egais.api.provider.waybillact
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.dictionary.DictionaryContract
 
 internal object WayBillActPositionContract {
     @JvmField
     val PATH = "WayBillActPosition"
     @JvmField
-    val URI = Uri.withAppendedPath(DictionaryContract.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(WayBillActContract.BASE_URI, PATH)
 
     /**
      * UUID акта.
