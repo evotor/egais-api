@@ -15,7 +15,7 @@ object WayBillApi {
                 ?.let {
                     object : ru.evotor.egais.api.provider.Cursor<WayBill>(it) {
                         override fun getValue(): WayBill {
-                            return createWayBillInfo(this)
+                            return createWayBill(this)
                         }
                     }
                 }
@@ -28,7 +28,7 @@ object WayBillApi {
                 ?.let {
                     object : ru.evotor.egais.api.provider.Cursor<WayBill>(it) {
                         override fun getValue(): WayBill {
-                            return createWayBillInfo(this)
+                            return createWayBill(this)
                         }
                     }
                 }
@@ -37,17 +37,17 @@ object WayBillApi {
     @JvmStatic
     fun getWayBillPositionListByUuid(context: Context, uuid: UUID): ru.evotor.egais.api.provider.Cursor<WayBillPosition>? {
         return context.contentResolver.query(WayBillPositionContract.URI,
-                null, "${WayBillPositionContract.COLUMN_WAYBILL_UUID} = ?", arrayOf(uuid.toString()), null)
+                null, "${WayBillPositionContract.COLUMN_WAYBILL_UUID} >= ?", arrayOf(uuid.toString()), null)
                 ?.let {
                     object : ru.evotor.egais.api.provider.Cursor<WayBillPosition>(it) {
                         override fun getValue(): WayBillPosition {
-                            return createWayBillPositionInfo(this)
+                            return createWayBillPosition(this)
                         }
                     }
                 }
     }
 
-    private fun createWayBillInfo(cursor: Cursor): WayBill {
+    private fun createWayBill(cursor: Cursor): WayBill {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_UUID)
         val columnDocOwner = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_OWNER)
         val columnIdentity = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_IDENTITY)
@@ -135,7 +135,7 @@ object WayBillApi {
         )
     }
 
-    private fun createWayBillPositionInfo(cursor: Cursor): WayBillPosition {
+    private fun createWayBillPosition(cursor: Cursor): WayBillPosition {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_UUID)
         val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
         val columnProductIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)
