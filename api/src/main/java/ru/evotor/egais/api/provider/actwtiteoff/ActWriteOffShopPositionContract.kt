@@ -18,7 +18,7 @@ internal object ActWriteOffShopPositionContract {
     /**
      * Уникальный идентификатор акта списания из магазина
      */
-    const val COLUMN_ACT_WRITE_OFF_SHOP_ID = "ACT_WRITE_OFF_SHOP_ID"
+    const val COLUMN_ACT_WRITE_OFF_SHOP_UUID = "ACT_WRITE_OFF_SHOP_UUID"
 
     /**
      * Идентификатор позиции акта списания из магазина (клиентский, к заполнению необязательный)
