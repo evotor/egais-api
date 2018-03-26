@@ -2,7 +2,6 @@ package ru.evotor.egais.api
 
 import android.content.Context
 import android.database.Cursor
-import android.net.Uri
 import ru.evotor.egais.api.model.document.waybill.*
 import ru.evotor.egais.api.provider.waybill.WayBillContract
 import ru.evotor.egais.api.provider.waybill.WayBillPositionContract
@@ -11,56 +10,44 @@ import java.util.*
 
 object WayBillApi {
     @JvmStatic
-    fun getWayBillList(context: Context): ru.evotor.egais.api.provider.Cursor<WayBill?>? {
+    fun getWayBillList(context: Context): ru.evotor.egais.api.provider.Cursor<WayBill>? {
         return context.contentResolver.query(WayBillContract.URI, null, null, null, null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<WayBill?>(it) {
-                        override fun getValue(): WayBill? {
-                            return createWayBillInfo(this)
+                    object : ru.evotor.egais.api.provider.Cursor<WayBill>(it) {
+                        override fun getValue(): WayBill {
+                            return createWayBill(this)
                         }
                     }
                 }
     }
 
     @JvmStatic
-    fun getWayBillListByDate(context: Context, date: Date): ru.evotor.egais.api.provider.Cursor<WayBill?>? {
-        return context.contentResolver.query(Uri.withAppendedPath(WayBillContract.URI, date.toString()),
-                null, null, null, null)
+    fun getWayBillListByDate(context: Context, date: Date): ru.evotor.egais.api.provider.Cursor<WayBill>? {
+        return context.contentResolver.query(WayBillContract.URI,
+                null, "${WayBillContract.COLUMN_DATE} = ?", arrayOf(date.toString()), null, null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<WayBill?>(it) {
-                        override fun getValue(): WayBill? {
-                            return createWayBillInfo(this)
+                    object : ru.evotor.egais.api.provider.Cursor<WayBill>(it) {
+                        override fun getValue(): WayBill {
+                            return createWayBill(this)
                         }
                     }
                 }
     }
 
     @JvmStatic
-    fun getWayBillPositionListByUuid(context: Context, uuid: UUID): ru.evotor.egais.api.provider.Cursor<WayBillPosition?>? {
-        return context.contentResolver.query(Uri.withAppendedPath(WayBillPositionContract.URI, uuid.toString()),
-                null, null, null, null)
+    fun getWayBillPositionListByUuid(context: Context, uuid: UUID): ru.evotor.egais.api.provider.Cursor<WayBillPosition>? {
+        return context.contentResolver.query(WayBillPositionContract.URI,
+                null, "${WayBillPositionContract.COLUMN_WAYBILL_UUID} >= ?", arrayOf(uuid.toString()), null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<WayBillPosition?>(it) {
-                        override fun getValue(): WayBillPosition? {
-                            return createWayBillPositionInfo(this)
+                    object : ru.evotor.egais.api.provider.Cursor<WayBillPosition>(it) {
+                        override fun getValue(): WayBillPosition {
+                            return createWayBillPosition(this)
                         }
                     }
                 }
     }
 
-    @JvmStatic
-    fun getWayBillPositionList(context: Context): ru.evotor.egais.api.provider.Cursor<WayBillPosition?>? {
-        return context.contentResolver.query(WayBillPositionContract.URI, null, null, null, null)
-                ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<WayBillPosition?>(it) {
-                        override fun getValue(): WayBillPosition? {
-                            return createWayBillPositionInfo(this)
-                        }
-                    }
-                }
-    }
-
-    private fun createWayBillInfo(cursor: Cursor): WayBill? {
+    private fun createWayBill(cursor: Cursor): WayBill {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_UUID)
         val columnDocOwner = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_OWNER)
         val columnIdentity = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_IDENTITY)
@@ -86,7 +73,7 @@ object WayBillApi {
         val columnNote = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_NOTE)
         val columnStatus = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_STATUS)
         val columnResolution = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION)
-        val columnTtnInformBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_B_REG_ID)
+        val columnTtnInformBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_B_REG_UUID)
         val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
 
         val transportType = cursor.getString(columnTransportType)
@@ -148,7 +135,7 @@ object WayBillApi {
         )
     }
 
-    private fun createWayBillPositionInfo(cursor: Cursor): WayBillPosition? {
+    private fun createWayBillPosition(cursor: Cursor): WayBillPosition {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_UUID)
         val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
         val columnProductIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)

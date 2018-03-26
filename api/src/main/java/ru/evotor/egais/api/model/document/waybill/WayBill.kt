@@ -1,5 +1,6 @@
 package ru.evotor.egais.api.model.document.waybill
 
+import ru.evotor.egais.api.model.document.EgaisDocument
 import java.util.*
 
 /**
@@ -43,7 +44,7 @@ data class WayBill(
         val resolution: Resolution,
         val ttnInformBRegUuid: UUID?,
         val wbRegId: String?
-) {
+) : EgaisDocument() {
 
     fun getDate() = copyDate(date)
     fun getShippingDate() = copyDate(shippingDate)

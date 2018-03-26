@@ -14,7 +14,7 @@ internal object WayBillPositionContract {
     /**
      * UUID накладной.
      */
-    const val COLUMN_WAYBILL_UUID = "WAY_BILL_ID"
+    const val COLUMN_WAYBILL_UUID = "WAY_BILL_UUID"
 
     /**
      * Идентификатор внутри файла.
