@@ -9,7 +9,7 @@ import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
 import ru.evotor.egais.api.model.document.actwriteoff.TypeWriteOff
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopPositionContract
-import java.math.BigDecimal
+import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import java.util.*
 
 object ActWriteOffShopApi {
@@ -77,7 +77,7 @@ object ActWriteOffShopApi {
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                BigDecimal(cursor.getLong(columnIndexQuantity)),
+                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.getString(columnIndexMarkJson),
                 cursor.getString(columnIndexAlcCode),
                 toMarkList(cursor.getString(columnIndexMarkList))
