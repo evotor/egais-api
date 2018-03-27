@@ -21,7 +21,7 @@ internal object ActWriteOffContract {
     const val COLUMN_UUID = "UUID"
 
     /**
-     * Отправитель акта списания из магазина
+     * Отправитель акта списания со склада
      */
     const val COLUMN_OWNER = "OWNER"
 
@@ -56,7 +56,7 @@ internal object ActWriteOffContract {
     const val COLUMN_STATUS = "STATUS"
 
     /**
-     * Комментарий для отказа на акт списания из зала
+     * Комментарий для отказа на акт списания со склада
      */
     const val COLUMN_REJECT_COMMENT = "REJECT_COMMENT"
 

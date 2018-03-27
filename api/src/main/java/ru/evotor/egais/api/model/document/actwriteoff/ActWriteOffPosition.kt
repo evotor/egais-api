@@ -4,9 +4,9 @@ import java.math.BigDecimal
 import java.util.*
 
 /**
- * Позиция в акте о списании
+ * Позиция в акте о списании со склада
  *
- * @property uuid уникальный идентификатор
+ * @property uuid Уникальный идентификатор
  * @property actWriteOffUuid Идентификатор акта списания, содержащего позицию
  * @property identity Идентификатор позиции внутри накладной
  * @property quantity Количество
