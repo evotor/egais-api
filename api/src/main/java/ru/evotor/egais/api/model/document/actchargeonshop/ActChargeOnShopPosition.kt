@@ -14,8 +14,8 @@ import java.util.*
  */
 data class ActChargeOnShopPosition(
         @JvmField val uuid: UUID,
-        @JvmField var actChargeOnShopUuid: UUID? = null,
-        @JvmField val identity: String?,
+        @JvmField var actChargeOnShopUuid: UUID,
+        @JvmField val identity: String,
         @JvmField val quantity: BigDecimal,
-        @JvmField val productInfoAlcCode: String?
+        @JvmField val productInfoAlcCode: String
 )

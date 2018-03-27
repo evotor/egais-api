@@ -8,7 +8,7 @@ import java.util.*
  *
  * @property uuid Уникальный идентификатор
  * @property docOwner Кто подает документы
- * @property identity ID акта (клиентсикй)
+ * @property identity ID акта (клиентский)
  * @property number Номер документа
  * @property actDate Дата постановски на баланс
  * @property type Причина постановки на баланс
@@ -23,7 +23,7 @@ data class ActChargeOnShop(
         @JvmField val docOwner: String,
         @JvmField val identity: String?,
         @JvmField val number: String,
-        @JvmField val actDate: Date?,
+        @JvmField val actDate: Date,
         @JvmField val type: Type,
         @JvmField val actWriteOff: String?,
         @JvmField val note: String?,
