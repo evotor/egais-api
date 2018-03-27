@@ -154,8 +154,8 @@ object WayBillApi {
                 productIdentity = cursor.getString(columnProductIdentity),
                 productAlcoCode = cursor.getString(columnProductAlcoCode),
                 packId = cursor.getString(columnPackId),
-                quantity = BigDecimal(cursor.getLong(columnQuantity)),
-                price = BigDecimal(cursor.getLong(columnPrice)),
+                quantity = BigDecimal(cursor.getLong(columnQuantity)), // TODO BigDecimalConverter
+                price = BigDecimal(cursor.getLong(columnPrice)), // TODO BigDecimalConverter
                 party = cursor.getString(columnParty),
                 identity = cursor.getString(columnIndentity),
                 informARegId = cursor.getString(columnInformARegId),
