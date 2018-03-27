@@ -1,13 +1,17 @@
 package ru.evotor.egais.api.provider.waybillact
 
 import android.net.Uri
-import ru.evotor.egais.api.provider.dictionary.DictionaryContract
+import ru.evotor.egais.api.provider.MainContract
 
 internal object WayBillActContract {
+    const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.waybillact"
+
+    @JvmField
+    val BASE_URI = Uri.parse("content://${AUTHORITY}")
     @JvmField
     val PATH = "WayBillAct"
     @JvmField
-    val URI = Uri.withAppendedPath(DictionaryContract.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(BASE_URI, PATH)
 
     /**
      * UUID Акта.
