@@ -3,9 +3,10 @@ package ru.evotor.egais.api
 import android.content.Context
 import android.database.Cursor
 import ru.evotor.egais.api.model.document.waybill.*
+import ru.evotor.egais.api.provider.converter.MoneyBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.egais.api.provider.waybill.WayBillContract
 import ru.evotor.egais.api.provider.waybill.WayBillPositionContract
-import java.math.BigDecimal
 import java.util.*
 
 object WayBillApi {
@@ -154,8 +155,8 @@ object WayBillApi {
                 productIdentity = cursor.getString(columnProductIdentity),
                 productAlcoCode = cursor.getString(columnProductAlcoCode),
                 packId = cursor.getString(columnPackId),
-                quantity = BigDecimal(cursor.getLong(columnQuantity)), // TODO BigDecimalConverter
-                price = BigDecimal(cursor.getLong(columnPrice)), // TODO BigDecimalConverter
+                quantity = QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
+                price = MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnPrice)),
                 party = cursor.getString(columnParty),
                 identity = cursor.getString(columnIndentity),
                 informARegId = cursor.getString(columnInformARegId),

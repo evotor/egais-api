@@ -8,7 +8,7 @@ import ru.evotor.egais.api.model.document.actchargeonshop.Type
 import ru.evotor.egais.api.provider.Cursor
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopContract
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopPositionContract
-import java.math.BigDecimal
+import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import java.util.*
 
 object ActChargeOnShopApi {
@@ -100,7 +100,7 @@ object ActChargeOnShopApi {
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                BigDecimal(cursor.getLong(columnIndexQuantity)), // TODO BigDecimalConverter
+                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.getString(columnIndexAlcCode)
         )
     }

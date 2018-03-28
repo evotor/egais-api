@@ -2,14 +2,14 @@ package ru.evotor.egais.api
 
 import android.content.Context
 import android.database.Cursor
-import org.apache.commons.lang3.StringUtils
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffShop
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffShopPosition
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
 import ru.evotor.egais.api.model.document.actwriteoff.TypeWriteOff
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopPositionContract
-import java.math.BigDecimal
+import ru.evotor.egais.api.provider.converter.MarkListConverter
+import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import java.util.*
 
 object ActWriteOffShopApi {
@@ -77,10 +77,10 @@ object ActWriteOffShopApi {
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                BigDecimal(cursor.getLong(columnIndexQuantity)),
+                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.getString(columnIndexMarkJson),
                 cursor.getString(columnIndexAlcCode),
-                toMarkList(cursor.getString(columnIndexMarkList))
+                MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
         )
     }
 
@@ -90,7 +90,7 @@ object ActWriteOffShopApi {
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_IDENTITY)
         val columnIndexNumber = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_NUMBER)
         val columnIndexActDate = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_ACT_DATE)
-        val columnIndexType = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_TYPE_ACT_WRITE_OFF)
+        val columnIndexType = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_TYPE_WRITE_OFF)
         val columnIndexNote = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_NOTE)
         val columnIndexStatus = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_REJECT_COMMENT)
@@ -106,11 +106,5 @@ object ActWriteOffShopApi {
                 ActWriteOffStatus.valueOf(cursor.getString(columnIndexStatus)),
                 cursor.getString(columnIndexRejectComment)
         )
-    }
-
-    private fun toMarkList(markListString: String?): List<String> {
-        return markListString?.let {
-            StringUtils.split(markListString, ",")?.toList()
-        } ?: ArrayList<String>()
     }
 }
