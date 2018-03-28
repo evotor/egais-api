@@ -26,32 +26,22 @@ import java.util.*
  *  @property wbRegId ИД накладной в системе (присвоенный)
  */
 data class WayBill(
-        val uuid: UUID,
-        val docOwner: String,
-        val identity: String?,
-        val type: Type,
-        val unitType: UnitType?,
-        val number: String,
-        private val date: Date,
-        private val shippingDate: Date,
-        val transport: Transport?,
-        val shipperId: String,
-        val consigneeId: String,
-        val supplierId: String?,
-        val base: String?,
-        val note: String?,
-        val status: Status,
-        val resolution: Resolution,
-        val ttnInformBRegUuid: UUID?,
-        val wbRegId: String?
-) : EgaisDocument() {
-
-    fun getDate() = copyDate(date)
-    fun getShippingDate() = copyDate(shippingDate)
-
-    private fun copyDate(date: Date?): Date? {
-        return if (date == null) {
-            null
-        } else Date(date.time)
-    }
-}
+        @JvmField val uuid: UUID,
+        @JvmField val docOwner: String,
+        @JvmField val identity: String?,
+        @JvmField val type: Type,
+        @JvmField val unitType: UnitType?,
+        @JvmField val number: String,
+        @JvmField var date: Date,
+        @JvmField var shippingDate: Date,
+        @JvmField val transport: Transport?,
+        @JvmField val shipperId: String,
+        @JvmField val consigneeId: String,
+        @JvmField val supplierId: String?,
+        @JvmField val base: String?,
+        @JvmField val note: String?,
+        @JvmField val status: Status,
+        @JvmField val resolution: Resolution,
+        @JvmField val ttnInformBRegUuid: UUID?,
+        @JvmField val wbRegId: String?
+) : EgaisDocument()

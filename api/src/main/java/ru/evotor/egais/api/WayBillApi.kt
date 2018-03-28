@@ -25,7 +25,7 @@ object WayBillApi {
     @JvmStatic
     fun getWayBillListByDate(context: Context, date: Date): ru.evotor.egais.api.provider.Cursor<WayBill>? {
         return context.contentResolver.query(WayBillContract.URI,
-                null, "${WayBillContract.COLUMN_DATE} = ?", arrayOf(date.toString()), null, null)
+                null, "${WayBillContract.COLUMN_DATE} >= ?", arrayOf(date.toString()), null, null)
                 ?.let {
                     object : ru.evotor.egais.api.provider.Cursor<WayBill>(it) {
                         override fun getValue(): WayBill {
@@ -38,7 +38,7 @@ object WayBillApi {
     @JvmStatic
     fun getWayBillPositionListByUuid(context: Context, uuid: UUID): ru.evotor.egais.api.provider.Cursor<WayBillPosition>? {
         return context.contentResolver.query(WayBillPositionContract.URI,
-                null, "${WayBillPositionContract.COLUMN_WAYBILL_UUID} >= ?", arrayOf(uuid.toString()), null)
+                null, "${WayBillPositionContract.COLUMN_WAYBILL_UUID} = ?", arrayOf(uuid.toString()), null)
                 ?.let {
                     object : ru.evotor.egais.api.provider.Cursor<WayBillPosition>(it) {
                         override fun getValue(): WayBillPosition {

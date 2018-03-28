@@ -19,15 +19,15 @@ import java.util.*
  * @property informBRegId Регистрационный номер раздела справки Б
  */
 data class WayBillPosition(
-        val uuid: UUID,
-        val wayBillUuid: UUID,
-        val productIdentity: String?,
-        val productAlcoCode: String,
-        val packId: String?,
-        val quantity: BigDecimal,
-        val price: BigDecimal,
-        val party: String?,
-        val identity: String?,
-        val informARegId: String?,
-        val informBRegId: String?
+        @JvmField val uuid: UUID,
+        @JvmField val wayBillUuid: UUID,
+        @JvmField val productIdentity: String?,
+        @JvmField val productAlcoCode: String,
+        @JvmField val packId: String?,
+        @JvmField val quantity: BigDecimal,
+        @JvmField val price: BigDecimal,
+        @JvmField val party: String?,
+        @JvmField val identity: String?,
+        @JvmField val informARegId: String?,
+        @JvmField val informBRegId: String?
 )
