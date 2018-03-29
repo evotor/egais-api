@@ -1,11 +1,8 @@
 package ru.evotor.egais.api.model.dictionary
 
-import java.util.*
-
 /**
  * Фактический адрес произвольной формы
  *
- * @property uuid
  * @property country Страна
  * @property index Индекс
  * @property regionCode Код региона
@@ -18,8 +15,7 @@ import java.util.*
  * @property liter Литера
  * @property description Описание
  */
-data class OrgAddress(
-        @JvmField val uuid: UUID,
+data class OrgInfoAddress(
         @JvmField val country: String?,
         @JvmField val index: String?,
         @JvmField val regionCode: String?,
