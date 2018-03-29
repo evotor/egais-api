@@ -1,7 +1,7 @@
 package ru.evotor.egais.api.model.document.waybillact
 
 /**
- * Типа акта расхождения к ТТН (Полный/Частичный)
+ * Тип акта расхождения к ТТН (Полный/Частичный)
  *
  * @property FULL Полный
  * @property PART Частичный

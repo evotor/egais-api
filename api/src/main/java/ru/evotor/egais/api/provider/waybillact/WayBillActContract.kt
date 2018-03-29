@@ -19,7 +19,7 @@ internal object WayBillActContract {
     const val COLUMN_UUID = "UUID"
 
     /**
-     * Уникальный идентификатор акта
+     * Кто подает документы
      */
     const val COLUMN_OWNER = "OWNER"
 

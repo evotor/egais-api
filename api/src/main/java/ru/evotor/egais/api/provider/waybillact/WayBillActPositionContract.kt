@@ -29,7 +29,7 @@ internal object WayBillActPositionContract {
     const val COLUMN_REAL_QUANTITY = "REAL_QUANTITY"
 
     /**
-     * Регистрационный номер раздела справки Б
+     * Регистрационный номер раздела справки 2
      */
     const val COLUMN_INFORM_B_REG_ID = "INFORM_B_REG_ID"
 }
