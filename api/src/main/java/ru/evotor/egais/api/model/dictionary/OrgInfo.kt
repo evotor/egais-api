@@ -24,7 +24,7 @@ data class OrgInfo(
         @JvmField val kpp: String?,
         @JvmField val unp: String?,
         @JvmField val rnn: String?,
-        @JvmField val address: OrgAddress?,
+        @JvmField val address: OrgInfoAddress?,
         @JvmField val state: String?,
         @JvmField val versionWB: WBTypeUsed?
 ) {

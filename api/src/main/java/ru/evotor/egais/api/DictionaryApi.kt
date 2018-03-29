@@ -107,7 +107,7 @@ object DictionaryApi {
         )
     }
 
-    private fun createOrgAddress(cursor: Cursor): OrgAddress? {
+    private fun createOrgAddress(cursor: Cursor): OrgInfoAddress? {
         val country = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_COUNTRY))
         val index = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_INDEX))
         val regionCode = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_REGION_CODE))
@@ -120,9 +120,10 @@ object DictionaryApi {
         val liter = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_LITER))
         val description = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_DESCRIPTION))
 
-        return if (country != null || index != null || regionCode != null || area != null || city != null || place != null
-                    || street != null || house != null || building != null || liter != null || description != null)
-            OrgAddress(
+        return if (country != null || index != null || regionCode != null || area != null
+                    || city != null || place != null || street != null || house != null
+                    || building != null || liter != null || description != null)
+            OrgInfoAddress(
                     country,
                     index,
                     regionCode,

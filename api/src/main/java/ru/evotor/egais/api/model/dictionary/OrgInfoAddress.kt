@@ -1,7 +1,5 @@
 package ru.evotor.egais.api.model.dictionary
 
-import java.util.*
-
 /**
  * Фактический адрес произвольной формы
  *
@@ -17,7 +15,7 @@ import java.util.*
  * @property liter Литера
  * @property description Описание
  */
-data class OrgAddress(
+data class OrgInfoAddress(
         @JvmField val country: String?,
         @JvmField val index: String?,
         @JvmField val regionCode: String?,
