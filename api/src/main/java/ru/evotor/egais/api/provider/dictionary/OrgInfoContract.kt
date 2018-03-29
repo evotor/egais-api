@@ -47,6 +47,61 @@ internal object OrgInfoContract {
     const val COLUMN_RNN = "RNN"
 
     /**
+     * Страна
+     */
+    const val COLUMN_ADDRESS_COUNTRY = "ADDRESS_COUNTRY"
+
+    /**
+     * Индекс
+     */
+    const val COLUMN_ADDRESS_INDEX = "ADDRESS_INDEX"
+
+    /**
+     * Код региона
+     */
+    const val COLUMN_ADDRESS_REGION_CODE = "ADDRESS_REGION_CODE"
+
+    /**
+     * Область
+     */
+    const val COLUMN_ADDRESS_AREA = "ADDRESS_AREA"
+
+    /**
+     * Город
+     */
+    const val COLUMN_ADDRESS_CITY = "ADDRESS_CITY"
+
+    /**
+     *
+     */
+    const val COLUMN_ADDRESS_PLACE = "ADDRESS_PLACE"
+
+    /**
+     *
+     */
+    const val COLUMN_ADDRESS_STREET = "ADDRESS_STREET"
+
+    /**
+     *
+     */
+    const val COLUMN_ADDRESS_HOUSE = "ADDRESS_HOUSE"
+
+    /**
+     *
+     */
+    const val COLUMN_ADDRESS_BUILDING = "ADDRESS_BUILDING"
+
+    /**
+     * Литера
+     */
+    const val COLUMN_ADDRESS_LITER = "ADDRESS_LITER"
+
+    /**
+     * Описание
+     */
+    const val COLUMN_ADDRESS_DESCRIPTION = "ADDRESS_DESCRIPTION"
+
+    /**
      * Статус: действующая или удалена.
      */
     const val COLUMN_STATE = "STATE"

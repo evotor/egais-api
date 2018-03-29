@@ -5,7 +5,6 @@ import java.util.*
 /**
  * Фактический адрес произвольной формы
  *
- * @property uuid
  * @property country Страна
  * @property index Индекс
  * @property regionCode Код региона
@@ -19,7 +18,6 @@ import java.util.*
  * @property description Описание
  */
 data class OrgAddress(
-        @JvmField val uuid: UUID,
         @JvmField val country: String?,
         @JvmField val index: String?,
         @JvmField val regionCode: String?,

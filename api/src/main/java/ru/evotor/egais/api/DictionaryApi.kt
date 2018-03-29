@@ -2,10 +2,7 @@ package ru.evotor.egais.api
 
 import android.content.Context
 import android.database.Cursor
-import ru.evotor.egais.api.model.dictionary.OrgInfo
-import ru.evotor.egais.api.model.dictionary.ProductInfo
-import ru.evotor.egais.api.model.dictionary.ProductType
-import ru.evotor.egais.api.model.dictionary.WBTypeUsed
+import ru.evotor.egais.api.model.dictionary.*
 import ru.evotor.egais.api.provider.dictionary.OrgInfoContract
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
 
@@ -80,7 +77,7 @@ object DictionaryApi {
                 cursor.getString(columnIndexKpp),
                 cursor.getString(columnIndexUnp),
                 cursor.getString(columnIndexRnn),
-                null, // TODO address
+                createOrgAddress(cursor),
                 cursor.getString(columnIndexState),
                 WBTypeUsed.valueOf(cursor.getString(columnIndexVersionWb))
         )
@@ -108,5 +105,36 @@ object DictionaryApi {
                 cursor.getString(columnIndexImporterId),
                 cursor.getString(columnIndexProductVCode)
         )
+    }
+
+    private fun createOrgAddress(cursor: Cursor): OrgAddress? {
+        val country = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_COUNTRY))
+        val index = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_INDEX))
+        val regionCode = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_REGION_CODE))
+        val area = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_AREA))
+        val city = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_CITY))
+        val place = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_PLACE))
+        val street = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_STREET))
+        val house = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_HOUSE))
+        val building = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_BUILDING))
+        val liter = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_LITER))
+        val description = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_DESCRIPTION))
+
+        return if (country != null || index != null || regionCode != null || area != null || city != null || place != null
+                    || street != null || house != null || building != null || liter != null || description != null)
+            OrgAddress(
+                    country,
+                    index,
+                    regionCode,
+                    area,
+                    city,
+                    place,
+                    street,
+                    house,
+                    building,
+                    liter,
+                    description)
+        else
+            null
     }
 }
