@@ -36,6 +36,18 @@ object WayBillApi {
     }
 
     @JvmStatic
+    fun getWayBillByUuid(context: Context, uuid: UUID): WayBill? {
+        return context.contentResolver.query(WayBillContract.URI, null, "${WayBillContract.COLUMN_UUID} = ?", arrayOf(uuid.toString()), null)
+                ?.let { cursor ->
+                    cursor.use {
+                        if (cursor.moveToFirst()) {
+                            createWayBill(cursor)
+                        } else null
+                    }
+                }
+    }
+
+    @JvmStatic
     fun getWayBillPositionListByUuid(context: Context, uuid: UUID): Cursor<WayBillPosition>? {
         return context.contentResolver.query(WayBillPositionContract.URI,
                 null, "${WayBillPositionContract.COLUMN_WAYBILL_UUID} = ?", arrayOf(uuid.toString()), null)

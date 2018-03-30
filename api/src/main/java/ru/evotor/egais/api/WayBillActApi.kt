@@ -36,7 +36,19 @@ object WayBillActApi {
                 }
     }
 
-    private fun createWayBillAct(cursor: Cursor<WayBillAct>): WayBillAct {
+    @JvmStatic
+    fun getWayBillActByUuid(context: Context, uuid: UUID): WayBillAct? {
+        return context.contentResolver.query(WayBillActContract.URI, null, "${WayBillActContract.COLUMN_UUID} = ?", arrayOf(uuid.toString()), null)
+                ?.let { cursor ->
+                    cursor.use {
+                        if (cursor.moveToFirst()) {
+                            createWayBillAct(cursor)
+                        } else null
+                    }
+                }
+    }
+
+    private fun createWayBillAct(cursor: android.database.Cursor): WayBillAct {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_UUID)
         val columnOwner = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_OWNER)
         val columnIdentity = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_IDENTITY)
