@@ -12,7 +12,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 26
         versionCode 1
-        versionName "0.0.2"
+        versionName "0.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -58,7 +58,7 @@ publishing {
         mavenKotlin(MavenPublication) {
             groupId 'ru.evotor'
             artifactId "egais-api"
-            version "0.0.2-dev"
+            version "0.0.5-dev"
             artifact(sourceJar)
             artifact(javadocJar)
             artifact "${project.buildDir}/outputs/aar/${project.archivesBaseName}-release.aar"
