@@ -3,18 +3,18 @@ package ru.evotor.egais.api
 import android.content.Context
 import ru.evotor.egais.api.model.Version
 import ru.evotor.egais.api.model.document.waybillact.*
-import ru.evotor.egais.api.provider.Cursor
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.egais.api.provider.waybillact.WayBillActContract
 import ru.evotor.egais.api.provider.waybillact.WayBillActPositionContract
+import ru.evotor.query.Cursor
 import java.util.*
 
 object WayBillActApi {
     @JvmStatic
-    fun getWayBillActList(context: Context): ru.evotor.egais.api.provider.Cursor<WayBillAct>? {
+    fun getWayBillActList(context: Context): Cursor<WayBillAct>? {
         return context.contentResolver.query(WayBillActContract.URI, null, null, null, null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<WayBillAct>(it) {
+                    object : Cursor<WayBillAct>(it) {
                         override fun getValue(): WayBillAct {
                             return createWayBillAct(this)
                         }
@@ -24,11 +24,11 @@ object WayBillActApi {
 
 
     @JvmStatic
-    fun getWayBillActListByDate(context: Context, date: Date): ru.evotor.egais.api.provider.Cursor<WayBillAct>? {
+    fun getWayBillActListByDate(context: Context, date: Date): Cursor<WayBillAct>? {
         return context.contentResolver.query(WayBillActContract.URI,
                 null, "${WayBillActContract.COLUMN_CREATION_DATE} >= ?", arrayOf(date.toString()), null, null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<WayBillAct>(it) {
+                    object : Cursor<WayBillAct>(it) {
                         override fun getValue(): WayBillAct {
                             return createWayBillAct(this)
                         }
@@ -36,7 +36,19 @@ object WayBillActApi {
                 }
     }
 
-    private fun createWayBillAct(cursor: Cursor<WayBillAct>): WayBillAct {
+    @JvmStatic
+    fun getWayBillActByUuid(context: Context, uuid: UUID): WayBillAct? {
+        return context.contentResolver.query(WayBillActContract.URI, null, "${WayBillActContract.COLUMN_UUID} = ?", arrayOf(uuid.toString()), null)
+                ?.let { cursor ->
+                    cursor.use {
+                        if (cursor.moveToFirst()) {
+                            createWayBillAct(cursor)
+                        } else null
+                    }
+                }
+    }
+
+    private fun createWayBillAct(cursor: android.database.Cursor): WayBillAct {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_UUID)
         val columnOwner = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_OWNER)
         val columnIdentity = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_IDENTITY)
@@ -67,11 +79,11 @@ object WayBillActApi {
     }
 
     @JvmStatic
-    fun getWayBillActPositionListByUuid(context: Context, uuid: UUID): ru.evotor.egais.api.provider.Cursor<WayBillActPosition>? {
+    fun getWayBillActPositionListByUuid(context: Context, uuid: UUID): Cursor<WayBillActPosition>? {
         return context.contentResolver.query(WayBillActPositionContract.URI,
                 null, "${WayBillActPositionContract.COLUMN_WAY_BILL_ACT_UUID} = ?", arrayOf(uuid.toString()), null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<WayBillActPosition>(it) {
+                    object : Cursor<WayBillActPosition>(it) {
                         override fun getValue(): WayBillActPosition {
                             return createWayBillActPosition(this)
                         }
@@ -79,7 +91,7 @@ object WayBillActApi {
                 }
     }
 
-    private fun createWayBillActPosition(cursor: Cursor<WayBillActPosition>): WayBillActPosition {
+    private fun createWayBillActPosition(cursor: android.database.Cursor): WayBillActPosition {
         val columnUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_UUID)
         val columnWayBillActUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_WAY_BILL_ACT_UUID)
         val columnIdentity = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_IDENTITY)

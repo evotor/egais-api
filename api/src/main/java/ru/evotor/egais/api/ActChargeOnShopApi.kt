@@ -5,15 +5,15 @@ import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShop
 import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShopPosition
 import ru.evotor.egais.api.model.document.actchargeonshop.Status
 import ru.evotor.egais.api.model.document.actchargeonshop.Type
-import ru.evotor.egais.api.provider.Cursor
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopContract
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopPositionContract
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.query.Cursor
 import java.util.*
 
 object ActChargeOnShopApi {
     @JvmStatic
-    fun getActChargeOnShopList(context: Context): ru.evotor.egais.api.provider.Cursor<ActChargeOnShop>? {
+    fun getActChargeOnShopList(context: Context): Cursor<ActChargeOnShop>? {
         return context.contentResolver.query(
                 ActChargeOnShopContract.URI,
                 null,
@@ -21,7 +21,7 @@ object ActChargeOnShopApi {
                 null,
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActChargeOnShop>(it) {
+            object : Cursor<ActChargeOnShop>(it) {
                 override fun getValue(): ActChargeOnShop {
                     return createActChargeOnShop(this)
                 }
@@ -30,7 +30,7 @@ object ActChargeOnShopApi {
     }
 
     @JvmStatic
-    fun getActChargeOnShopListByDate(context: Context, date: Date): ru.evotor.egais.api.provider.Cursor<ActChargeOnShop>? {
+    fun getActChargeOnShopListByDate(context: Context, date: Date): Cursor<ActChargeOnShop>? {
         return context.contentResolver.query(
                 ActChargeOnShopContract.URI,
                 null,
@@ -38,7 +38,7 @@ object ActChargeOnShopApi {
                 arrayOf(date.toString()),
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActChargeOnShop>(it) {
+            object : Cursor<ActChargeOnShop>(it) {
                 override fun getValue(): ActChargeOnShop {
                     return createActChargeOnShop(this)
                 }
@@ -47,7 +47,7 @@ object ActChargeOnShopApi {
     }
 
     @JvmStatic
-    fun getActChargeOnShopPositionsByUuid(context: Context, uuid: UUID): ru.evotor.egais.api.provider.Cursor<ActChargeOnShopPosition>? {
+    fun getActChargeOnShopPositionsByUuid(context: Context, uuid: UUID): Cursor<ActChargeOnShopPosition>? {
         return context.contentResolver.query(
                 ActChargeOnShopPositionContract.URI,
                 null,
@@ -55,7 +55,7 @@ object ActChargeOnShopApi {
                 arrayOf(uuid.toString()),
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActChargeOnShopPosition>(it) {
+            object : Cursor<ActChargeOnShopPosition>(it) {
                 override fun getValue(): ActChargeOnShopPosition {
                     return createActChargeOnShopPosition(this)
                 }
@@ -63,7 +63,7 @@ object ActChargeOnShopApi {
         }
     }
 
-    private fun createActChargeOnShop(cursor: Cursor<ActChargeOnShop>): ActChargeOnShop {
+    private fun createActChargeOnShop(cursor: android.database.Cursor): ActChargeOnShop {
         val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_UUID)
         val columnIndexOwner = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_OWNER)
         val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_IDENTITY)
@@ -89,7 +89,7 @@ object ActChargeOnShopApi {
         )
     }
 
-    private fun createActChargeOnShopPosition(cursor: Cursor<ActChargeOnShopPosition>): ActChargeOnShopPosition {
+    private fun createActChargeOnShopPosition(cursor: android.database.Cursor): ActChargeOnShopPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_ACT_CHARGE_ON_SHOP_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_IDENTITY)
