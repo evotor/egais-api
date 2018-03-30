@@ -1,7 +1,6 @@
 package ru.evotor.egais.api
 
 import android.content.Context
-import android.database.Cursor
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffShop
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffShopPosition
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
@@ -10,11 +9,12 @@ import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopPositionContract
 import ru.evotor.egais.api.provider.converter.MarkListConverter
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.query.Cursor
 import java.util.*
 
 object ActWriteOffShopApi {
     @JvmStatic
-    fun getActWriteOffShopList(context: Context): ru.evotor.egais.api.provider.Cursor<ActWriteOffShop>? {
+    fun getActWriteOffShopList(context: Context): Cursor<ActWriteOffShop>? {
         return context.contentResolver.query(
                 ActWriteOffShopContract.URI,
                 null,
@@ -22,7 +22,7 @@ object ActWriteOffShopApi {
                 null,
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActWriteOffShop>(it) {
+            object : Cursor<ActWriteOffShop>(it) {
                 override fun getValue(): ActWriteOffShop {
                     return createActWriteOffShop(this)
                 }
@@ -31,7 +31,7 @@ object ActWriteOffShopApi {
     }
 
     @JvmStatic
-    fun getActWriteOffShopListByDate(context: Context, date: Date): ru.evotor.egais.api.provider.Cursor<ActWriteOffShop?>? {
+    fun getActWriteOffShopListByDate(context: Context, date: Date): Cursor<ActWriteOffShop>? {
         return context.contentResolver.query(
                 ActWriteOffShopContract.URI,
                 null,
@@ -39,8 +39,8 @@ object ActWriteOffShopApi {
                 arrayOf(date.toString()),
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActWriteOffShop?>(it) {
-                override fun getValue(): ActWriteOffShop? {
+            object : Cursor<ActWriteOffShop>(it) {
+                override fun getValue(): ActWriteOffShop {
                     return createActWriteOffShop(this)
                 }
             }
@@ -48,7 +48,7 @@ object ActWriteOffShopApi {
     }
 
     @JvmStatic
-    fun getActWriteOffShopPositionsByUuid(context: Context, uuid: UUID): ru.evotor.egais.api.provider.Cursor<ActWriteOffShopPosition>? {
+    fun getActWriteOffShopPositionsByUuid(context: Context, uuid: UUID): Cursor<ActWriteOffShopPosition>? {
         return context.contentResolver.query(
                 ActWriteOffShopPositionContract.URI,
                 null,
@@ -56,7 +56,7 @@ object ActWriteOffShopApi {
                 arrayOf(uuid.toString()),
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActWriteOffShopPosition>(it) {
+            object : Cursor<ActWriteOffShopPosition>(it) {
                 override fun getValue(): ActWriteOffShopPosition {
                     return createActWriteOffShopPosition(this)
                 }
@@ -64,7 +64,7 @@ object ActWriteOffShopApi {
         }
     }
 
-    private fun createActWriteOffShopPosition(cursor: Cursor): ActWriteOffShopPosition {
+    private fun createActWriteOffShopPosition(cursor: android.database.Cursor): ActWriteOffShopPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_ACT_WRITE_OFF_SHOP_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_IDENTITY)
@@ -84,7 +84,7 @@ object ActWriteOffShopApi {
         )
     }
 
-    private fun createActWriteOffShop(cursor: Cursor): ActWriteOffShop {
+    private fun createActWriteOffShop(cursor: android.database.Cursor): ActWriteOffShop {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_UUID)
         val columnIndexOwner = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_OWNER)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_IDENTITY)

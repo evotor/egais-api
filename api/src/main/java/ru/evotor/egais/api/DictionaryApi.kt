@@ -1,18 +1,18 @@
 package ru.evotor.egais.api
 
 import android.content.Context
-import android.database.Cursor
 import ru.evotor.egais.api.model.dictionary.*
 import ru.evotor.egais.api.provider.dictionary.OrgInfoContract
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
+import ru.evotor.query.Cursor
 
 object DictionaryApi {
 
     @JvmStatic
-    fun getOrgInfos(context: Context): ru.evotor.egais.api.provider.Cursor<OrgInfo>? {
+    fun getOrgInfos(context: Context): Cursor<OrgInfo>? {
         return context.contentResolver.query(OrgInfoContract.URI, null, null, null, null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<OrgInfo>(it) {
+                    object : Cursor<OrgInfo>(it) {
                         override fun getValue(): OrgInfo {
                             return createOrgInfo(this)
                         }
@@ -33,10 +33,10 @@ object DictionaryApi {
     }
 
     @JvmStatic
-    fun getProductInfos(context: Context): ru.evotor.egais.api.provider.Cursor<ProductInfo>? {
+    fun getProductInfos(context: Context): Cursor<ProductInfo>? {
         return context.contentResolver.query(ProductInfoContract.URI, null, null, null, null)
                 ?.let {
-                    object : ru.evotor.egais.api.provider.Cursor<ProductInfo>(it) {
+                    object : Cursor<ProductInfo>(it) {
                         override fun getValue(): ProductInfo {
                             return createProductInfo(this)
                         }
@@ -56,7 +56,7 @@ object DictionaryApi {
                 }
     }
 
-    private fun createOrgInfo(cursor: Cursor): OrgInfo {
+    private fun createOrgInfo(cursor: android.database.Cursor): OrgInfo {
         val columnIndexType = cursor.getColumnIndex(OrgInfoContract.COLUMN_TYPE)
         val columnIndexClientRegId = cursor.getColumnIndex(OrgInfoContract.COLUMN_CLIENT_REG_ID)
         val columnIndexFullName = cursor.getColumnIndex(OrgInfoContract.COLUMN_FULL_NAME)
@@ -83,7 +83,7 @@ object DictionaryApi {
         )
     }
 
-    private fun createProductInfo(cursor: Cursor): ProductInfo {
+    private fun createProductInfo(cursor: android.database.Cursor): ProductInfo {
         val columnIndexType = cursor.getColumnIndex(ProductInfoContract.COLUMN_TYPE)
         val columnIndexFullName = cursor.getColumnIndex(ProductInfoContract.COLUMN_FULL_NAME)
         val columnIndexShortName = cursor.getColumnIndex(ProductInfoContract.COLUMN_SHORT_NAME)
@@ -107,7 +107,7 @@ object DictionaryApi {
         )
     }
 
-    private fun createOrgAddress(cursor: Cursor): OrgInfoAddress? {
+    private fun createOrgAddress(cursor: android.database.Cursor): OrgInfoAddress? {
         val country = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_COUNTRY))
         val index = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_INDEX))
         val regionCode = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_REGION_CODE))
@@ -121,8 +121,8 @@ object DictionaryApi {
         val description = cursor.getString(cursor.getColumnIndex(OrgInfoContract.COLUMN_ADDRESS_DESCRIPTION))
 
         return if (country != null || index != null || regionCode != null || area != null
-                    || city != null || place != null || street != null || house != null
-                    || building != null || liter != null || description != null)
+                || city != null || place != null || street != null || house != null
+                || building != null || liter != null || description != null)
             OrgInfoAddress(
                     country,
                     index,

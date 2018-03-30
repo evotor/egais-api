@@ -1,7 +1,6 @@
 package ru.evotor.egais.api
 
 import android.content.Context
-import android.database.Cursor
 import ru.evotor.egais.api.model.Version
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOff
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffPosition
@@ -11,11 +10,12 @@ import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffPositionContract
 import ru.evotor.egais.api.provider.converter.MarkListConverter
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.query.Cursor
 import java.util.*
 
 object ActWriteOffApi {
     @JvmStatic
-    fun getActWriteOffList(context: Context): ru.evotor.egais.api.provider.Cursor<ActWriteOff>? {
+    fun getActWriteOffList(context: Context): Cursor<ActWriteOff>? {
         return context.contentResolver.query(
                 ActWriteOffContract.URI,
                 null,
@@ -23,7 +23,7 @@ object ActWriteOffApi {
                 null,
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActWriteOff>(it) {
+            object : Cursor<ActWriteOff>(it) {
                 override fun getValue(): ActWriteOff {
                     return createActWriteOff(this)
                 }
@@ -32,7 +32,7 @@ object ActWriteOffApi {
     }
 
     @JvmStatic
-    fun getActWriteOffListByDate(context: Context, date: Date): ru.evotor.egais.api.provider.Cursor<ActWriteOff?>? {
+    fun getActWriteOffListByDate(context: Context, date: Date): Cursor<ActWriteOff>? {
         return context.contentResolver.query(
                 ActWriteOffContract.URI,
                 null,
@@ -40,8 +40,8 @@ object ActWriteOffApi {
                 arrayOf(date.toString()),
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActWriteOff?>(it) {
-                override fun getValue(): ActWriteOff? {
+            object : Cursor<ActWriteOff>(it) {
+                override fun getValue(): ActWriteOff {
                     return createActWriteOff(this)
                 }
             }
@@ -49,7 +49,7 @@ object ActWriteOffApi {
     }
 
     @JvmStatic
-    fun getActWriteOffPositionsByUuid(context: Context, uuid: UUID): ru.evotor.egais.api.provider.Cursor<ActWriteOffPosition>? {
+    fun getActWriteOffPositionsByUuid(context: Context, uuid: UUID): Cursor<ActWriteOffPosition>? {
         return context.contentResolver.query(
                 ActWriteOffPositionContract.URI,
                 null,
@@ -57,7 +57,7 @@ object ActWriteOffApi {
                 arrayOf(uuid.toString()),
                 null
         )?.let {
-            object : ru.evotor.egais.api.provider.Cursor<ActWriteOffPosition>(it) {
+            object : Cursor<ActWriteOffPosition>(it) {
                 override fun getValue(): ActWriteOffPosition {
                     return createActWriteOffPosition(this)
                 }
@@ -65,7 +65,7 @@ object ActWriteOffApi {
         }
     }
 
-    private fun createActWriteOffPosition(cursor: Cursor): ActWriteOffPosition {
+    private fun createActWriteOffPosition(cursor: android.database.Cursor): ActWriteOffPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_ACT_WRITE_OFF_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_IDENTITY)
@@ -87,7 +87,7 @@ object ActWriteOffApi {
         )
     }
 
-    private fun createActWriteOff(cursor: Cursor): ActWriteOff {
+    private fun createActWriteOff(cursor: android.database.Cursor): ActWriteOff {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffContract.COLUMN_UUID)
         val columnIndexOwner = cursor.getColumnIndex(ActWriteOffContract.COLUMN_OWNER)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffContract.COLUMN_IDENTITY)
