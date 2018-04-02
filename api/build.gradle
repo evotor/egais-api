@@ -31,9 +31,9 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile 'org.apache.commons:commons-lang3:3.6'
-    compile 'com.github.evotor:query-api:6806973afa'
+    compile 'com.github.ArtemiyDmtrvch:query-api:8234dd4788'
 }
 
 task sourceJar(type: Jar) {

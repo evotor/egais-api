@@ -60,7 +60,7 @@ object WayBillApi {
                 }
     }
 
-    private fun createWayBill(cursor: android.database.Cursor): WayBill {
+    internal fun createWayBill(cursor: android.database.Cursor): WayBill {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_UUID)
         val columnDocOwner = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_OWNER)
         val columnIdentity = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_IDENTITY)
@@ -148,7 +148,7 @@ object WayBillApi {
         )
     }
 
-    private fun createWayBillPosition(cursor: android.database.Cursor): WayBillPosition {
+    internal fun createWayBillPosition(cursor: android.database.Cursor): WayBillPosition {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_UUID)
         val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
         val columnProductIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)

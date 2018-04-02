@@ -56,7 +56,7 @@ object DictionaryApi {
                 }
     }
 
-    private fun createOrgInfo(cursor: android.database.Cursor): OrgInfo {
+    internal fun createOrgInfo(cursor: android.database.Cursor): OrgInfo {
         val columnIndexType = cursor.getColumnIndex(OrgInfoContract.COLUMN_TYPE)
         val columnIndexClientRegId = cursor.getColumnIndex(OrgInfoContract.COLUMN_CLIENT_REG_ID)
         val columnIndexFullName = cursor.getColumnIndex(OrgInfoContract.COLUMN_FULL_NAME)
@@ -83,7 +83,7 @@ object DictionaryApi {
         )
     }
 
-    private fun createProductInfo(cursor: android.database.Cursor): ProductInfo {
+    internal fun createProductInfo(cursor: android.database.Cursor): ProductInfo {
         val columnIndexType = cursor.getColumnIndex(ProductInfoContract.COLUMN_TYPE)
         val columnIndexFullName = cursor.getColumnIndex(ProductInfoContract.COLUMN_FULL_NAME)
         val columnIndexShortName = cursor.getColumnIndex(ProductInfoContract.COLUMN_SHORT_NAME)

@@ -64,7 +64,7 @@ object ActWriteOffShopApi {
         }
     }
 
-    private fun createActWriteOffShopPosition(cursor: android.database.Cursor): ActWriteOffShopPosition {
+    internal fun createActWriteOffShopPosition(cursor: android.database.Cursor): ActWriteOffShopPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_ACT_WRITE_OFF_SHOP_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_IDENTITY)
@@ -84,7 +84,7 @@ object ActWriteOffShopApi {
         )
     }
 
-    private fun createActWriteOffShop(cursor: android.database.Cursor): ActWriteOffShop {
+    internal fun createActWriteOffShop(cursor: android.database.Cursor): ActWriteOffShop {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_UUID)
         val columnIndexOwner = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_OWNER)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_IDENTITY)
