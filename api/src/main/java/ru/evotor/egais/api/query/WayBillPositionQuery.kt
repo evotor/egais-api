@@ -8,18 +8,29 @@ import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
 import java.util.*
 
-class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPositionQuery.SortOrder, WayBillPosition>(WayBillPositionContract.URI){
+class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPositionQuery.SortOrder, WayBillPosition>(WayBillPositionContract.URI) {
 
+    @JvmField
     val uuid = addFieldFilter<UUID>(WayBillPositionContract.COLUMN_UUID)
+    @JvmField
     val wayBillUuid = addFieldFilter<UUID>(WayBillPositionContract.COLUMN_WAYBILL_UUID)
+    @JvmField
     val productIdentity = addFieldFilter<String?>(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)
+    @JvmField
     val productAlcoCode = addFieldFilter<String>(WayBillPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+    @JvmField
     val packId = addFieldFilter<String?>(WayBillPositionContract.COLUMN_PACKID)
+    @JvmField
     val quantity = addFieldFilter<BigDecimal>(WayBillPositionContract.COLUMN_QUANTITY)
+    @JvmField
     val price = addFieldFilter<BigDecimal>(WayBillPositionContract.COLUMN_PRICE)
+    @JvmField
     val party = addFieldFilter<String?>(WayBillPositionContract.COLUMN_PARTY)
+    @JvmField
     val identity = addFieldFilter<String?>(WayBillPositionContract.COLUMN_IDENTITY)
+    @JvmField
     val informARegId = addFieldFilter<String?>(WayBillPositionContract.COLUMN_INFORM_INFORM_A_REG_ID)
+    @JvmField
     val informBRegId = addFieldFilter<String?>(WayBillPositionContract.COLUMN_INFORM_B_REG_ID)
 
     override val currentQuery: WayBillPositionQuery
@@ -27,16 +38,27 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
 
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
+        @JvmField
         val uuid = addFieldSorter(WayBillPositionContract.COLUMN_UUID)
+        @JvmField
         val wayBillUuid = addFieldSorter(WayBillPositionContract.COLUMN_WAYBILL_UUID)
+        @JvmField
         val productIdentity = addFieldSorter(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)
+        @JvmField
         val productAlcoCode = addFieldSorter(WayBillPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+        @JvmField
         val packId = addFieldSorter(WayBillPositionContract.COLUMN_PACKID)
+        @JvmField
         val quantity = addFieldSorter(WayBillPositionContract.COLUMN_QUANTITY)
+        @JvmField
         val price = addFieldSorter(WayBillPositionContract.COLUMN_PRICE)
+        @JvmField
         val party = addFieldSorter(WayBillPositionContract.COLUMN_PARTY)
+        @JvmField
         val identity = addFieldSorter(WayBillPositionContract.COLUMN_IDENTITY)
+        @JvmField
         val informARegId = addFieldSorter(WayBillPositionContract.COLUMN_INFORM_INFORM_A_REG_ID)
+        @JvmField
         val informBRegId = addFieldSorter(WayBillPositionContract.COLUMN_INFORM_B_REG_ID)
 
         override val currentSortOrder: SortOrder

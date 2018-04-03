@@ -10,10 +10,15 @@ import java.util.*
 
 class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillActPositionQuery.SortOrder, WayBillActPosition>(WayBillActPositionContract.URI) {
 
+    @JvmField
     val uuid = addFieldFilter<UUID>(WayBillActPositionContract.COLUMN_UUID)
+    @JvmField
     val wayBillActUuid = addFieldFilter<UUID>(WayBillActPositionContract.COLUMN_WAY_BILL_ACT_UUID)
+    @JvmField
     val identity = addFieldFilter<String>(WayBillActPositionContract.COLUMN_IDENTITY)
+    @JvmField
     val informBRegId = addFieldFilter<String?>(WayBillActPositionContract.COLUMN_INFORM_B_REG_ID)
+    @JvmField
     val realQuantity = addFieldFilter<BigDecimal>(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
 
     override val currentQuery: WayBillActPositionQuery
@@ -21,10 +26,15 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
 
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
+        @JvmField
         val uuid = addFieldSorter(WayBillActPositionContract.COLUMN_UUID)
+        @JvmField
         val wayBillActUuid = addFieldSorter(WayBillActPositionContract.COLUMN_WAY_BILL_ACT_UUID)
+        @JvmField
         val identity = addFieldSorter(WayBillActPositionContract.COLUMN_IDENTITY)
+        @JvmField
         val informBRegId = addFieldSorter(WayBillActPositionContract.COLUMN_INFORM_B_REG_ID)
+        @JvmField
         val realQuantity = addFieldSorter(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
 
         override val currentSortOrder: SortOrder
