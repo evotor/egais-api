@@ -24,8 +24,6 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
     val informBMarkInfoJson = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_INFORM_B_MARK_INFO_JSON)
     @JvmField
     val productInfoAlcCode = addFieldFilter<String>(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
-    @JvmField
-    val markList = addFieldFilter<List<String>>(ActWriteOffPositionContract.COLUMN_MARK_LIST)
 
     override val currentQuery: ActWriteOffPositionQuery
         get() = this
@@ -46,8 +44,6 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
         val informBMarkInfoJson = addFieldSorter(ActWriteOffPositionContract.COLUMN_INFORM_B_MARK_INFO_JSON)
         @JvmField
         val productInfoAlcCode = addFieldSorter(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
-        @JvmField
-        val markList = addFieldSorter(ActWriteOffPositionContract.COLUMN_MARK_LIST)
 
         override val currentSortOrder: SortOrder
             get() = this
