@@ -13,11 +13,6 @@ internal object ShopCommodityContract {
     val URI = Uri.withAppendedPath(BASE_URI, PATH)
 
     /**
-     * UUID товарного остатка.
-     */
-    const val COLUMN_UUID = "UUID"
-
-    /**
      * Количество
      */
     const val COLUMN_QUANTITY = "QUANTITY"

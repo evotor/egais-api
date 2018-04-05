@@ -8,12 +8,10 @@ import java.util.*
 object ShopCommodityApi {
 
     internal fun createShopCommodity(cursor: android.database.Cursor): ShopCommodity {
-        val columnUuid = cursor.getColumnIndex(StockCommodityContract.COLUMN_UUID)
         val columnQuantity = cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY)
         val columnProductInfoAlcoCode = cursor.getColumnIndex(StockCommodityContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
         return ShopCommodity(
-                UUID.fromString(cursor.getString(columnUuid)),
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
                 cursor.getString(columnProductInfoAlcoCode)
         )
