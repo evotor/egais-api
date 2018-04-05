@@ -18,22 +18,22 @@ internal object StockCommodityContract {
     const val COLUMN_UUID = "UUID"
 
     /**
-     * Идентификатор накладной (клиентский, к заполнению необязательный).
+     * Регистрационный номер раздела справки 1
      */
     const val COLUMN_INFORM_F1_REG_ID = "INFORM_F1_REG_ID"
 
     /**
-     * Идентификатор накладной (клиентский, к заполнению необязательный).
+     * Регистрационный номер раздела справки 2
      */
     const val COLUMN_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"
 
     /**
-     * Тип накладной.
+     * Количество
      */
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
-     * тип упаковки.
+     * Алкокод информации о продукции
      */
     const val COLUMN_PRODUCT_INFO_ALC_CODE = "PRODUCT_INFO_ALC_CODE"
 }

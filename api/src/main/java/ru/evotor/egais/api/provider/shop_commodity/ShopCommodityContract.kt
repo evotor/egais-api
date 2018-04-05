@@ -18,12 +18,12 @@ internal object ShopCommodityContract {
     const val COLUMN_UUID = "UUID"
 
     /**
-     * Тип накладной.
+     * Количество
      */
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
-     * тип упаковки.
+     * Алкокод информации о продукции
      */
     const val COLUMN_PRODUCT_INFO_ALC_CODE = "PRODUCT_INFO_ALC_CODE"
 }
