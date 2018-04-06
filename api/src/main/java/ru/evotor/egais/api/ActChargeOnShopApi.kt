@@ -63,7 +63,7 @@ object ActChargeOnShopApi {
         }
     }
 
-    private fun createActChargeOnShop(cursor: android.database.Cursor): ActChargeOnShop {
+    internal fun createActChargeOnShop(cursor: android.database.Cursor): ActChargeOnShop {
         val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_UUID)
         val columnIndexOwner = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_OWNER)
         val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_IDENTITY)
@@ -89,7 +89,7 @@ object ActChargeOnShopApi {
         )
     }
 
-    private fun createActChargeOnShopPosition(cursor: android.database.Cursor): ActChargeOnShopPosition {
+    internal fun createActChargeOnShopPosition(cursor: android.database.Cursor): ActChargeOnShopPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_ACT_CHARGE_ON_SHOP_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_IDENTITY)

@@ -65,7 +65,7 @@ object ActWriteOffApi {
         }
     }
 
-    private fun createActWriteOffPosition(cursor: android.database.Cursor): ActWriteOffPosition {
+    internal fun createActWriteOffPosition(cursor: android.database.Cursor): ActWriteOffPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_ACT_WRITE_OFF_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_IDENTITY)
@@ -87,7 +87,7 @@ object ActWriteOffApi {
         )
     }
 
-    private fun createActWriteOff(cursor: android.database.Cursor): ActWriteOff {
+    internal fun createActWriteOff(cursor: android.database.Cursor): ActWriteOff {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffContract.COLUMN_UUID)
         val columnIndexOwner = cursor.getColumnIndex(ActWriteOffContract.COLUMN_OWNER)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffContract.COLUMN_IDENTITY)
