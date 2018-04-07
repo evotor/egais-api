@@ -10,8 +10,8 @@ import java.util.*
  * @property actWriteOffUuid Идентификатор акта списания, содержащего позицию
  * @property identity Идентификатор позиции внутри накладной
  * @property quantity Количество
- * @property informBRegId Регистрационный номер раздела справки Б
- * @property informBMarkInfoJson Информация о марках в формате JSON
+ * @property informF2RegId Регистрационный номер раздела справки 2
+ * @property informF2MarkInfoJson Информация о марках в формате JSON
  * @property productInfoAlcCode Алкокод информации о продукции
  * @property markList Перечень считанных кодов марок
  */
@@ -20,8 +20,8 @@ data class ActWriteOffPosition(
         @JvmField val actWriteOffUuid: UUID,
         @JvmField val identity: String?,
         @JvmField val quantity: BigDecimal,
-        @JvmField val informBRegId: String?,
-        @JvmField val informBMarkInfoJson: String?,
+        @JvmField val informF2RegId: String?,
+        @JvmField val informF2MarkInfoJson: String?,
         @JvmField val productInfoAlcCode: String,
         @JvmField val markList: List<String>
 )

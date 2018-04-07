@@ -22,7 +22,7 @@ import java.util.*
  *  @property note Заметки
  *  @property status Состояние накладной
  *  @property resolution резолюция по накладной
- *  @property ttnInformBRegUuid uuid формы 2 для накладной
+ *  @property ttnInformF2RegUuid uuid формы 2 для накладной
  *  @property wbRegId ИД накладной в системе (присвоенный)
  */
 data class WayBill(
@@ -42,6 +42,6 @@ data class WayBill(
         @JvmField val note: String?,
         @JvmField val status: Status,
         @JvmField val resolution: Resolution,
-        @JvmField val ttnInformBRegUuid: UUID?,
+        @JvmField val ttnInformF2RegUuid: UUID?,
         @JvmField val wbRegId: String?
 ) : EgaisDocument()

@@ -90,7 +90,7 @@ internal object WayBillContract {
     /**
      * Текущий статус накладной.
      */
-    const val COLUMN_TTN_INFORM_B_REG_UUID = "TTN_INFORM_B_REG_UUID"
+    const val COLUMN_TTN_INFORM_F2_REG_UUID = "TTN_INFORM_F2_REG_UUID"
 
     /**
      * Транспорт. Тип перевозки.

@@ -33,7 +33,7 @@ internal object ActWriteOffShopPositionContract {
     /**
      * Информация о марках в формате JSON
      */
-    const val COLUMN_INFORM_B_MARK_INFO_JSON = "INFORM_B_MARK_INFO_JSON"
+    const val COLUMN_INFORM_F2_MARK_INFO_JSON = "INFORM_F2_MARK_INFO_JSON"
 
     /**
      * Алкокод информации о продукции

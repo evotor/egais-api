@@ -52,12 +52,12 @@ internal object WayBillPositionContract {
     const val COLUMN_IDENTITY = "IDENTITY"
 
     /**
-     * Справка A. Не может быть null
+     * Справка 1. Не может быть null
      */
-    const val COLUMN_INFORM_INFORM_A_REG_ID = "INFORM_A_REG_ID"
+    const val COLUMN_INFORM_INFORM_F1_REG_ID = "INFORM_F1_REG_ID"
 
     /**
-     * Регистрационный номер раздела справки B, по которому продукция была получена отправителем.
+     * Регистрационный номер раздела справки 2, по которому продукция была получена отправителем.
      */
-    const val COLUMN_INFORM_B_REG_ID = "INFORM_B_REG_ID"
+    const val COLUMN_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"
 }

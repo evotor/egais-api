@@ -40,7 +40,7 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
     @JvmField
     val resolution = addFieldFilter<Resolution>(WayBillContract.COLUMN_RESOLUTION)
     @JvmField
-    val ttnInformBRegUuid = addFieldFilter<UUID?>(WayBillContract.COLUMN_TTN_INFORM_B_REG_UUID)
+    val ttnInformF2RegUuid = addFieldFilter<UUID?>(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
     @JvmField
     val wbRegId = addFieldFilter<String?>(WayBillContract.COLUMN_WB_REG_ID)
 
@@ -80,7 +80,7 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         @JvmField
         val resolution = addFieldSorter(WayBillContract.COLUMN_RESOLUTION)
         @JvmField
-        val ttnInformBRegUuid = addFieldSorter(WayBillContract.COLUMN_TTN_INFORM_B_REG_UUID)
+        val ttnInformF2RegUuid = addFieldSorter(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
         @JvmField
         val wbRegId = addFieldSorter(WayBillContract.COLUMN_WB_REG_ID)
 

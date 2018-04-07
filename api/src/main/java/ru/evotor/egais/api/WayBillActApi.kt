@@ -96,13 +96,13 @@ object WayBillActApi {
         val columnWayBillActUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_WAY_BILL_ACT_UUID)
         val columnIdentity = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_IDENTITY)
         val columnQuantity = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
-        val columnInformBRegId = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_INFORM_B_REG_ID)
+        val columnInformF2RegId = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_INFORM_F2_REG_ID)
 
         return WayBillActPosition(
                 UUID.fromString(cursor.getString(columnUuid)),
                 UUID.fromString(cursor.getString(columnWayBillActUuid)),
                 cursor.getString(columnIdentity),
-                cursor.getString(columnInformBRegId),
+                cursor.getString(columnInformF2RegId),
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
         )
     }

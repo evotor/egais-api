@@ -30,14 +30,14 @@ internal object ActWriteOffPositionContract {
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
-     * Регистрационный номер раздела справки Б
+     * Регистрационный номер раздела справки 2
      */
-    const val COLUMN_INFORM_B_REG_ID = "INFORM_B_REG_ID"
+    const val COLUMN_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"
 
     /**
      * Информация о марках в формате JSON
      */
-    const val COLUMN_INFORM_B_MARK_INFO_JSON = "INFORM_B_MARK_INFO_JSON"
+    const val COLUMN_INFORM_F2_MARK_INFO_JSON = "INFORM_F2_MARK_INFO_JSON"
 
     /**
      * Алкокод информации о продукции

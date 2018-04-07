@@ -15,8 +15,8 @@ import java.util.*
  * @property price Цена за единицу товара
  * @property party Номер партии
  * @property identity Идентификатор позиции внутри накладной
- * @property informARegId Справка А
- * @property informBRegId Регистрационный номер раздела справки Б
+ * @property informF1RegId Справка 1
+ * @property informF2RegId Регистрационный номер раздела справки 2
  */
 data class WayBillPosition(
         @JvmField val uuid: UUID,
@@ -28,6 +28,6 @@ data class WayBillPosition(
         @JvmField val price: BigDecimal,
         @JvmField val party: String?,
         @JvmField val identity: String?,
-        @JvmField val informARegId: String?,
-        @JvmField val informBRegId: String?
+        @JvmField val informF1RegId: String?,
+        @JvmField val informF2RegId: String?
 )

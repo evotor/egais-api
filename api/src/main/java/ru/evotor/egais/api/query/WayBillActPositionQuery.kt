@@ -17,7 +17,7 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
     @JvmField
     val identity = addFieldFilter<String>(WayBillActPositionContract.COLUMN_IDENTITY)
     @JvmField
-    val informBRegId = addFieldFilter<String?>(WayBillActPositionContract.COLUMN_INFORM_B_REG_ID)
+    val informF2RegId = addFieldFilter<String?>(WayBillActPositionContract.COLUMN_INFORM_F2_REG_ID)
     @JvmField
     val realQuantity = addFieldFilter<BigDecimal>(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
 
@@ -33,7 +33,7 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
         @JvmField
         val identity = addFieldSorter(WayBillActPositionContract.COLUMN_IDENTITY)
         @JvmField
-        val informBRegId = addFieldSorter(WayBillActPositionContract.COLUMN_INFORM_B_REG_ID)
+        val informF2RegId = addFieldSorter(WayBillActPositionContract.COLUMN_INFORM_F2_REG_ID)
         @JvmField
         val realQuantity = addFieldSorter(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
 
