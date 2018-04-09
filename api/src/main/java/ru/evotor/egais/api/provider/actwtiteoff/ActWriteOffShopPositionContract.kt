@@ -1,7 +1,6 @@
 package ru.evotor.egais.api.provider.actwtiteoff
 
 import android.net.Uri
-import ru.evotor.egais.api.ActWriteOffShopApi
 
 internal object ActWriteOffShopPositionContract {
     @JvmField

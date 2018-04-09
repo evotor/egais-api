@@ -1,8 +1,7 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.WayBillActApi
 import ru.evotor.egais.api.model.Version
-import ru.evotor.egais.api.model.document.waybill.*
+import ru.evotor.egais.api.model.document.waybill.Status
 import ru.evotor.egais.api.model.document.waybillact.AcceptType
 import ru.evotor.egais.api.model.document.waybillact.Type
 import ru.evotor.egais.api.model.document.waybillact.WayBillAct
@@ -74,7 +73,36 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
     }
 
     override fun getValue(cursor: Cursor<WayBillAct>): WayBillAct {
-        return WayBillActApi.createWayBillAct(cursor)
+        return createWayBillAct(cursor)
     }
 
+    private fun createWayBillAct(cursor: android.database.Cursor): WayBillAct {
+        val columnUuid = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_UUID)
+        val columnOwner = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_OWNER)
+        val columnIdentity = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_IDENTITY)
+        val columnAcceptType = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_ACCEPT_TYPE)
+        val columnNumber = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_NUMBER)
+        val columnDate = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_CREATION_DATE)
+        val columnWbRegId = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_WB_REG_ID)
+        val columnNote = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_NOTE)
+        val columnType = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_TYPE)
+        val columnVersion = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_VERSION)
+        val columnStatus = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_STATUS)
+        val columnRejectComment = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_REJECT_COMMENT)
+
+        return WayBillAct(
+                UUID.fromString(cursor.getString(columnUuid)),
+                cursor.getString(columnOwner),
+                cursor.getString(columnIdentity),
+                AcceptType.valueOf(cursor.getString(columnAcceptType)),
+                cursor.getString(columnNumber),
+                Date(cursor.getString(columnDate)),
+                cursor.getString(columnWbRegId),
+                cursor.getString(columnNote),
+                Type.valueOf(cursor.getString(columnType)),
+                Version.valueOf(cursor.getString(columnVersion)),
+                ru.evotor.egais.api.model.document.waybillact.Status.valueOf(cursor.getString(columnStatus)),
+                cursor.getString(columnRejectComment)
+        )
+    }
 }

@@ -1,6 +1,5 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.DictionaryApi
 import ru.evotor.egais.api.model.dictionary.ProductInfo
 import ru.evotor.egais.api.model.dictionary.ProductType
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
@@ -58,7 +57,30 @@ class ProductInfoQuery : FilterBuilder<ProductInfoQuery, ProductInfoQuery.SortOr
     }
 
     override fun getValue(cursor: Cursor<ProductInfo>): ProductInfo {
-        return DictionaryApi.createProductInfo(cursor)
+        return createProductInfo(cursor)
     }
 
+    private fun createProductInfo(cursor: android.database.Cursor): ProductInfo {
+        val columnIndexType = cursor.getColumnIndex(ProductInfoContract.COLUMN_TYPE)
+        val columnIndexFullName = cursor.getColumnIndex(ProductInfoContract.COLUMN_FULL_NAME)
+        val columnIndexShortName = cursor.getColumnIndex(ProductInfoContract.COLUMN_SHORT_NAME)
+        val columnIndexAlcCode = cursor.getColumnIndex(ProductInfoContract.COLUMN_ALC_CODE)
+        val columnIndexCapacity = cursor.getColumnIndex(ProductInfoContract.COLUMN_CAPACITY)
+        val columnIndexAlcVolume = cursor.getColumnIndex(ProductInfoContract.COLUMN_ALC_VOLUME)
+        val columnIndexProducerId = cursor.getColumnIndex(ProductInfoContract.COLUMN_PRODUCER_CLIENT_REG_ID)
+        val columnIndexImporterId = cursor.getColumnIndex(ProductInfoContract.COLUMN_IMPORTER_CLIENT_REG_ID)
+        val columnIndexProductVCode = cursor.getColumnIndex(ProductInfoContract.COLUMN_PRODUCT_V_CODE)
+
+        return ProductInfo(
+                ProductType.valueOf(cursor.getString(columnIndexType)),
+                cursor.getString(columnIndexFullName),
+                cursor.getString(columnIndexShortName),
+                cursor.getString(columnIndexAlcCode),
+                cursor.getString(columnIndexCapacity),
+                cursor.getString(columnIndexAlcVolume),
+                cursor.getString(columnIndexProducerId),
+                cursor.getString(columnIndexImporterId),
+                cursor.getString(columnIndexProductVCode)
+        )
+    }
 }

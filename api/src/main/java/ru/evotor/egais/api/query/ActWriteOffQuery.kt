@@ -1,6 +1,5 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.ActWriteOffApi
 import ru.evotor.egais.api.model.Version
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOff
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
@@ -65,7 +64,32 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
     }
 
     override fun getValue(cursor: Cursor<ActWriteOff>): ActWriteOff {
-        return ActWriteOffApi.createActWriteOff(cursor)
+        return createActWriteOff(cursor)
     }
 
+    private fun createActWriteOff(cursor: android.database.Cursor): ActWriteOff {
+        val columnIndexUuid = cursor.getColumnIndex(ActWriteOffContract.COLUMN_UUID)
+        val columnIndexOwner = cursor.getColumnIndex(ActWriteOffContract.COLUMN_OWNER)
+        val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffContract.COLUMN_IDENTITY)
+        val columnIndexNumber = cursor.getColumnIndex(ActWriteOffContract.COLUMN_NUMBER)
+        val columnIndexActDate = cursor.getColumnIndex(ActWriteOffContract.COLUMN_ACT_DATE)
+        val columnIndexType = cursor.getColumnIndex(ActWriteOffContract.COLUMN_TYPE_WRITE_OFF)
+        val columnIndexNote = cursor.getColumnIndex(ActWriteOffContract.COLUMN_NOTE)
+        val columnIndexStatus = cursor.getColumnIndex(ActWriteOffContract.COLUMN_STATUS)
+        val columnIndexRejectComment = cursor.getColumnIndex(ActWriteOffContract.COLUMN_REJECT_COMMENT)
+        val columnIndexVersion = cursor.getColumnIndex(ActWriteOffContract.COLUMN_VERSION)
+
+        return ActWriteOff(
+                UUID.fromString(cursor.getString(columnIndexUuid)),
+                cursor.getString(columnIndexOwner),
+                cursor.getString(columnIndexIdentity),
+                cursor.getString(columnIndexNumber),
+                Date(cursor.getString(columnIndexActDate)),
+                TypeWriteOff.valueOf(cursor.getString(columnIndexType)),
+                cursor.getString(columnIndexNote),
+                ActWriteOffStatus.valueOf(cursor.getString(columnIndexStatus)),
+                cursor.getString(columnIndexRejectComment),
+                Version.valueOf(cursor.getString(columnIndexVersion))
+        )
+    }
 }

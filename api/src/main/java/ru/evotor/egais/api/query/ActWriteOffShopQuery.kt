@@ -1,6 +1,5 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.ActWriteOffShopApi
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffShop
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
 import ru.evotor.egais.api.model.document.actwriteoff.TypeWriteOff
@@ -60,7 +59,30 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
     }
 
     override fun getValue(cursor: Cursor<ActWriteOffShop>): ActWriteOffShop {
-        return ActWriteOffShopApi.createActWriteOffShop(cursor)
+        return createActWriteOffShop(cursor)
     }
 
+    private fun createActWriteOffShop(cursor: android.database.Cursor): ActWriteOffShop {
+        val columnIndexUuid = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_UUID)
+        val columnIndexOwner = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_OWNER)
+        val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_IDENTITY)
+        val columnIndexNumber = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_NUMBER)
+        val columnIndexActDate = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_ACT_DATE)
+        val columnIndexType = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_TYPE_WRITE_OFF)
+        val columnIndexNote = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_NOTE)
+        val columnIndexStatus = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_STATUS)
+        val columnIndexRejectComment = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_REJECT_COMMENT)
+
+        return ActWriteOffShop(
+                UUID.fromString(cursor.getString(columnIndexUuid)),
+                cursor.getString(columnIndexOwner),
+                cursor.getString(columnIndexIdentity),
+                cursor.getString(columnIndexNumber),
+                Date(cursor.getString(columnIndexActDate)),
+                TypeWriteOff.valueOf(cursor.getString(columnIndexType)),
+                cursor.getString(columnIndexNote),
+                ActWriteOffStatus.valueOf(cursor.getString(columnIndexStatus)),
+                cursor.getString(columnIndexRejectComment)
+        )
+    }
 }
