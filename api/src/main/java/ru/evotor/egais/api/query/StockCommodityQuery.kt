@@ -7,13 +7,10 @@ import ru.evotor.egais.api.provider.stock_commodity.StockCommodityContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
-import java.util.*
 
 class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQuery.SortOrder,
         StockCommodity>(StockCommodityContract.URI) {
 
-    @JvmField
-    val uuid = addFieldFilter<UUID>(StockCommodityContract.COLUMN_UUID)
     @JvmField
     val informF1RegId = addFieldFilter<String>(StockCommodityContract.COLUMN_INFORM_F1_REG_ID)
     @JvmField
@@ -32,8 +29,6 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
 
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
-        @JvmField
-        val uuid = addFieldSorter(StockCommodityContract.COLUMN_UUID)
         @JvmField
         val informF1RegId = addFieldSorter(StockCommodityContract.COLUMN_INFORM_F1_REG_ID)
         @JvmField

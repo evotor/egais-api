@@ -1,7 +1,7 @@
 package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.WayBillApi
-import ru.evotor.egais.api.model.document.waybill.*
+import ru.evotor.egais.api.model.document.waybill.WayBillPosition
 import ru.evotor.egais.api.provider.waybill.WayBillPositionContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -29,9 +29,9 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
     @JvmField
     val identity = addFieldFilter<String?>(WayBillPositionContract.COLUMN_IDENTITY)
     @JvmField
-    val informARegId = addFieldFilter<String?>(WayBillPositionContract.COLUMN_INFORM_INFORM_A_REG_ID)
+    val informF1RegId = addFieldFilter<String?>(WayBillPositionContract.COLUMN_INFORM_INFORM_F1_REG_ID)
     @JvmField
-    val informBRegId = addFieldFilter<String?>(WayBillPositionContract.COLUMN_INFORM_B_REG_ID)
+    val informF2RegId = addFieldFilter<String?>(WayBillPositionContract.COLUMN_INFORM_F2_REG_ID)
 
     override val currentQuery: WayBillPositionQuery
         get() = this
@@ -57,9 +57,9 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         @JvmField
         val identity = addFieldSorter(WayBillPositionContract.COLUMN_IDENTITY)
         @JvmField
-        val informARegId = addFieldSorter(WayBillPositionContract.COLUMN_INFORM_INFORM_A_REG_ID)
+        val informF1RegId = addFieldSorter(WayBillPositionContract.COLUMN_INFORM_INFORM_F1_REG_ID)
         @JvmField
-        val informBRegId = addFieldSorter(WayBillPositionContract.COLUMN_INFORM_B_REG_ID)
+        val informF2RegId = addFieldSorter(WayBillPositionContract.COLUMN_INFORM_F2_REG_ID)
 
         override val currentSortOrder: SortOrder
             get() = this

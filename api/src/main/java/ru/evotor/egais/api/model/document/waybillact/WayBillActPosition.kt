@@ -9,13 +9,13 @@ import java.util.*
  * @property uuid Уникальный идентификатор
  * @property wayBillActUuid Уникальный идентификатор акта разногласий
  * @property identity Идентификатор позиции внутри накладной
- * @property informBRegId Регистрационный номер записи справки Б
+ * @property informF2RegId Регистрационный номер записи справки Б
  * @property realQuantity Количество фактическое
  */
 data class WayBillActPosition(
         @JvmField val uuid: UUID,
         @JvmField var wayBillActUuid: UUID,
         @JvmField var identity: String,
-        @JvmField var informBRegId: String?,
+        @JvmField var informF2RegId: String?,
         @JvmField var realQuantity: BigDecimal
 )

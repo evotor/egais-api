@@ -19,7 +19,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
     @JvmField
     val quantity = addFieldFilter<BigDecimal>(ActWriteOffShopPositionContract.COLUMN_QUANTITY)
     @JvmField
-    val informBMarkInfoJson = addFieldFilter<String?>(ActWriteOffShopPositionContract.COLUMN_INFORM_B_MARK_INFO_JSON)
+    val informF2MarkInfoJson = addFieldFilter<String?>(ActWriteOffShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
     @JvmField
     val productInfoAlcCode = addFieldFilter<String>(ActWriteOffShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
@@ -31,13 +31,13 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
         @JvmField
         val uuid = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_UUID)
         @JvmField
-        val actWriteOffShopId = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_ACT_WRITE_OFF_SHOP_UUID)
+        val actWriteOffShopUuid = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_ACT_WRITE_OFF_SHOP_UUID)
         @JvmField
         val identity = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_IDENTITY)
         @JvmField
         val quantity = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_QUANTITY)
         @JvmField
-        val informBMarkInfoJson = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_INFORM_B_MARK_INFO_JSON)
+        val informF2MarkInfoJson = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
         @JvmField
         val productInfoAlcCode = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 

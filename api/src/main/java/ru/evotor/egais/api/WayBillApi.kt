@@ -86,7 +86,7 @@ object WayBillApi {
         val columnNote = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_NOTE)
         val columnStatus = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_STATUS)
         val columnResolution = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION)
-        val columnTtnInformBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_B_REG_UUID)
+        val columnTtnInformF2RegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
         val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
 
         val transportType = cursor.getString(columnTransportType)
@@ -143,7 +143,7 @@ object WayBillApi {
                 note = cursor.getString(columnNote),
                 status = Status.valueOf(cursor.getString(columnStatus)),
                 resolution = Resolution.valueOf(cursor.getString(columnResolution)),
-                ttnInformBRegUuid = cursor.getString(columnTtnInformBRegId)?.let { UUID.fromString(it) },
+                ttnInformF2RegUuid = cursor.getString(columnTtnInformF2RegId)?.let { UUID.fromString(it) },
                 wbRegId = cursor.getString(columnWBRegId)
         )
     }
@@ -158,8 +158,8 @@ object WayBillApi {
         val columnPrice = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRICE)
         val columnParty = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PARTY)
         val columnIndentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_IDENTITY)
-        val columnInformARegId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_INFORM_INFORM_A_REG_ID)
-        val columnInformBRegId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_INFORM_B_REG_ID)
+        val columnInformF1RegId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_INFORM_INFORM_F1_REG_ID)
+        val columnInformF2RegId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_INFORM_F2_REG_ID)
 
         val wayBillPosition = WayBillPosition(
                 uuid = UUID.fromString(cursor.getString(columnUuid)),
@@ -171,8 +171,8 @@ object WayBillApi {
                 price = MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnPrice)),
                 party = cursor.getString(columnParty),
                 identity = cursor.getString(columnIndentity),
-                informARegId = cursor.getString(columnInformARegId),
-                informBRegId = cursor.getString(columnInformBRegId)
+                informF1RegId = cursor.getString(columnInformF1RegId),
+                informF2RegId = cursor.getString(columnInformF2RegId)
         )
         return wayBillPosition
     }

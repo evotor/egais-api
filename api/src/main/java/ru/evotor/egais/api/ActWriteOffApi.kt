@@ -70,8 +70,8 @@ object ActWriteOffApi {
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_ACT_WRITE_OFF_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_IDENTITY)
         val columnIndexQuantity = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY)
-        val columnIndexInformBRegId = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_B_REG_ID)
-        val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_B_MARK_INFO_JSON)
+        val columnIndexInformF2RegId = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_F2_REG_ID)
+        val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
         val columnIndexAlcCode = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
         val columnIndexMarkList = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_MARK_LIST)
 
@@ -80,7 +80,7 @@ object ActWriteOffApi {
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
-                cursor.getString(columnIndexInformBRegId),
+                cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexMarkJson),
                 cursor.getString(columnIndexAlcCode),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))

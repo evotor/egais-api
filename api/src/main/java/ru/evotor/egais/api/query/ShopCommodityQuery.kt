@@ -7,13 +7,9 @@ import ru.evotor.egais.api.provider.waybill.ShopCommodityContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
-import java.util.*
 
 class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.SortOrder,
         ShopCommodity>(ShopCommodityContract.URI) {
-
-    @JvmField
-    val uuid = addFieldFilter<UUID>(ShopCommodityContract.COLUMN_UUID)
 
     @JvmField
     val quantity = addFieldFilter<BigDecimal, Long>(ShopCommodityContract.COLUMN_QUANTITY, {
@@ -28,8 +24,6 @@ class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.
 
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
-        @JvmField
-        val uuid = addFieldSorter(ShopCommodityContract.COLUMN_UUID)
         @JvmField
         val quantity = addFieldSorter(ShopCommodityContract.COLUMN_QUANTITY)
         @JvmField

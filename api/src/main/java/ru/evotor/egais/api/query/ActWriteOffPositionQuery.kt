@@ -19,9 +19,9 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
     @JvmField
     val quantity = addFieldFilter<BigDecimal>(ActWriteOffPositionContract.COLUMN_QUANTITY)
     @JvmField
-    val informBRegId = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_INFORM_B_REG_ID)
+    val informF2RegId = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_INFORM_F2_REG_ID)
     @JvmField
-    val informBMarkInfoJson = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_INFORM_B_MARK_INFO_JSON)
+    val informF2MarkInfoJson = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
     @JvmField
     val productInfoAlcCode = addFieldFilter<String>(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
@@ -39,9 +39,9 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
         @JvmField
         val quantity = addFieldSorter(ActWriteOffPositionContract.COLUMN_QUANTITY)
         @JvmField
-        val informBRegId = addFieldSorter(ActWriteOffPositionContract.COLUMN_INFORM_B_REG_ID)
+        val informF2RegId = addFieldSorter(ActWriteOffPositionContract.COLUMN_INFORM_F2_REG_ID)
         @JvmField
-        val informBMarkInfoJson = addFieldSorter(ActWriteOffPositionContract.COLUMN_INFORM_B_MARK_INFO_JSON)
+        val informF2MarkInfoJson = addFieldSorter(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
         @JvmField
         val productInfoAlcCode = addFieldSorter(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
