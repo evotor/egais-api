@@ -1,6 +1,5 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.ActChargeOnShopApi
 import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShop
 import ru.evotor.egais.api.model.document.actchargeonshop.Status
 import ru.evotor.egais.api.model.document.actchargeonshop.Type
@@ -64,7 +63,32 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
     }
 
     override fun getValue(cursor: Cursor<ActChargeOnShop>): ActChargeOnShop {
-        return ActChargeOnShopApi.createActChargeOnShop(cursor)
+        return createActChargeOnShop(cursor)
     }
 
+    private fun createActChargeOnShop(cursor: android.database.Cursor): ActChargeOnShop {
+        val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_UUID)
+        val columnIndexOwner = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_OWNER)
+        val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_IDENTITY)
+        val columnIndexNumber = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_NUMBER)
+        val columnIndexDate = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_ACT_DATE)
+        val columnIndexType = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_TYPE_ACT_CHARGE_ON_SHOP)
+        val columnIndexActWriteOff = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_ACT_WRITE_OFF)
+        val columnIndexNote = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_NOTE)
+        val columnIndexStatus = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_STATUS)
+        val columnIndexRejectComment = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
+
+        return ActChargeOnShop(
+                UUID.fromString(cursor.getString(columnIndexUuid)),
+                cursor.getString(columnIndexOwner),
+                cursor.getString(columnIndexIdentity),
+                cursor.getString(columnIndexNumber),
+                Date(cursor.getString(columnIndexDate)),
+                Type.valueOf(cursor.getString(columnIndexType)),
+                cursor.getString(columnIndexActWriteOff),
+                cursor.getString(columnIndexNote),
+                Status.valueOf(cursor.getString(columnIndexStatus)),
+                cursor.getString(columnIndexRejectComment)
+        )
+    }
 }

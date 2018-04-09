@@ -1,7 +1,8 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.WayBillApi
 import ru.evotor.egais.api.model.document.waybill.WayBillPosition
+import ru.evotor.egais.api.provider.converter.MoneyBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.egais.api.provider.waybill.WayBillPositionContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -67,7 +68,36 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
     }
 
     override fun getValue(cursor: Cursor<WayBillPosition>): WayBillPosition {
-        return WayBillApi.createWayBillPosition(cursor)
+        return createWayBillPosition(cursor)
+    }
+
+    private fun createWayBillPosition(cursor: android.database.Cursor): WayBillPosition {
+        val columnUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_UUID)
+        val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
+        val columnProductIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)
+        val columnProductAlcoCode = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+        val columnPackId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PACKID)
+        val columnQuantity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_QUANTITY)
+        val columnPrice = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRICE)
+        val columnParty = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PARTY)
+        val columnIndentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_IDENTITY)
+        val columnInformF1RegId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_INFORM_INFORM_F1_REG_ID)
+        val columnInformF2RegId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_INFORM_F2_REG_ID)
+
+        val wayBillPosition = WayBillPosition(
+                uuid = UUID.fromString(cursor.getString(columnUuid)),
+                wayBillUuid = UUID.fromString(cursor.getString(columnWayBillUuid)),
+                productIdentity = cursor.getString(columnProductIdentity),
+                productAlcoCode = cursor.getString(columnProductAlcoCode),
+                packId = cursor.getString(columnPackId),
+                quantity = QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
+                price = MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnPrice)),
+                party = cursor.getString(columnParty),
+                identity = cursor.getString(columnIndentity),
+                informF1RegId = cursor.getString(columnInformF1RegId),
+                informF2RegId = cursor.getString(columnInformF2RegId)
+        )
+        return wayBillPosition
     }
 
 }

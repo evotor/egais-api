@@ -1,8 +1,8 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.ActChargeOnShopApi
 import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShopPosition
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopPositionContract
+import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
@@ -44,7 +44,22 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
     }
 
     override fun getValue(cursor: Cursor<ActChargeOnShopPosition>): ActChargeOnShopPosition {
-        return ActChargeOnShopApi.createActChargeOnShopPosition(cursor)
+        return createActChargeOnShopPosition(cursor)
     }
 
+    private fun createActChargeOnShopPosition(cursor: android.database.Cursor): ActChargeOnShopPosition {
+        val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_UUID)
+        val columnIndexActUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_ACT_CHARGE_ON_SHOP_UUID)
+        val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_IDENTITY)
+        val columnIndexQuantity = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY)
+        val columnIndexAlcCode = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+
+        return ActChargeOnShopPosition(
+                UUID.fromString(cursor.getString(columnIndexUuid)),
+                UUID.fromString(cursor.getString(columnIndexActUuid)),
+                cursor.getString(columnIndexIdentity),
+                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                cursor.getString(columnIndexAlcCode)
+        )
+    }
 }

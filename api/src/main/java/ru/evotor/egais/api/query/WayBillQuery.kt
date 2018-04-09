@@ -1,6 +1,5 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.WayBillApi
 import ru.evotor.egais.api.model.document.waybill.*
 import ru.evotor.egais.api.provider.waybill.WayBillContract
 import ru.evotor.query.Cursor
@@ -90,7 +89,94 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
     }
 
     override fun getValue(cursor: Cursor<WayBill>): WayBill {
-        return WayBillApi.createWayBill(cursor)
+        return createWayBill(cursor)
     }
 
+    private fun createWayBill(cursor: android.database.Cursor): WayBill {
+        val columnUuid = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_UUID)
+        val columnDocOwner = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_OWNER)
+        val columnIdentity = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_IDENTITY)
+        val columnType = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TYPE)
+        val columnUnitType = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_UNIT_TYPE)
+        val columnNumber = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_NUMBER)
+        val columnDate = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_DATE)
+        val columnShippingDate = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_SHIPPING_DATE)
+        val columnTransportType = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_TYPE)
+        val columnTransportCompany = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_COMPANY)
+        val columnTransportCar = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_CAR)
+        val columnTransportTrailer = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_TRAILER)
+        val columnTransportCustomer = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_CUSTOMER)
+        val columnTransportDriver = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_DRIVER)
+        val columnTransportLoadPoint = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_LOADPOINT)
+        val columnTransportUnloadPoint = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_UNLOADPOINT)
+        val columnTransportRedirect = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_REDIRECT)
+        val columnTransportForwarder = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_FORWARDER)
+        val columnShipperId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_SHIPPER_ID)
+        val columnConsigneeId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_CONSIGNEE_ID)
+        val columnSupplierID = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_SUPPLIER_ID)
+        val columnBase = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_BASE)
+        val columnNote = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_NOTE)
+        val columnStatus = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_STATUS)
+        val columnResolution = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION)
+        val columnTtnInformF2RegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
+        val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
+
+        val transportType = cursor.getString(columnTransportType)
+        val transportCompany = cursor.getString(columnTransportCompany)
+        val transportCar = cursor.getString(columnTransportCar)
+        val transportTrailer = cursor.getString(columnTransportTrailer)
+        val transportCustomer = cursor.getString(columnTransportCustomer)
+        val transportDriver = cursor.getString(columnTransportDriver)
+        val transportLoadPoint = cursor.getString(columnTransportLoadPoint)
+        val transportUnloadPoint = cursor.getString(columnTransportUnloadPoint)
+        val transportRedirect = cursor.getString(columnTransportRedirect)
+        val transportForwarder = cursor.getString(columnTransportForwarder)
+
+        val transport = if (
+                transportType != null ||
+                transportCompany != null ||
+                transportCar != null ||
+                transportTrailer != null ||
+                transportCustomer != null ||
+                transportDriver != null ||
+                transportLoadPoint != null ||
+                transportUnloadPoint != null ||
+                transportRedirect != null ||
+                transportForwarder != null
+        ) {
+            Transport(
+                    type = transportType,
+                    company = transportCompany,
+                    car = transportCar,
+                    trailer = transportTrailer,
+                    customer = transportCustomer,
+                    driver = transportDriver,
+                    loadpoint = transportLoadPoint,
+                    unloadpoint = transportUnloadPoint,
+                    redirect = transportRedirect,
+                    forwarder = transportForwarder
+            )
+        } else null
+
+        return WayBill(
+                uuid = UUID.fromString(cursor.getString(columnUuid)),
+                docOwner = cursor.getString(columnDocOwner),
+                identity = cursor.getString(columnIdentity),
+                type = Type.valueOf(cursor.getString(columnType)),
+                unitType = cursor.getString(columnUnitType)?.let { UnitType.valueOf(it) },
+                number = cursor.getString(columnNumber),
+                date = Date(cursor.getString(columnDate)),
+                shippingDate = Date(cursor.getString(columnShippingDate)),
+                transport = transport,
+                shipperId = cursor.getString(columnShipperId),
+                consigneeId = cursor.getString(columnConsigneeId),
+                supplierId = cursor.getString(columnSupplierID),
+                base = cursor.getString(columnBase),
+                note = cursor.getString(columnNote),
+                status = Status.valueOf(cursor.getString(columnStatus)),
+                resolution = Resolution.valueOf(cursor.getString(columnResolution)),
+                ttnInformF2RegUuid = cursor.getString(columnTtnInformF2RegId)?.let { UUID.fromString(it) },
+                wbRegId = cursor.getString(columnWBRegId)
+        )
+    }
 }
