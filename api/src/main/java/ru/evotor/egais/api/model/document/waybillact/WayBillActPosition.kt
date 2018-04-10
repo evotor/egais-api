@@ -13,9 +13,9 @@ import java.util.*
  * @property realQuantity Количество фактическое
  */
 data class WayBillActPosition(
-        @JvmField val uuid: UUID,
-        @JvmField var wayBillActUuid: UUID,
-        @JvmField var identity: String,
-        @JvmField var informF2RegId: String?,
-        @JvmField var realQuantity: BigDecimal
+        val uuid: UUID,
+        var wayBillActUuid: UUID,
+        var identity: String,
+        var informF2RegId: String?,
+        var realQuantity: BigDecimal
 )
