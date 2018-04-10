@@ -78,7 +78,7 @@ class OrgInfoQuery : FilterBuilder<OrgInfoQuery, OrgInfoQuery.SortOrder, OrgInfo
         val columnIndexVersionWb = cursor.getColumnIndex(OrgInfoContract.COLUMN_VERSION_WB)
 
         return OrgInfo(
-                OrgInfo.Type.valueOf(cursor.getString(columnIndexType)),
+                cursor.getString(columnIndexType)?.let { OrgInfo.Type.valueOf(it) },
                 cursor.getString(columnIndexClientRegId),
                 cursor.getString(columnIndexFullName),
                 cursor.getString(columnIndexShortName),
@@ -88,7 +88,7 @@ class OrgInfoQuery : FilterBuilder<OrgInfoQuery, OrgInfoQuery.SortOrder, OrgInfo
                 cursor.getString(columnIndexRnn),
                 createOrgAddress(cursor),
                 cursor.getString(columnIndexState),
-                WBTypeUsed.valueOf(cursor.getString(columnIndexVersionWb))
+                cursor.getString(columnIndexVersionWb)?.let { WBTypeUsed.valueOf(it) }
         )
     }
 
