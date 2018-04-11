@@ -9,40 +9,100 @@ import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
 import java.util.*
 
+/**
+ * Класс для формирования запроса на получение позиций акта списания со склада
+ */
 class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWriteOffPositionQuery.SortOrder, ActWriteOffPosition>(ActWriteOffPositionContract.URI) {
 
+    /**
+     * Уникальный идентификатор позиции акта списания со склада
+     */
     @JvmField
     val uuid = addFieldFilter<UUID>(ActWriteOffPositionContract.COLUMN_UUID)
+
+    /**
+     * Уникальный идентификатор акта списания со склада
+     */
     @JvmField
     val actWriteOffUuid = addFieldFilter<UUID>(ActWriteOffPositionContract.COLUMN_ACT_WRITE_OFF_UUID)
+
+    /**
+     * Идентификатор позиции акта списания со склада
+     */
     @JvmField
     val identity = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_IDENTITY)
+
+    /**
+     * Количество
+     */
     @JvmField
-    val quantity = addFieldFilter<BigDecimal>(ActWriteOffPositionContract.COLUMN_QUANTITY)
+    val quantity = addFieldFilter<BigDecimal, Long>(ActWriteOffPositionContract.COLUMN_QUANTITY, {QuantityBigDecimalConverter.toLong(it)})
+
+    /**
+     * Регистрационный номер раздела справки 2
+     */
     @JvmField
     val informF2RegId = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_INFORM_F2_REG_ID)
+
+    /**
+     * Информация о марках в формате JSON
+     */
     @JvmField
     val informF2MarkInfoJson = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
+
+    /**
+     * Алкокод информации о продукции
+     */
     @JvmField
     val productInfoAlcCode = addFieldFilter<String>(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
     override val currentQuery: ActWriteOffPositionQuery
         get() = this
 
+    /**
+     * Класс для сортировки полей в результе запроса
+     */
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
+        /**
+         * Уникальный идентификатор позиции акта списания со склада
+         */
         @JvmField
         val uuid = addFieldSorter(ActWriteOffPositionContract.COLUMN_UUID)
+
+        /**
+         * Уникальный идентификатор акта списания со склада
+         */
         @JvmField
         val actWriteOffUuid = addFieldSorter(ActWriteOffPositionContract.COLUMN_ACT_WRITE_OFF_UUID)
+
+        /**
+         * Идентификатор позиции акта списания со склада
+         */
         @JvmField
         val identity = addFieldSorter(ActWriteOffPositionContract.COLUMN_IDENTITY)
+
+        /**
+         * Количество
+         */
         @JvmField
         val quantity = addFieldSorter(ActWriteOffPositionContract.COLUMN_QUANTITY)
+
+        /**
+         * Регистрационный номер раздела справки 2
+         */
         @JvmField
         val informF2RegId = addFieldSorter(ActWriteOffPositionContract.COLUMN_INFORM_F2_REG_ID)
+
+        /**
+         * Информация о марках в формате JSON
+         */
         @JvmField
         val informF2MarkInfoJson = addFieldSorter(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
+
+        /**
+         * Алкокод информации о продукции
+         */
         @JvmField
         val productInfoAlcCode = addFieldSorter(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 

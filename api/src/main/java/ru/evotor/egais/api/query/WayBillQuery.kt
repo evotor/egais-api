@@ -6,80 +6,220 @@ import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
 
+/**
+ * Класс для формирования запроса на получение ТТН
+ */
 class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill>(WayBillContract.URI) {
 
+    /**
+     * UUID накладной.
+     */
     @JvmField
     val uuid = addFieldFilter<UUID>(WayBillContract.COLUMN_UUID)
+
+    /**
+     * Отправитель накладной.
+     */
     @JvmField
     val docOwner = addFieldFilter<String>(WayBillContract.COLUMN_OWNER)
+
+    /**
+     * Идентификатор накладной (клиентский, к заполнению необязательный).
+     */
     @JvmField
     val identity = addFieldFilter<String?>(WayBillContract.COLUMN_IDENTITY)
+
+    /**
+     * Тип накладной.
+     */
     @JvmField
     val type = addFieldFilter<Type>(WayBillContract.COLUMN_TYPE)
+
+    /**
+     * Тип упаковки.
+     */
     @JvmField
     val unitType = addFieldFilter<UnitType?>(WayBillContract.COLUMN_UNIT_TYPE)
+
+    /**
+     * Номер документа.
+     */
     @JvmField
     val number = addFieldFilter<String>(WayBillContract.COLUMN_NUMBER)
+
+    /**
+     * Дата составления.
+     */
     @JvmField
     val date = addFieldFilter<Date>(WayBillContract.COLUMN_DATE)
+
+    /**
+     * Дата отгрузки продукции.
+     */
     @JvmField
     val shippingDate = addFieldFilter<Date>(WayBillContract.COLUMN_SHIPPING_DATE)
+
+    /**
+     * Грузоотправитель.
+     */
     @JvmField
     val shipperId = addFieldFilter<String>(WayBillContract.COLUMN_SHIPPER_ID)
+
+    /**
+     * Грузополучатель.
+     */
     @JvmField
     val consigneeId = addFieldFilter<String>(WayBillContract.COLUMN_CONSIGNEE_ID)
+
+    /**
+     * Поставщик.
+     */
     @JvmField
     val supplierId = addFieldFilter<String?>(WayBillContract.COLUMN_SUPPLIER_ID)
+
+    /**
+     * Основание.
+     */
     @JvmField
     val base = addFieldFilter<String?>(WayBillContract.COLUMN_BASE)
+
+    /**
+     * Заметки.
+     */
     @JvmField
     val note = addFieldFilter<String?>(WayBillContract.COLUMN_NOTE)
+
+    /**
+     * Текущий статус накладной.
+     */
     @JvmField
     val status = addFieldFilter<Status>(WayBillContract.COLUMN_STATUS)
+
+    /**
+     * Резолюция накладной.
+     */
     @JvmField
     val resolution = addFieldFilter<Resolution>(WayBillContract.COLUMN_RESOLUTION)
+
+    /**
+     * uuid справки 2 для накладной.
+     */
     @JvmField
     val ttnInformF2RegUuid = addFieldFilter<UUID?>(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
+
+    /**
+     * ИД накладной в системе ЕГАИС.
+     */
     @JvmField
     val wbRegId = addFieldFilter<String?>(WayBillContract.COLUMN_WB_REG_ID)
 
     override val currentQuery: WayBillQuery
         get() = this
 
+    /**
+     * Класс для сортировки полей в результе запроса
+     */
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
+        /**
+         * UUID накладной.
+         */
         @JvmField
         val uuid = addFieldSorter(WayBillContract.COLUMN_UUID)
+
+        /**
+         * Отправитель накладной.
+         */
         @JvmField
         val docOwner = addFieldSorter(WayBillContract.COLUMN_OWNER)
+
+        /**
+         * Идентификатор накладной (клиентский, к заполнению необязательный).
+         */
         @JvmField
         val identity = addFieldSorter(WayBillContract.COLUMN_IDENTITY)
+
+        /**
+         * Тип накладной.
+         */
         @JvmField
         val type = addFieldSorter(WayBillContract.COLUMN_TYPE)
+
+        /**
+         * Тип упаковки.
+         */
         @JvmField
         val unitType = addFieldSorter(WayBillContract.COLUMN_UNIT_TYPE)
+
+        /**
+         * Номер документа.
+         */
         @JvmField
         val number = addFieldSorter(WayBillContract.COLUMN_NUMBER)
+
+        /**
+         * Дата составления.
+         */
         @JvmField
         val date = addFieldSorter(WayBillContract.COLUMN_DATE)
+
+        /**
+         * Дата отгрузки продукции.
+         */
         @JvmField
         val shippingDate = addFieldSorter(WayBillContract.COLUMN_SHIPPING_DATE)
+
+        /**
+         * Грузоотправитель.
+         */
         @JvmField
         val shipperId = addFieldSorter(WayBillContract.COLUMN_SHIPPER_ID)
+
+        /**
+         * Грузополучатель.
+         */
         @JvmField
         val consigneeId = addFieldSorter(WayBillContract.COLUMN_CONSIGNEE_ID)
+
+        /**
+         * Поставщик.
+         */
         @JvmField
         val supplierId = addFieldSorter(WayBillContract.COLUMN_SUPPLIER_ID)
+
+        /**
+         * Основание.
+         */
         @JvmField
         val base = addFieldSorter(WayBillContract.COLUMN_BASE)
+
+        /**
+         * Заметки.
+         */
         @JvmField
         val note = addFieldSorter(WayBillContract.COLUMN_NOTE)
+
+        /**
+         * Текущий статус накладной.
+         */
         @JvmField
         val status = addFieldSorter(WayBillContract.COLUMN_STATUS)
+
+        /**
+         * Резолюция накладной.
+         */
         @JvmField
         val resolution = addFieldSorter(WayBillContract.COLUMN_RESOLUTION)
+
+        /**
+         * uuid справки 2 для накладной.
+         */
         @JvmField
         val ttnInformF2RegUuid = addFieldSorter(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
+
+        /**
+         * ИД накладной в системе ЕГАИС.
+         */
         @JvmField
         val wbRegId = addFieldSorter(WayBillContract.COLUMN_WB_REG_ID)
 

@@ -9,52 +9,136 @@ import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
 
+/**
+ * Класс для формирования запроса на получение позиций акта списания со склада
+ */
 class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOrder, ActWriteOff>(ActWriteOffContract.URI) {
 
+    /**
+     * Уникальный идентификатор акта списания со склада
+     */
     @JvmField
     val uuid = addFieldFilter<UUID>(ActWriteOffContract.COLUMN_UUID)
+
+    /**
+     * Отправитель акта списания со склада
+     */
     @JvmField
     val docOwner = addFieldFilter<String>(ActWriteOffContract.COLUMN_OWNER)
+
+    /**
+     * Идентификатор акта списания со склада (клиентский, к заполнению необязательный)
+     */
     @JvmField
     val identity = addFieldFilter<String?>(ActWriteOffContract.COLUMN_IDENTITY)
+
+    /**
+     * Номер документа
+     */
     @JvmField
     val number = addFieldFilter<String?>(ActWriteOffContract.COLUMN_NUMBER)
+
+    /**
+     * Дата составления
+     */
     @JvmField
     val actDate = addFieldFilter<Date>(ActWriteOffContract.COLUMN_ACT_DATE)
+
+    /**
+     * Причина списания (Пересортица/Недостача/Уценка/Порча/Потери/Проверки/Арест/Иные цели/Реализация)
+     */
     @JvmField
     val typeWriteOff = addFieldFilter<TypeWriteOff?>(ActWriteOffContract.COLUMN_TYPE_WRITE_OFF)
+
+    /**
+     * Примечание
+     */
     @JvmField
     val note = addFieldFilter<String?>(ActWriteOffContract.COLUMN_NOTE)
+
+    /**
+     * Статус акта списания
+     */
     @JvmField
     val status = addFieldFilter<ActWriteOffStatus>(ActWriteOffContract.COLUMN_STATUS)
+
+    /**
+     * Комментарий для отказа на акт списания со склада
+     */
     @JvmField
     val rejectComment = addFieldFilter<String?>(ActWriteOffContract.COLUMN_REJECT_COMMENT)
+
+    /**
+     * Версия протокола ЕГАИС
+     */
     @JvmField
     val version = addFieldFilter<Version>(ActWriteOffContract.COLUMN_VERSION)
 
     override val currentQuery: ActWriteOffQuery
         get() = this
 
+    /**
+     * Класс для сортировки полей в результе запроса
+     */
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
+        /**
+         * Уникальный идентификатор акта списания со склада
+         */
         @JvmField
         val uuid = addFieldSorter(ActWriteOffContract.COLUMN_UUID)
+
+        /**
+         * Отправитель акта списания со склада
+         */
         @JvmField
         val docOwner = addFieldSorter(ActWriteOffContract.COLUMN_OWNER)
+
+        /**
+         * Идентификатор акта списания со склада (клиентский, к заполнению необязательный)
+         */
         @JvmField
         val identity = addFieldSorter(ActWriteOffContract.COLUMN_IDENTITY)
+
+        /**
+         * Номер документа
+         */
         @JvmField
         val number = addFieldSorter(ActWriteOffContract.COLUMN_NUMBER)
+
+        /**
+         * Дата составления
+         */
         @JvmField
         val actDate = addFieldSorter(ActWriteOffContract.COLUMN_ACT_DATE)
+
+        /**
+         * Причина списания (Пересортица/Недостача/Уценка/Порча/Потери/Проверки/Арест/Иные цели/Реализация)
+         */
         @JvmField
         val typeWriteOff = addFieldSorter(ActWriteOffContract.COLUMN_TYPE_WRITE_OFF)
+
+        /**
+         * Примечание
+         */
         @JvmField
         val note = addFieldSorter(ActWriteOffContract.COLUMN_NOTE)
+
+        /**
+         * Статус акта списания
+         */
         @JvmField
         val status = addFieldSorter(ActWriteOffContract.COLUMN_STATUS)
+
+        /**
+         * Комментарий для отказа на акт списания со склада
+         */
         @JvmField
         val rejectComment = addFieldSorter(ActWriteOffContract.COLUMN_REJECT_COMMENT)
+
+        /**
+         * Версия протокола ЕГАИС
+         */
         @JvmField
         val version = addFieldSorter(ActWriteOffContract.COLUMN_VERSION)
 

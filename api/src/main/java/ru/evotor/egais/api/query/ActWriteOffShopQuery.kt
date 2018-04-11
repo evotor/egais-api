@@ -8,48 +8,124 @@ import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
 
+/**
+ * Класс для формирования запроса на получение актов списания из магазина
+ */
 class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShopQuery.SortOrder, ActWriteOffShop>(ActWriteOffShopContract.URI) {
 
+    /**
+     * Уникальный идентификатор акта списания из магазина
+     */
     @JvmField
     val uuid = addFieldFilter<UUID>(ActWriteOffShopContract.COLUMN_UUID)
+
+    /**
+     * Отправитель акта списания из магазина
+     */
     @JvmField
     val docOwner = addFieldFilter<String>(ActWriteOffShopContract.COLUMN_OWNER)
+
+    /**
+     * Идентификатор акта списания из магазина (клиентский, к заполнению необязательный)
+     */
     @JvmField
     val identity = addFieldFilter<String?>(ActWriteOffShopContract.COLUMN_IDENTITY)
+
+    /**
+     * Номер документа
+     */
     @JvmField
     val number = addFieldFilter<String?>(ActWriteOffShopContract.COLUMN_NUMBER)
+
+    /**
+     * Дата составления
+     */
     @JvmField
     val actDate = addFieldFilter<Date?>(ActWriteOffShopContract.COLUMN_ACT_DATE)
+
+    /**
+     * Причина списания (Пересортица/Недостача/Уценка/Порча/Потери/Проверки/Арест/Иные цели/Реализация)
+     */
     @JvmField
     val typeWriteOff = addFieldFilter<TypeWriteOff>(ActWriteOffShopContract.COLUMN_TYPE_WRITE_OFF)
+
+    /**
+     * Примечание
+     */
     @JvmField
     val note = addFieldFilter<String?>(ActWriteOffShopContract.COLUMN_NOTE)
+
+    /**
+     * Статус акта списания
+     */
     @JvmField
     val status = addFieldFilter<ActWriteOffStatus>(ActWriteOffShopContract.COLUMN_STATUS)
+
+    /**
+     * Комментарий для отказа на акт списания из магазина
+     */
     @JvmField
     val rejectComment = addFieldFilter<String?>(ActWriteOffShopContract.COLUMN_REJECT_COMMENT)
 
     override val currentQuery: ActWriteOffShopQuery
         get() = this
 
+    /**
+     * Класс для сортировки полей в результе запроса
+     */
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
+        /**
+         * Уникальный идентификатор акта списания из магазина
+         */
         @JvmField
         val uuid = addFieldSorter(ActWriteOffShopContract.COLUMN_UUID)
+
+        /**
+         * Отправитель акта списания из магазина
+         */
         @JvmField
         val docOwner = addFieldSorter(ActWriteOffShopContract.COLUMN_OWNER)
+
+        /**
+         * Идентификатор акта списания из магазина (клиентский, к заполнению необязательный)
+         */
         @JvmField
         val identity = addFieldSorter(ActWriteOffShopContract.COLUMN_IDENTITY)
+
+        /**
+         * Номер документа
+         */
         @JvmField
         val number = addFieldSorter(ActWriteOffShopContract.COLUMN_NUMBER)
+
+        /**
+         * Дата составления
+         */
         @JvmField
         val actDate = addFieldSorter(ActWriteOffShopContract.COLUMN_ACT_DATE)
+
+        /**
+         * Причина списания (Пересортица/Недостача/Уценка/Порча/Потери/Проверки/Арест/Иные цели/Реализация)
+         */
         @JvmField
         val typeWriteOff = addFieldSorter(ActWriteOffShopContract.COLUMN_TYPE_WRITE_OFF)
+
+        /**
+         * Примечание
+         */
         @JvmField
         val note = addFieldSorter(ActWriteOffShopContract.COLUMN_NOTE)
+
+        /**
+         * Статус акта списания
+         */
         @JvmField
         val status = addFieldSorter(ActWriteOffShopContract.COLUMN_STATUS)
+
+        /**
+         * Комментарий для отказа на акт списания из магазина
+         */
         @JvmField
         val rejectComment = addFieldSorter(ActWriteOffShopContract.COLUMN_REJECT_COMMENT)
 

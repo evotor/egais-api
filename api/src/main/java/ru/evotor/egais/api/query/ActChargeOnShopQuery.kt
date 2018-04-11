@@ -8,52 +8,138 @@ import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
 
+/**
+ * Класс для формирования запроса на получение актов поставки
+ */
 class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShopQuery.SortOrder, ActChargeOnShop>(ActChargeOnShopContract.URI) {
 
+    /**
+     * Уникальный идентификатор
+     */
     @JvmField
     val uuid = addFieldFilter<UUID>(ActChargeOnShopContract.COLUMN_UUID)
+
+    /**
+     * Кто подает документы
+     */
     @JvmField
     val docOwner = addFieldFilter<String>(ActChargeOnShopContract.COLUMN_OWNER)
+
+    /**
+     * ID акта (клиентсикй)
+     */
     @JvmField
     val identity = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_IDENTITY)
+
+    /**
+     * Номер документа
+     */
     @JvmField
     val number = addFieldFilter<String>(ActChargeOnShopContract.COLUMN_NUMBER)
+
+    /**
+     * Дата постановски на баланс
+     */
     @JvmField
     val actDate = addFieldFilter<Date>(ActChargeOnShopContract.COLUMN_ACT_DATE)
+
+    /**
+     * Причина постановки на баланс (Пересортица/Излишки/Продукция, полученная до 01.01.2016)
+     */
     @JvmField
     val type = addFieldFilter<Type>(ActChargeOnShopContract.COLUMN_TYPE_ACT_CHARGE_ON_SHOP)
+
+    /**
+     * Регистрационный номер акта списания по типу "Пересортица".
+     * Обязательно для заполнения для типа постановки на баланс "Пересортица".
+     */
     @JvmField
     val actWriteOff = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_ACT_WRITE_OFF)
+
+    /**
+     * Примечание
+     */
     @JvmField
     val note = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_NOTE)
+
+    /**
+     * Статус документа
+     */
     @JvmField
     val status = addFieldFilter<Status>(ActChargeOnShopContract.COLUMN_STATUS)
+
+    /**
+     * Комментарий при отказе
+     */
     @JvmField
     val rejectComment = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
 
     override val currentQuery: ActChargeOnShopQuery
         get() = this
 
+    /**
+     * Класс для сортировки полей в результе запроса
+     */
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
+        /**
+         * Уникальный идентификатор
+         */
         @JvmField
         val uuid = addFieldSorter(ActChargeOnShopContract.COLUMN_UUID)
+
+        /**
+         * Кто подает документы
+         */
         @JvmField
         val docOwner = addFieldSorter(ActChargeOnShopContract.COLUMN_OWNER)
+
+        /**
+         * ID акта (клиентсикй)
+         */
         @JvmField
         val identity = addFieldSorter(ActChargeOnShopContract.COLUMN_IDENTITY)
+
+        /**
+         * Номер документа
+         */
         @JvmField
         val number = addFieldSorter(ActChargeOnShopContract.COLUMN_NUMBER)
+
+        /**
+         * Дата постановски на баланс
+         */
         @JvmField
         val actDate = addFieldSorter(ActChargeOnShopContract.COLUMN_ACT_DATE)
+
+        /**
+         * Причина постановки на баланс (Пересортица/Излишки/Продукция, полученная до 01.01.2016)
+         */
         @JvmField
         val type = addFieldSorter(ActChargeOnShopContract.COLUMN_TYPE_ACT_CHARGE_ON_SHOP)
+
+        /**
+         * Регистрационный номер акта списания по типу "Пересортица".
+         * Обязательно для заполнения для типа постановки на баланс "Пересортица".
+         */
         @JvmField
         val actWriteOff = addFieldSorter(ActChargeOnShopContract.COLUMN_ACT_WRITE_OFF)
+
+        /**
+         * Примечание
+         */
         @JvmField
         val note = addFieldSorter(ActChargeOnShopContract.COLUMN_NOTE)
+
+        /**
+         * Статус документа
+         */
         @JvmField
         val status = addFieldSorter(ActChargeOnShopContract.COLUMN_STATUS)
+
+        /**
+         * Комментарий при отказе
+         */
         @JvmField
         val rejectComment = addFieldSorter(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
 
