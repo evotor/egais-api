@@ -16,14 +16,14 @@ import java.util.*
  * @property status Статус акта списания
  * @property rejectComment Комментарий для отказа на акт списания из зала
  */
-class ActWriteOffShop(
-        @JvmField val uuid: UUID,
-        @JvmField val docOwner: String,
-        @JvmField val identity: String?,
-        @JvmField val number: String?,
-        @JvmField val actDate: Date?,
-        @JvmField val typeWriteOff: TypeWriteOff,
-        @JvmField val note: String?,
-        @JvmField var status: ActWriteOffStatus,
-        @JvmField val rejectComment: String?
+data class ActWriteOffShop(
+        val uuid: UUID,
+        val docOwner: String,
+        val identity: String?,
+        val number: String?,
+        val actDate: Date?,
+        val typeWriteOff: TypeWriteOff,
+        val note: String?,
+        var status: ActWriteOffStatus,
+        val rejectComment: String?
 ) : EgaisDocument()
