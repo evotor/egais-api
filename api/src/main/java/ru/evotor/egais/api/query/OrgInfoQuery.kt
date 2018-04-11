@@ -14,9 +14,13 @@ class OrgInfoQuery : FilterBuilder<OrgInfoQuery, OrgInfoQuery.SortOrder, OrgInfo
     @JvmField
     val clientRegId = addFieldFilter<String>(OrgInfoContract.COLUMN_CLIENT_REG_ID)
     @JvmField
-    val fullName = addFieldFilter<String>(OrgInfoContract.COLUMN_FULL_NAME)
+    val fullName = addFieldFilter<String, String>(OrgInfoContract.COLUMN_FULL_NAME_UPPER_CASE, {
+        it.toUpperCase()
+    })
     @JvmField
-    val shortName = addFieldFilter<String?>(OrgInfoContract.COLUMN_SHORT_NAME)
+    val shortName = addFieldFilter<String?, String?>(OrgInfoContract.COLUMN_SHORT_NAME_UPPER_CASE, {
+        it?.toUpperCase()
+    })
     @JvmField
     val inn = addFieldFilter<String?>(OrgInfoContract.COLUMN_INN)
     @JvmField

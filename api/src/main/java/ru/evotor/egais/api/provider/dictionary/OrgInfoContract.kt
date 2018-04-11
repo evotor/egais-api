@@ -22,9 +22,19 @@ internal object OrgInfoContract {
     const val COLUMN_FULL_NAME = "FULL_NAME"
 
     /**
+     * Наименование организации полное (в верхнем регистре)
+     */
+    const val COLUMN_FULL_NAME_UPPER_CASE = "FULL_NAME_UPPER_CASE"
+
+    /**
      * Наименование организации краткое
      */
     const val COLUMN_SHORT_NAME = "SHORT_NAME"
+
+    /**
+     * Наименование организации краткое (в верхнем регистре)
+     */
+    const val COLUMN_SHORT_NAME_UPPER_CASE = "SHORT_NAME_UPPER_CASE"
 
     /**
      * ИНН
