@@ -20,16 +20,16 @@ import java.util.*
  * @property version Версия протокола ЕГАИС
  */
 data class WayBillAct(
-        @JvmField val uuid: UUID,
-        @JvmField val docOwner: String,
-        @JvmField var identity: String?,
-        @JvmField var acceptType: AcceptType?,
-        @JvmField var number: String?,
-        @JvmField var creationDate: Date,
-        @JvmField var wbRegId: String?,
-        @JvmField var note: String?,
-        @JvmField var type: Type?,
-        @JvmField var version: Version?,
-        @JvmField var status: Status,
-        @JvmField var rejectComment: String?
+        val uuid: UUID,
+        val docOwner: String,
+        var identity: String?,
+        var acceptType: AcceptType?,
+        var number: String?,
+        var creationDate: Date,
+        var wbRegId: String?,
+        var note: String?,
+        var type: Type?,
+        var version: Version?,
+        var status: Status,
+        var rejectComment: String?
 ) : EgaisDocument()

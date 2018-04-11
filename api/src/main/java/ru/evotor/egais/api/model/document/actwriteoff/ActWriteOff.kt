@@ -19,14 +19,14 @@ import java.util.*
  * @property version Версия протокола ЕГАИС
  */
 data class ActWriteOff(
-        @JvmField val uuid: UUID,
-        @JvmField val docOwner: String,
-        @JvmField val identity: String?,
-        @JvmField val number: String?,
-        @JvmField val actDate: Date,
-        @JvmField val typeWriteOff: TypeWriteOff?,
-        @JvmField var note: String?,
-        @JvmField var status: ActWriteOffStatus,
-        @JvmField val rejectComment: String?,
-        @JvmField val version: Version
+        val uuid: UUID,
+        val docOwner: String,
+        val identity: String?,
+        val number: String?,
+        val actDate: Date,
+        val typeWriteOff: TypeWriteOff?,
+        var note: String?,
+        var status: ActWriteOffStatus,
+        val rejectComment: String?,
+        val version: Version
 ) : EgaisDocument()
