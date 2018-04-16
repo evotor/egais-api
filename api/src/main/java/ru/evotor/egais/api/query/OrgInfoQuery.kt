@@ -25,16 +25,20 @@ class OrgInfoQuery : FilterBuilder<OrgInfoQuery, OrgInfoQuery.SortOrder, OrgInfo
     val clientRegId = addFieldFilter<String>(OrgInfoContract.COLUMN_CLIENT_REG_ID)
 
     /**
-     * Наименование организации полное
+     * Наименование организации полное (в верхнем регистре)
      */
     @JvmField
-    val fullName = addFieldFilter<String>(OrgInfoContract.COLUMN_FULL_NAME)
+    val fullName = addFieldFilter<String, String>(OrgInfoContract.COLUMN_FULL_NAME_UPPER_CASE, {
+        it.toUpperCase()
+    }
 
     /**
-     * Наименование организации краткое
+     * Наименование организации краткое (в верхнем регистре)
      */
     @JvmField
-    val shortName = addFieldFilter<String?>(OrgInfoContract.COLUMN_SHORT_NAME)
+    val shortName = addFieldFilter<String?, String?>(OrgInfoContract.COLUMN_SHORT_NAME_UPPER_CASE, {
+        it?.toUpperCase()
+    })
 
     /**
      * ИНН
