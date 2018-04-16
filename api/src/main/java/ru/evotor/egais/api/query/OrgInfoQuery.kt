@@ -30,7 +30,7 @@ class OrgInfoQuery : FilterBuilder<OrgInfoQuery, OrgInfoQuery.SortOrder, OrgInfo
     @JvmField
     val fullName = addFieldFilter<String, String>(OrgInfoContract.COLUMN_FULL_NAME_UPPER_CASE, {
         it.toUpperCase()
-    }
+    })
 
     /**
      * Наименование организации краткое (в верхнем регистре)
