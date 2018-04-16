@@ -19,15 +19,15 @@ import java.util.*
  * @property rejectComment Комментарий при отказе
  */
 data class ActChargeOnShop(
-        @JvmField val uuid: UUID,
-        @JvmField val docOwner: String,
-        @JvmField val identity: String?,
-        @JvmField val number: String,
-        @JvmField val actDate: Date,
-        @JvmField val type: Type,
-        @JvmField val actWriteOff: String?,
-        @JvmField val note: String?,
-        @JvmField val status: Status,
-        @JvmField val rejectComment: String?
+        val uuid: UUID,
+        val docOwner: String,
+        val identity: String?,
+        val number: String,
+        val actDate: Date,
+        val type: Type,
+        val actWriteOff: String?,
+        val note: String?,
+        val status: Status,
+        val rejectComment: String?
 ) : EgaisDocument() {
 }

@@ -7,56 +7,140 @@ import ru.evotor.egais.api.provider.dictionary.OrgInfoContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 
+/**
+ * Класс для формирования запроса на получение информации об организациях
+ */
 class OrgInfoQuery : FilterBuilder<OrgInfoQuery, OrgInfoQuery.SortOrder, OrgInfo>(OrgInfoContract.URI) {
 
+    /**
+     * Тип организации (Юридическое лицо/Индивидуальный предприниматель/Иностранец (исключая таможенный союз)/Таможенный союз)
+     */
     @JvmField
     val type = addFieldFilter<OrgInfo.Type?>(OrgInfoContract.COLUMN_TYPE)
+
+    /**
+     * Код организации
+     */
     @JvmField
     val clientRegId = addFieldFilter<String>(OrgInfoContract.COLUMN_CLIENT_REG_ID)
+
+    /**
+     * Наименование организации полное (в верхнем регистре)
+     */
     @JvmField
     val fullName = addFieldFilter<String, String>(OrgInfoContract.COLUMN_FULL_NAME_UPPER_CASE, {
         it.toUpperCase()
-    })
+    }
+
+    /**
+     * Наименование организации краткое (в верхнем регистре)
+     */
     @JvmField
     val shortName = addFieldFilter<String?, String?>(OrgInfoContract.COLUMN_SHORT_NAME_UPPER_CASE, {
         it?.toUpperCase()
     })
+
+    /**
+     * ИНН
+     */
     @JvmField
     val inn = addFieldFilter<String?>(OrgInfoContract.COLUMN_INN)
+
+    /**
+     * КПП
+     */
     @JvmField
     val kpp = addFieldFilter<String?>(OrgInfoContract.COLUMN_KPP)
+
+    /**
+     * УНП для респ.Беларусь
+     */
     @JvmField
     val unp = addFieldFilter<String?>(OrgInfoContract.COLUMN_UNP)
+
+    /**
+     * РНН(БИН/ИИН) для респ.Казахстан
+     */
     @JvmField
     val rnn = addFieldFilter<String?>(OrgInfoContract.COLUMN_RNN)
+
+    /**
+     * Статус: действующая или удалена
+     */
     @JvmField
     val state = addFieldFilter<String?>(OrgInfoContract.COLUMN_STATE)
+
+    /**
+     * Версия протокола для накладных: 1, 2 или 3
+     */
     @JvmField
     val versionWB = addFieldFilter<WBTypeUsed?>(OrgInfoContract.COLUMN_VERSION_WB)
 
     override val currentQuery: OrgInfoQuery
         get() = this
 
+    /**
+     * Класс для сортировки полей в результе запроса
+     */
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
+        /**
+         * Тип организации (Юридическое лицо/Индивидуальный предприниматель/Иностранец (исключая таможенный союз)/Таможенный союз)
+         */
         @JvmField
         val type = addFieldSorter(OrgInfoContract.COLUMN_TYPE)
+
+        /**
+         * Код организации
+         */
         @JvmField
         val clientRegId = addFieldSorter(OrgInfoContract.COLUMN_CLIENT_REG_ID)
+
+        /**
+         * Наименование организации полное
+         */
         @JvmField
         val fullName = addFieldSorter(OrgInfoContract.COLUMN_FULL_NAME)
+
+        /**
+         * Наименование организации краткое
+         */
         @JvmField
         val shortName = addFieldSorter(OrgInfoContract.COLUMN_SHORT_NAME)
+
+        /**
+         * ИНН
+         */
         @JvmField
         val inn = addFieldSorter(OrgInfoContract.COLUMN_INN)
+
+        /**
+         * КПП
+         */
         @JvmField
         val kpp = addFieldSorter(OrgInfoContract.COLUMN_KPP)
+
+        /**
+         * УНП для респ.Беларусь
+         */
         @JvmField
         val unp = addFieldSorter(OrgInfoContract.COLUMN_UNP)
+
+        /**
+         * РНН(БИН/ИИН) для респ.Казахстан
+         */
         @JvmField
         val rnn = addFieldSorter(OrgInfoContract.COLUMN_RNN)
+
+        /**
+         * Статус: действующая или удалена
+         */
         @JvmField
         val state = addFieldSorter(OrgInfoContract.COLUMN_STATE)
+
+        /**
+         * Версия протокола для накладных: 1, 2 или 3
+         */
         @JvmField
         val versionWB = addFieldSorter(OrgInfoContract.COLUMN_VERSION_WB)
 

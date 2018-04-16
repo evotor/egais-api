@@ -33,7 +33,7 @@ internal object WayBillContract {
     const val COLUMN_TYPE = "TYPE"
 
     /**
-     * тип упаковки.
+     * Тип упаковки.
      */
     const val COLUMN_UNIT_TYPE = "UNIT_TYPE"
 
@@ -83,12 +83,12 @@ internal object WayBillContract {
     const val COLUMN_STATUS = "STATUS"
 
     /**
-     * Текущий статус накладной.
+     * Резолюция накладной.
      */
     const val COLUMN_RESOLUTION = "RESOLUTION"
 
     /**
-     * Текущий статус накладной.
+     * uuid справки 2 для накладной.
      */
     const val COLUMN_TTN_INFORM_F2_REG_UUID = "TTN_INFORM_F2_REG_UUID"
 

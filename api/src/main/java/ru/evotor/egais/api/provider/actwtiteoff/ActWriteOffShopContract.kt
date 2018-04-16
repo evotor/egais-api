@@ -56,7 +56,7 @@ internal object ActWriteOffShopContract {
     const val COLUMN_STATUS = "STATUS"
 
     /**
-     * Комментарий для отказа на акт списания из зала
+     * Комментарий для отказа на акт списания из магазина
      */
     const val COLUMN_REJECT_COMMENT = "REJECT_COMMENT"
 

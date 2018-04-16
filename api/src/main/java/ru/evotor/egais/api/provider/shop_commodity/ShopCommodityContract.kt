@@ -1,4 +1,4 @@
-package ru.evotor.egais.api.provider.waybill
+package ru.evotor.egais.api.provider.shop_commodity
 
 import android.net.Uri
 import ru.evotor.egais.api.provider.MainContract
