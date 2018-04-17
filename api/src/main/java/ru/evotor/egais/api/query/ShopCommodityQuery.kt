@@ -1,6 +1,6 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.model.document.shop_commodity.ShopCommodity
+import ru.evotor.egais.api.model.dictionary.ShopCommodity
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.egais.api.provider.shop_commodity.ShopCommodityContract
 import ru.evotor.query.Cursor
@@ -55,10 +55,9 @@ class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.
 
     private fun createShopCommodity(cursor: android.database.Cursor): ShopCommodity {
         val columnQuantity = cursor.getColumnIndex(ShopCommodityContract.COLUMN_QUANTITY)
-        val columnProductInfoAlcoCode = cursor.getColumnIndex(ShopCommodityContract.COLUMN_PRODUCT_INFO_ALC_CODE)
         return ShopCommodity(
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
-                cursor.getString(columnProductInfoAlcoCode)
+                cursor.createProductInfo()
         )
     }
 }

@@ -17,9 +17,19 @@ internal object ProductInfoContract {
     const val COLUMN_FULL_NAME = "FULL_NAME"
 
     /**
-     * Наименование продукции краткое.
+     * Наименование продукции полное (в верхнем регистре)
+     */
+    const val COLUMN_FULL_NAME_UPPER_CASE = "FULL_NAME_UPPER_CASE"
+
+    /**
+     * Наименование продукции краткое
      */
     const val COLUMN_SHORT_NAME = "SHORT_NAME"
+
+    /**
+     * Наименование продукции краткое (в верхнем регистре)
+     */
+    const val COLUMN_SHORT_NAME_UPPER_CASE = "SHORT_NAME_UPPER_CASE"
 
     /**
      * Код продукции согласно ЕГАИС.
