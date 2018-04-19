@@ -48,13 +48,19 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
      * Количество.
      */
     @JvmField
-    val quantity = addFieldFilter<BigDecimal, Long>(WayBillPositionContract.COLUMN_QUANTITY, {QuantityBigDecimalConverter.toLong(it)})
+    val quantity = addFieldFilter<BigDecimal, Long>(
+            WayBillPositionContract.COLUMN_QUANTITY.wrapCastToInteger(),
+            {QuantityBigDecimalConverter.toLong(it)}
+    )
 
     /**
      * Цена за единицу товара.
      */
     @JvmField
-    val price = addFieldFilter<BigDecimal, Long>(WayBillPositionContract.COLUMN_PRICE, {MoneyBigDecimalConverter.toLong(it)})
+    val price = addFieldFilter<BigDecimal, Long>(
+            WayBillPositionContract.COLUMN_PRICE.wrapCastToInteger(),
+            {MoneyBigDecimalConverter.toLong(it)}
+    )
 
     /**
      * Номер партии.

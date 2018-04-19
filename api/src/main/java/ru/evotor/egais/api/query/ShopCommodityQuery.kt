@@ -17,7 +17,10 @@ class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.
      * Количество
      */
     @JvmField
-    val quantity = addFieldFilter<BigDecimal, Long>(ShopCommodityContract.COLUMN_QUANTITY, {QuantityBigDecimalConverter.toLong(it)})
+    val quantity = addFieldFilter<BigDecimal, Long>(
+            ShopCommodityContract.COLUMN_QUANTITY.wrapCastToInteger(),
+            {QuantityBigDecimalConverter.toLong(it)}
+    )
 
     /**
      * Информация о продукции

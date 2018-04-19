@@ -36,7 +36,10 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
      * Количество
      */
     @JvmField
-    val quantity = addFieldFilter<BigDecimal, Long>(ActWriteOffPositionContract.COLUMN_QUANTITY, {QuantityBigDecimalConverter.toLong(it)})
+    val quantity = addFieldFilter<BigDecimal, Long>(
+            ActWriteOffPositionContract.COLUMN_QUANTITY.wrapCastToInteger(),
+            {QuantityBigDecimalConverter.toLong(it)}
+    )
 
     /**
      * Регистрационный номер раздела справки 2

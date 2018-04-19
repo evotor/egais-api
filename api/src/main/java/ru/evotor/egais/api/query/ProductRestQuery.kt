@@ -13,19 +13,28 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
      * Количество продукции на складе
      */
     @JvmField
-    val stockQuantity = addFieldFilter<BigDecimal, Long>(ProductRestContract.COLUMN_STOCK_QUANTITY, { QuantityBigDecimalConverter.toLong(it) })
+    val stockQuantity = addFieldFilter<BigDecimal, Long>(
+            ProductRestContract.COLUMN_STOCK_QUANTITY.wrapCastToInteger(),
+            { QuantityBigDecimalConverter.toLong(it) }
+    )
 
     /**
      * Количество продукции в торговом зале
      */
     @JvmField
-    val shopQuantity = addFieldFilter<BigDecimal, Long>(ProductRestContract.COLUMN_SHOP_QUANTITY, { QuantityBigDecimalConverter.toLong(it) })
+    val shopQuantity = addFieldFilter<BigDecimal, Long>(
+            ProductRestContract.COLUMN_SHOP_QUANTITY.wrapCastToInteger(),
+            { QuantityBigDecimalConverter.toLong(it) }
+    )
 
     /**
      * Общее количество продукции в торговом зале
      */
     @JvmField
-    val totalQuantity = addFieldFilter<BigDecimal, Long>(ProductRestContract.COLUMN_TOTAL_QUANTITY, { QuantityBigDecimalConverter.toLong(it) })
+    val totalQuantity = addFieldFilter<BigDecimal, Long>(
+            ProductRestContract.COLUMN_TOTAL_QUANTITY.wrapCastToInteger(),
+            { QuantityBigDecimalConverter.toLong(it) }
+    )
 
     /**
      * Информация о продукции
