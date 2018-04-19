@@ -31,10 +31,10 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
     val quantity = addFieldFilter<BigDecimal, Long>(StockCommodityContract.COLUMN_QUANTITY, { QuantityBigDecimalConverter.toLong(it) })
 
     /**
-     * Алкокод информации о продукции
+     * Информация о продукции
      */
     @JvmField
-    val productInfoAlcCode = addFieldFilter<String?>(StockCommodityContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<StockCommodityQuery, StockCommodityQuery.SortOrder, StockCommodity>())
 
     override val currentQuery: StockCommodityQuery
         get() = this
@@ -63,10 +63,10 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
         val quantity = addFieldSorter(StockCommodityContract.COLUMN_QUANTITY)
 
         /**
-         * Алкокод информации о продукции
+         * Информация о продукции
          */
         @JvmField
-        val productInfoAlcCode = addFieldSorter(StockCommodityContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<StockCommodityQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this
