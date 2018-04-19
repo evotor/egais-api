@@ -17,7 +17,7 @@ internal object ProductRestContract {
     const val COLUMN_SHOP_QUANTITY = "SHOP_QUANTITY"
 
     /**
-     * Общее количество продукции в торговом зале
+     * Общее количество продукции
      */
     const val COLUMN_TOTAL_QUANTITY = "TOTAL_QUANTITY"
 }
