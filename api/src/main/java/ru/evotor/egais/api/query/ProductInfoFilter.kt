@@ -1,16 +1,10 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.model.dictionary.ProductInfo
 import ru.evotor.egais.api.model.dictionary.ProductType
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
-import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 
-/**
- * Класс для формирования запроса на получение информации о товарах
- */
-class ProductInfoQuery : FilterBuilder<ProductInfoQuery, ProductInfoQuery.SortOrder, ProductInfo>(ProductInfoContract.URI) {
-
+class ProductInfoFilter<Q, S : FilterBuilder.SortOrder<S>, R> : FilterBuilder.Inner<Q, S, R>() {
     /**
      * Тип продукции (АП | ССП | ССНП | Спирт).
      */
@@ -65,13 +59,10 @@ class ProductInfoQuery : FilterBuilder<ProductInfoQuery, ProductInfoQuery.SortOr
     @JvmField
     val productVCode = addFieldFilter<String?>(ProductInfoContract.COLUMN_PRODUCT_V_CODE)
 
-    override val currentQuery: ProductInfoQuery
-        get() = this
-
     /**
      * Класс для сортировки полей в результе запроса
      */
-    class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
+    class SortOrder<S : FilterBuilder.SortOrder<S>> : FilterBuilder.Inner.SortOrder<S>() {
 
         /**
          * Тип продукции (АП | ССП | ССНП | Спирт).
@@ -127,12 +118,5 @@ class ProductInfoQuery : FilterBuilder<ProductInfoQuery, ProductInfoQuery.SortOr
         @JvmField
         val productVCode = addFieldSorter(ProductInfoContract.COLUMN_PRODUCT_V_CODE)
 
-        override val currentSortOrder: SortOrder
-            get() = this
-
-    }
-
-    override fun getValue(cursor: Cursor<ProductInfo>): ProductInfo {
-        return cursor.createProductInfo()
     }
 }

@@ -1,6 +1,6 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.model.document.stock_commodity.StockCommodity
+import ru.evotor.egais.api.model.dictionary.StockCommodity
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.egais.api.provider.stock_commodity.StockCommodityContract
 import ru.evotor.query.Cursor
@@ -28,13 +28,16 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
      * Количество
      */
     @JvmField
-    val quantity = addFieldFilter<BigDecimal, Long>(StockCommodityContract.COLUMN_QUANTITY, { QuantityBigDecimalConverter.toLong(it) })
+    val quantity = addFieldFilter<BigDecimal, Long>(
+            StockCommodityContract.COLUMN_QUANTITY.wrapCastToInteger(),
+            { QuantityBigDecimalConverter.toLong(it) }
+    )
 
     /**
-     * Алкокод информации о продукции
+     * Информация о продукции
      */
     @JvmField
-    val productInfoAlcCode = addFieldFilter<String?>(StockCommodityContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<StockCommodityQuery, StockCommodityQuery.SortOrder, StockCommodity>())
 
     override val currentQuery: StockCommodityQuery
         get() = this
@@ -63,10 +66,10 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
         val quantity = addFieldSorter(StockCommodityContract.COLUMN_QUANTITY)
 
         /**
-         * Алкокод информации о продукции
+         * Информация о продукции
          */
         @JvmField
-        val productInfoAlcCode = addFieldSorter(StockCommodityContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<StockCommodityQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this
@@ -81,13 +84,12 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
         val columnInformF1RegId = cursor.getColumnIndex(StockCommodityContract.COLUMN_INFORM_F1_REG_ID)
         val columnInformF2RegId = cursor.getColumnIndex(StockCommodityContract.COLUMN_INFORM_F2_REG_ID)
         val columnQuantity = cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY)
-        val columnProductInfoAlcoCode = cursor.getColumnIndex(StockCommodityContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
         return StockCommodity(
                 cursor.getString(columnInformF1RegId),
                 cursor.getString(columnInformF2RegId),
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
-                cursor.getString(columnProductInfoAlcoCode)
+                cursor.createProductInfo()
         )
     }
 }

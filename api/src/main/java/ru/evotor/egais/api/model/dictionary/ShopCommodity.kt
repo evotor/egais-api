@@ -1,16 +1,15 @@
-package ru.evotor.egais.api.model.document.shop_commodity
+package ru.evotor.egais.api.model.dictionary
 
 import ru.evotor.egais.api.model.document.EgaisDocument
 import java.math.BigDecimal
-import java.util.*
 
 /**
  *  Позиция на остатках в магазине
  *
  * @property quantity Количество
- * @property productInfoAlcCode Алкокод информации о продукции
+ * @property productInfo Информация о продукции
  */
 data class ShopCommodity(
         @JvmField var quantity: BigDecimal,
-        @JvmField var productInfoAlcCode: String
+        @JvmField var productInfo: ProductInfo
 ) : EgaisDocument()

@@ -35,7 +35,10 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
      * Количество
      */
     @JvmField
-    val quantity = addFieldFilter<BigDecimal, Long>(ActChargeOnShopPositionContract.COLUMN_QUANTITY, {QuantityBigDecimalConverter.toLong(it)})
+    val quantity = addFieldFilter<BigDecimal, Long>(
+            ActChargeOnShopPositionContract.COLUMN_QUANTITY.wrapCastToInteger(),
+            { QuantityBigDecimalConverter.toLong(it) }
+    )
 
     /**
      * Алкокод информации о продукции

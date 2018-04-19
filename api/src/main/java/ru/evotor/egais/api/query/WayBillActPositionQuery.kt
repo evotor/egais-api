@@ -41,7 +41,10 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
      * Количество
      */
     @JvmField
-    val realQuantity = addFieldFilter<BigDecimal, Long>(WayBillActPositionContract.COLUMN_REAL_QUANTITY, {QuantityBigDecimalConverter.toLong(it)})
+    val realQuantity = addFieldFilter<BigDecimal, Long>(
+            WayBillActPositionContract.COLUMN_REAL_QUANTITY.wrapCastToInteger(),
+            {QuantityBigDecimalConverter.toLong(it)}
+    )
 
     override val currentQuery: WayBillActPositionQuery
         get() = this
