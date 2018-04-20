@@ -9,7 +9,7 @@ import java.math.BigDecimal
  * @property shopQuantity Количество продукции в торговом зале
  */
 data class ProductRest(
-        @JvmField val productInfo: ProductInfo,
-        @JvmField val stockQuantity: BigDecimal,
-        @JvmField val shopQuantity: BigDecimal
+        val productInfo: ProductInfo,
+        val stockQuantity: BigDecimal,
+        val shopQuantity: BigDecimal
 )

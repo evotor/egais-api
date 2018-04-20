@@ -24,6 +24,9 @@ android {
     lintOptions {
         abortOnError false
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 repositories {
@@ -34,6 +37,10 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile 'org.apache.commons:commons-lang3:3.6'
     compile 'com.github.evotor:query-api:faf65fbd88'
+
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:2.16.0"
+    testImplementation "org.robolectric:robolectric:3.7.1"
 }
 
 task sourceJar(type: Jar) {
