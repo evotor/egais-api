@@ -1,5 +1,6 @@
 package ru.evotor.egais.api.model.document.waybill
 
+import ru.evotor.egais.api.model.dictionary.ProductInfo
 import java.math.BigDecimal
 import java.util.*
 
@@ -9,7 +10,7 @@ import java.util.*
  * @property uuid Уникальный идентификатор
  * @property wayBillUuid Уникальный идентификатор накладной
  * @property productIdentity Информация о продукции
- * @property productAlcoCode Информация о продукции
+ * @property productInfo Информация о продукции
  * @property packId Идентификатор упаковки
  * @property quantity Количество
  * @property price Цена за единицу товара
@@ -22,7 +23,7 @@ data class WayBillPosition(
         val uuid: UUID,
         val wayBillUuid: UUID,
         val productIdentity: String?,
-        val productAlcoCode: String,
+        val productInfo: ProductInfo,
         val packId: String?,
         val quantity: BigDecimal,
         val price: BigDecimal,
