@@ -1,5 +1,6 @@
 package ru.evotor.egais.api.query
 
+import ru.evotor.egais.api.model.Version
 import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.waybill.*
 import ru.evotor.egais.api.provider.UtmDocumentContract
@@ -121,6 +122,12 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
     @JvmField
     val direction = addFieldFilter<Direction>(UtmDocumentContract.COLUMN_DIRECTION)
 
+    /**
+     * Версия протокола ЕГАИС, по которому отправлена накладная
+     */
+    @JvmField
+    val version = addFieldFilter<Version>(WayBillContract.COLUMN_VERSION)
+
     override val currentQuery: WayBillQuery
         get() = this
 
@@ -237,6 +244,12 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         @JvmField
         val direction = addFieldSorter(UtmDocumentContract.COLUMN_DIRECTION)
 
+        /**
+         * Версия протокола ЕГАИС, по которому отправлена накладная
+         */
+        @JvmField
+        val version = addFieldSorter(WayBillContract.COLUMN_VERSION)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -275,6 +288,7 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val columnTtnInformF2RegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
         val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
         val columnDirection = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_DIRECTION)
+        val columnVersion = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_VERSION)
 
         val transportType = cursor.getString(columnTransportType)
         val transportCompany = cursor.getString(columnTransportCompany)
@@ -332,7 +346,8 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
                 resolution = Resolution.valueOf(cursor.getString(columnResolution)),
                 ttnInformF2RegUuid = cursor.getString(columnTtnInformF2RegId)?.let { UUID.fromString(it) },
                 wbRegId = cursor.getString(columnWBRegId),
-                direction = Direction.valueOf(cursor.getString(columnDirection))
+                direction = Direction.valueOf(cursor.getString(columnDirection)),
+                version = Version.valueOf(cursor.getString(columnVersion))
         )
     }
 }

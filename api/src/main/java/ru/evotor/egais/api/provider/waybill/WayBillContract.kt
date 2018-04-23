@@ -93,6 +93,11 @@ internal object WayBillContract {
     const val COLUMN_TTN_INFORM_F2_REG_UUID = "TTN_INFORM_F2_REG_UUID"
 
     /**
+     * Версия протокола ЕГАИС, по которому отправлена накладная
+     */
+    const val COLUMN_VERSION = "VERSION"
+
+    /**
      * Транспорт. Тип перевозки.
      */
     const val COLUMN_TRANSPORT_TYPE = "TRANSPORT_TYPE"
