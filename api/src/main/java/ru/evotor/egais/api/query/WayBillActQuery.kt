@@ -1,7 +1,7 @@
 package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.Version
-import ru.evotor.egais.api.model.document.waybill.Status
+import ru.evotor.egais.api.model.document.waybillact.Status
 import ru.evotor.egais.api.model.document.waybillact.AcceptType
 import ru.evotor.egais.api.model.document.waybillact.Type
 import ru.evotor.egais.api.model.document.waybillact.WayBillAct
