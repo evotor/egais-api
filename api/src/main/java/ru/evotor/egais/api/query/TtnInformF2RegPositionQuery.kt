@@ -6,6 +6,9 @@ import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
 
+/**
+ * Класс для формирования запросов на полученме позиций справок 2
+ */
 class TtnInformF2RegPositionQuery : FilterBuilder<TtnInformF2RegPositionQuery, TtnInformF2RegPositionQuery.SortOrder, TtnInformF2RegPosition>(TtnInformF2RegPositionContract.URI) {
 
     /**
