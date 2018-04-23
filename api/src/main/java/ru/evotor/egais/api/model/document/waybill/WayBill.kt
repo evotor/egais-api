@@ -1,5 +1,6 @@
 package ru.evotor.egais.api.model.document.waybill
 
+import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.EgaisDocument
 import java.util.*
 
@@ -24,6 +25,7 @@ import java.util.*
  *  @property resolution резолюция по накладной
  *  @property ttnInformF2RegUuid uuid формы 2 для накладной
  *  @property wbRegId ИД накладной в системе (присвоенный)
+ *  @property direction Направление документа в представлени УТМ (входящий/исходящий)
  */
 data class WayBill(
         val uuid: UUID,
@@ -43,5 +45,6 @@ data class WayBill(
         val status: Status,
         val resolution: Resolution,
         val ttnInformF2RegUuid: UUID?,
-        val wbRegId: String?
+        val wbRegId: String?,
+        val direction: Direction
 ) : EgaisDocument()
