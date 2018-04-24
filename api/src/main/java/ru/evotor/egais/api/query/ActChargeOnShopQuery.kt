@@ -74,6 +74,12 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
     @JvmField
     val rejectComment = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
 
+    /**
+     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+     */
+    @JvmField
+    val replyId = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_REPLY_ID)
+
     override val currentQuery: ActChargeOnShopQuery
         get() = this
 
@@ -143,6 +149,12 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
         @JvmField
         val rejectComment = addFieldSorter(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
 
+        /**
+         * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+         */
+        @JvmField
+        val replyId = addFieldSorter(ActChargeOnShopContract.COLUMN_REPLY_ID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -163,6 +175,7 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
         val columnIndexNote = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_NOTE)
         val columnIndexStatus = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
+        val columnIndexReplyId = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_REPLY_ID)
 
         return ActChargeOnShop(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
@@ -174,7 +187,8 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
                 cursor.getString(columnIndexActWriteOff),
                 cursor.getString(columnIndexNote),
                 Status.valueOf(cursor.getString(columnIndexStatus)),
-                cursor.getString(columnIndexRejectComment)
+                cursor.getString(columnIndexRejectComment),
+                cursor.getString(columnIndexReplyId)
         )
     }
 }

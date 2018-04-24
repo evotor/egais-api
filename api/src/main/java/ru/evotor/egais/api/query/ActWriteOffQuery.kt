@@ -74,6 +74,12 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
     @JvmField
     val version = addFieldFilter<Version>(ActWriteOffContract.COLUMN_VERSION)
 
+    /**
+     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+     */
+    @JvmField
+    val replyId = addFieldFilter<String?>(ActWriteOffContract.COLUMN_REPLY_ID)
+
     override val currentQuery: ActWriteOffQuery
         get() = this
 
@@ -142,6 +148,12 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
         @JvmField
         val version = addFieldSorter(ActWriteOffContract.COLUMN_VERSION)
 
+        /**
+         * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+         */
+        @JvmField
+        val replyId = addFieldSorter(ActWriteOffContract.COLUMN_REPLY_ID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -162,6 +174,7 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
         val columnIndexStatus = cursor.getColumnIndex(ActWriteOffContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActWriteOffContract.COLUMN_REJECT_COMMENT)
         val columnIndexVersion = cursor.getColumnIndex(ActWriteOffContract.COLUMN_VERSION)
+        val columnIndexReplyId = cursor.getColumnIndex(ActWriteOffContract.COLUMN_REPLY_ID)
 
         return ActWriteOff(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
@@ -173,7 +186,8 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
                 cursor.getString(columnIndexNote),
                 ActWriteOffStatus.valueOf(cursor.getString(columnIndexStatus)),
                 cursor.getString(columnIndexRejectComment),
-                Version.valueOf(cursor.getString(columnIndexVersion))
+                Version.valueOf(cursor.getString(columnIndexVersion)),
+                cursor.getString(columnIndexReplyId)
         )
     }
 }

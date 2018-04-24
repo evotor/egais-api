@@ -17,6 +17,7 @@ import java.util.*
  * @property note Примечание
  * @property status Статус документа
  * @property rejectComment Комментарий при отказе
+ * @property replyId Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
  */
 data class ActChargeOnShop(
         val uuid: UUID,
@@ -28,6 +29,7 @@ data class ActChargeOnShop(
         val actWriteOff: String?,
         val note: String?,
         val status: Status,
-        val rejectComment: String?
+        val rejectComment: String?,
+        val replyId: String?
 ) : EgaisDocument() {
 }
