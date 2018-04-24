@@ -3,6 +3,7 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShop
 import ru.evotor.egais.api.model.document.actchargeonshop.Status
 import ru.evotor.egais.api.model.document.actchargeonshop.Type
+import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -78,7 +79,7 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
      * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
      */
     @JvmField
-    val replyId = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_REPLY_ID)
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
     override val currentQuery: ActChargeOnShopQuery
         get() = this
@@ -153,7 +154,7 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
          * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
          */
         @JvmField
-        val replyId = addFieldSorter(ActChargeOnShopContract.COLUMN_REPLY_ID)
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
 
         override val currentSortOrder: SortOrder
             get() = this
@@ -175,7 +176,7 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
         val columnIndexNote = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_NOTE)
         val columnIndexStatus = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
-        val columnIndexReplyId = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_REPLY_ID)
+        val columnIndexReplyId = cursor.getColumnIndex(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return ActChargeOnShop(
                 UUID.fromString(cursor.getString(columnIndexUuid)),

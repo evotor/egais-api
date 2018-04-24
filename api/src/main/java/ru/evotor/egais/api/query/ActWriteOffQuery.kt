@@ -4,6 +4,7 @@ import ru.evotor.egais.api.model.Version
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOff
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
 import ru.evotor.egais.api.model.document.actwriteoff.TypeWriteOff
+import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -78,7 +79,7 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
      * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
      */
     @JvmField
-    val replyId = addFieldFilter<String?>(ActWriteOffContract.COLUMN_REPLY_ID)
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
     override val currentQuery: ActWriteOffQuery
         get() = this
@@ -152,7 +153,7 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
          * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
          */
         @JvmField
-        val replyId = addFieldSorter(ActWriteOffContract.COLUMN_REPLY_ID)
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
 
         override val currentSortOrder: SortOrder
             get() = this
@@ -174,7 +175,7 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
         val columnIndexStatus = cursor.getColumnIndex(ActWriteOffContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActWriteOffContract.COLUMN_REJECT_COMMENT)
         val columnIndexVersion = cursor.getColumnIndex(ActWriteOffContract.COLUMN_VERSION)
-        val columnIndexReplyId = cursor.getColumnIndex(ActWriteOffContract.COLUMN_REPLY_ID)
+        val columnIndexReplyId = cursor.getColumnIndex(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return ActWriteOff(
                 UUID.fromString(cursor.getString(columnIndexUuid)),

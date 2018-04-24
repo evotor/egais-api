@@ -5,6 +5,7 @@ import ru.evotor.egais.api.model.document.waybillact.Status
 import ru.evotor.egais.api.model.document.waybillact.AcceptType
 import ru.evotor.egais.api.model.document.waybillact.Type
 import ru.evotor.egais.api.model.document.waybillact.WayBillAct
+import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.waybillact.WayBillActContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -87,6 +88,12 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
     @JvmField
     val rejectComment = addFieldFilter<String?>(WayBillActContract.COLUMN_REJECT_COMMENT)
 
+    /**
+     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+     */
+    @JvmField
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
+
     override val currentQuery: WayBillActQuery
         get() = this
 
@@ -167,6 +174,12 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
         @JvmField
         val rejectComment = addFieldSorter(WayBillActContract.COLUMN_REJECT_COMMENT)
 
+        /**
+         * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+         */
+        @JvmField
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -189,6 +202,7 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
         val columnVersion = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_VERSION)
         val columnStatus = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_STATUS)
         val columnRejectComment = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_REJECT_COMMENT)
+        val columnReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return WayBillAct(
                 UUID.fromString(cursor.getString(columnUuid)),
@@ -202,7 +216,8 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
                 Type.valueOf(cursor.getString(columnType)),
                 Version.valueOf(cursor.getString(columnVersion)),
                 ru.evotor.egais.api.model.document.waybillact.Status.valueOf(cursor.getString(columnStatus)),
-                cursor.getString(columnRejectComment)
+                cursor.getString(columnRejectComment),
+                cursor.getString(columnReplyId)
         )
     }
 }

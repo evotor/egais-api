@@ -3,6 +3,7 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffShop
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
 import ru.evotor.egais.api.model.document.actwriteoff.TypeWriteOff
+import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -71,7 +72,7 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
      * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
      */
     @JvmField
-    val replyId = addFieldFilter<String?>(ActWriteOffShopContract.COLUMN_REPLY_ID)
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
     override val currentQuery: ActWriteOffShopQuery
         get() = this
@@ -139,7 +140,7 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
          * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
          */
         @JvmField
-        val replyId = addFieldSorter(ActWriteOffShopContract.COLUMN_REPLY_ID)
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
 
         override val currentSortOrder: SortOrder
             get() = this
@@ -160,7 +161,7 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
         val columnIndexNote = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_NOTE)
         val columnIndexStatus = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_REJECT_COMMENT)
-        val columnIndexReplyId = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_REPLY_ID)
+        val columnIndexReplyId = cursor.getColumnIndex(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return ActWriteOffShop(
                 UUID.fromString(cursor.getString(columnIndexUuid)),

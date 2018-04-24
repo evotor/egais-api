@@ -64,9 +64,4 @@ internal object ActWriteOffContract {
      * Версия протокола ЕГАИС
      */
     const val COLUMN_VERSION = "VERSION"
-
-    /**
-     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
-     */
-    const val COLUMN_REPLY_ID = "REPLY_ID"
 }

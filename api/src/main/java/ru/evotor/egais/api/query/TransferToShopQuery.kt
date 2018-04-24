@@ -2,6 +2,7 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.document.transfer.TransferStatus
 import ru.evotor.egais.api.model.document.transfer.TransferToShop
+import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.transfer.TransferToShopContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -64,7 +65,7 @@ class TransferToShopQuery : FilterBuilder<TransferToShopQuery, TransferToShopQue
      * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
      */
     @JvmField
-    val replyId = addFieldFilter<String?>(TransferToShopContract.COLUMN_REPLY_ID)
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
     override val currentQuery: TransferToShopQuery
         get() = this
@@ -126,7 +127,7 @@ class TransferToShopQuery : FilterBuilder<TransferToShopQuery, TransferToShopQue
          * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
          */
         @JvmField
-        val replyId = addFieldSorter(TransferToShopContract.COLUMN_REPLY_ID)
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
 
         override val currentSortOrder: SortOrder
             get() = this
@@ -141,7 +142,7 @@ class TransferToShopQuery : FilterBuilder<TransferToShopQuery, TransferToShopQue
         val columnIndexNote = cursor.getColumnIndexOrThrow(TransferToShopContract.COLUMN_NOTE)
         val columnIndexStatus = cursor.getColumnIndexOrThrow(TransferToShopContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndexOrThrow(TransferToShopContract.COLUMN_REJECT_COMMENT)
-        val columnIndexReplyId = cursor.getColumnIndexOrThrow(TransferToShopContract.COLUMN_REPLY_ID)
+        val columnIndexReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return TransferToShop(
                 UUID.fromString(cursor.getString(columnIndexUuid)),

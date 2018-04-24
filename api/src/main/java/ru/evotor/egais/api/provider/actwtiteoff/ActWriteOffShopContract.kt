@@ -59,9 +59,4 @@ internal object ActWriteOffShopContract {
      * Комментарий для отказа на акт списания из магазина
      */
     const val COLUMN_REJECT_COMMENT = "REJECT_COMMENT"
-
-    /**
-     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
-     */
-    const val COLUMN_REPLY_ID = "REPLY_ID"
 }
