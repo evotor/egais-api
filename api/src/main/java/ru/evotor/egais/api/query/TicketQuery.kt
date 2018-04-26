@@ -235,20 +235,20 @@ class TicketQuery : FilterBuilder<TicketQuery, TicketQuery.SortOrder, Ticket>(Ti
         return Ticket(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 cursor.getString(columnIndexOwner),
-                Date(cursor.getString(columnIndexTicketDate)),
+                cursor.getString(columnIndexTicketDate)?.let { Date(it) },
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexDocId),
                 cursor.getString(columnTransportId),
                 cursor.getString(columnRegId),
                 cursor.getString(columnDocHash),
-                DocType.valueOf(cursor.getString(columnDocType)),
-                ConclusionType.valueOf(cursor.getString(columnResultConclusion)),
-                Date(cursor.getString(columnResultDate)),
+                cursor.getString(columnDocType)?.let { DocType.valueOf(it) },
+                cursor.getString(columnResultConclusion)?.let { ConclusionType.valueOf(it) },
+                cursor.getString(columnResultDate)?.let { Date(it) },
                 cursor.getString(columnResultComments),
                 cursor.getString(columnOperationResultName),
-                OperationResult.valueOf(cursor.getString(columnOperationResultResult)),
+                cursor.getString(columnOperationResultResult)?.let { OperationResult.valueOf(it) },
                 cursor.getString(columnOperationResultComment),
-                Date(cursor.getString(columnOperationResultDate))
+                cursor.getString(columnOperationResultDate)?.let { Date(it) }
         )
     }
 }

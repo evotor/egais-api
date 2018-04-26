@@ -206,13 +206,13 @@ class TtnInformF2RegQuery : FilterBuilder<TtnInformF2RegQuery, TtnInformF2RegQue
                 cursor.getString(columnIdentity),
                 cursor.getString(columnWbRegId),
                 cursor.getString(columnEgaisFixNumber),
-                Date(cursor.getString(columnEgaisFixDate)),
+                cursor.getString(columnEgaisFixDate)?.let { Date(it) },
                 cursor.getString(columnWbNumber),
-                Date(cursor.getString(columnWbDate)),
+                cursor.getString(columnWbDate)?.let { Date(it) },
                 cursor.getString(columnShipperId),
                 cursor.getString(columnConsigneeId),
                 cursor.getString(columnSupplierId),
-                UUID.fromString(cursor.getString(columnWayBillId)),
+                cursor.getString(columnWayBillId)?.let { UUID.fromString(it) },
                 TtnInformF2RegStatus.valueOf(cursor.getString(columnStatus))
         )
     }

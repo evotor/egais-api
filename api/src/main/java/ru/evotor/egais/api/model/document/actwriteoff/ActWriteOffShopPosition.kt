@@ -17,7 +17,7 @@ import java.util.*
  */
 data class ActWriteOffShopPosition(
         @JvmField val uuid: UUID,
-        @JvmField var actWriteOffShopUuid: UUID? = null,
+        @JvmField val actWriteOffShopUuid: UUID,
         @JvmField val identity: String?,
         @JvmField val quantity: BigDecimal,
         @JvmField val informF2MarkInfoJson: String?,

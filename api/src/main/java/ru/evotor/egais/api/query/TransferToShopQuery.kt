@@ -149,7 +149,7 @@ class TransferToShopQuery : FilterBuilder<TransferToShopQuery, TransferToShopQue
                 cursor.getString(columnIndexOwner),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexNumber),
-                Date(cursor.getString(columnIndexDate)),
+                cursor.getString(columnIndexDate)?.let { Date(it) },
                 cursor.getString(columnIndexNote),
                 TransferStatus.valueOf(cursor.getString(columnIndexStatus)),
                 cursor.getString(columnIndexRejectComment),

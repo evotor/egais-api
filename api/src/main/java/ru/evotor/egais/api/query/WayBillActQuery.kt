@@ -208,14 +208,14 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
                 UUID.fromString(cursor.getString(columnUuid)),
                 cursor.getString(columnOwner),
                 cursor.getString(columnIdentity),
-                AcceptType.valueOf(cursor.getString(columnAcceptType)),
+                cursor.getString(columnAcceptType)?.let { AcceptType.valueOf(it) },
                 cursor.getString(columnNumber),
                 Date(cursor.getString(columnDate)),
                 cursor.getString(columnWbRegId),
                 cursor.getString(columnNote),
-                Type.valueOf(cursor.getString(columnType)),
-                Version.valueOf(cursor.getString(columnVersion)),
-                ru.evotor.egais.api.model.document.waybillact.Status.valueOf(cursor.getString(columnStatus)),
+                cursor.getString(columnType)?.let { Type.valueOf(it) },
+                cursor.getString(columnVersion)?.let { Version.valueOf(it) },
+                Status.valueOf(cursor.getString(columnStatus)),
                 cursor.getString(columnRejectComment),
                 cursor.getString(columnReplyId)
         )
