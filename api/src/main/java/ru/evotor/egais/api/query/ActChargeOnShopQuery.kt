@@ -5,6 +5,7 @@ import ru.evotor.egais.api.model.document.actchargeonshop.Status
 import ru.evotor.egais.api.model.document.actchargeonshop.Type
 import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
@@ -42,7 +43,7 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
      * Дата постановски на баланс
      */
     @JvmField
-    val actDate = addFieldFilter<Date>(ActChargeOnShopContract.COLUMN_ACT_DATE)
+    val actDate = addFieldFilter<Date, String>(ActChargeOnShopContract.COLUMN_ACT_DATE, { DateConverter.toString(it) })
 
     /**
      * Причина постановки на баланс (Пересортица/Излишки/Продукция, полученная до 01.01.2016)

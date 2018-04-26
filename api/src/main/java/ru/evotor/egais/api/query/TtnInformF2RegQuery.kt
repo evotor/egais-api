@@ -2,6 +2,7 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.document.waybill.TtnInformF2Reg
 import ru.evotor.egais.api.model.document.waybill.TtnInformF2RegStatus
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.waybill.TtnInformF2RegContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -46,7 +47,7 @@ class TtnInformF2RegQuery : FilterBuilder<TtnInformF2RegQuery, TtnInformF2RegQue
      * Дата составления накладной(отгрузки) в ЕГАИС
      */
     @JvmField
-    val egaisFixDate = addFieldFilter<Date>(TtnInformF2RegContract.COLUMN_EGAIS_FIX_DATE)
+    val egaisFixDate = addFieldFilter<Date, String>(TtnInformF2RegContract.COLUMN_EGAIS_FIX_DATE, { DateConverter.toString(it) })
 
     /**
      * Номер накладной
@@ -58,7 +59,7 @@ class TtnInformF2RegQuery : FilterBuilder<TtnInformF2RegQuery, TtnInformF2RegQue
      * Дата составления накладной
      */
     @JvmField
-    val wbDate = addFieldFilter<Date>(TtnInformF2RegContract.COLUMN_WB_DATE)
+    val wbDate = addFieldFilter<Date, String>(TtnInformF2RegContract.COLUMN_WB_DATE, { DateConverter.toString(it) })
 
     /**
      * Грузоотправитель

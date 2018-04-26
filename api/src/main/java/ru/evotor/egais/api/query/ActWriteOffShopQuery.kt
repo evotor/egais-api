@@ -5,6 +5,7 @@ import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
 import ru.evotor.egais.api.model.document.actwriteoff.TypeWriteOff
 import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
@@ -42,7 +43,7 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
      * Дата составления
      */
     @JvmField
-    val actDate = addFieldFilter<Date?>(ActWriteOffShopContract.COLUMN_ACT_DATE)
+    val actDate = addFieldFilter<Date?, String?>(ActWriteOffShopContract.COLUMN_ACT_DATE, { DateConverter.toNullableString(it) })
 
     /**
      * Причина списания (Пересортица/Недостача/Уценка/Порча/Потери/Проверки/Арест/Иные цели/Реализация)

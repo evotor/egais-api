@@ -4,6 +4,7 @@ import ru.evotor.egais.api.model.Version
 import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.waybill.*
 import ru.evotor.egais.api.provider.UtmDocumentContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.waybill.WayBillContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -54,13 +55,13 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
      * Дата составления.
      */
     @JvmField
-    val date = addFieldFilter<Date>(WayBillContract.COLUMN_DATE)
+    val date = addFieldFilter<Date, String>(WayBillContract.COLUMN_DATE, { DateConverter.toString(it) })
 
     /**
      * Дата отгрузки продукции.
      */
     @JvmField
-    val shippingDate = addFieldFilter<Date>(WayBillContract.COLUMN_SHIPPING_DATE)
+    val shippingDate = addFieldFilter<Date, String>(WayBillContract.COLUMN_SHIPPING_DATE, { DateConverter.toString(it) })
 
     /**
      * Грузоотправитель.

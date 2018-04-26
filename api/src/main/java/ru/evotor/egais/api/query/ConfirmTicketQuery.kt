@@ -3,6 +3,7 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.ticket.ConclusionType
 import ru.evotor.egais.api.model.document.ticket.ConfirmTicket
 import ru.evotor.egais.api.model.document.ticket.ConfirmTicketStatus
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.ticket.ConfirmTicketContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -44,7 +45,7 @@ class ConfirmTicketQuery : FilterBuilder<ConfirmTicketQuery, ConfirmTicketQuery.
      * Дата составления подтверждения
      */
     @JvmField
-    val ticketDate = addFieldFilter<Date?>(ConfirmTicketContract.COLUMN_TICKET_DATE)
+    val ticketDate = addFieldFilter<Date?, String?>(ConfirmTicketContract.COLUMN_TICKET_DATE, { DateConverter.toNullableString(it) })
 
     /**
      * ИД накладной в системе

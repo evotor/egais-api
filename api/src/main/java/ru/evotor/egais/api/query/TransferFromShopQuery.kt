@@ -3,6 +3,7 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.transfer.TransferFromShop
 import ru.evotor.egais.api.model.document.transfer.TransferStatus
 import ru.evotor.egais.api.provider.UtmDocumentContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.transfer.TransferFromShopContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -41,7 +42,7 @@ class TransferFromShopQuery : FilterBuilder<TransferFromShopQuery, TransferFromS
      * Дата составления
      */
     @JvmField
-    val transferDate = addFieldFilter<Date?>(TransferFromShopContract.COLUMN_TRANSFER_DATE)
+    val transferDate = addFieldFilter<Date?, String?>(TransferFromShopContract.COLUMN_TRANSFER_DATE, { DateConverter.toNullableString(it) })
 
     /**
      * Примечание

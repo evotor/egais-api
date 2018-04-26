@@ -6,6 +6,7 @@ import ru.evotor.egais.api.model.document.waybillact.AcceptType
 import ru.evotor.egais.api.model.document.waybillact.Type
 import ru.evotor.egais.api.model.document.waybillact.WayBillAct
 import ru.evotor.egais.api.provider.UtmDocumentContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.waybillact.WayBillActContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -50,7 +51,7 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
      * Дата составления акта
      */
     @JvmField
-    val creationDate = addFieldFilter<Date>(WayBillActContract.COLUMN_CREATION_DATE)
+    val creationDate = addFieldFilter<Date, String>(WayBillActContract.COLUMN_CREATION_DATE, { DateConverter.toString(it) })
 
     /**
      * Идентификатор накладной в системе

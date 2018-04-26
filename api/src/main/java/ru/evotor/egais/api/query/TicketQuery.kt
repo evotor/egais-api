@@ -4,6 +4,7 @@ import ru.evotor.egais.api.model.document.ticket.ConclusionType
 import ru.evotor.egais.api.model.document.ticket.DocType
 import ru.evotor.egais.api.model.document.ticket.OperationResult
 import ru.evotor.egais.api.model.document.ticket.Ticket
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.ticket.TicketContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -27,7 +28,7 @@ class TicketQuery : FilterBuilder<TicketQuery, TicketQuery.SortOrder, Ticket>(Ti
      * Дата квитанции
      */
     @JvmField
-    val ticketDate = addFieldFilter<Date?>(TicketContract.COLUMN_TICKET_DATE)
+    val ticketDate = addFieldFilter<Date?, String?>(TicketContract.COLUMN_TICKET_DATE, { DateConverter.toNullableString(it) })
 
     /**
      * Идентификатор документа(исходного, клиентский из содержимого XML(может не быть))
@@ -75,7 +76,7 @@ class TicketQuery : FilterBuilder<TicketQuery, TicketQuery.SortOrder, Ticket>(Ti
      * Дата фиксации
      */
     @JvmField
-    val resultDate = addFieldFilter<Date?>(TicketContract.COLUMN_RESULT_DATE)
+    val resultDate = addFieldFilter<Date?, String?>(TicketContract.COLUMN_RESULT_DATE, { DateConverter.toNullableString(it) })
 
     /**
      * Описание результата фиксации, описание ошибки фиксации
@@ -105,7 +106,7 @@ class TicketQuery : FilterBuilder<TicketQuery, TicketQuery.SortOrder, Ticket>(Ti
      * Дата операции
      */
     @JvmField
-    val operationResultDate = addFieldFilter<Date?>(TicketContract.COLUMN_OPERATION_RESULT_DATE)
+    val operationResultDate = addFieldFilter<Date?, String?>(TicketContract.COLUMN_OPERATION_RESULT_DATE, { DateConverter.toNullableString(it) })
 
     override val currentQuery: TicketQuery
         get() = this
