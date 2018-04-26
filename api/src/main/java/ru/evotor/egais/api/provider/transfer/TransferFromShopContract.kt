@@ -1,10 +1,13 @@
 package ru.evotor.egais.api.provider.transfer
 
 import android.net.Uri
+import ru.evotor.egais.api.provider.MainContract
 
 internal object TransferFromShopContract {
+    private const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.transferfromshop"
+    val BASE_URI = Uri.parse("content://${AUTHORITY}")
     val PATH = "TransferFromShop"
-    val URI = Uri.withAppendedPath(TransferContract.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(BASE_URI, PATH)
 
     /**
      * Уникальный идентификатор

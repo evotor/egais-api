@@ -4,7 +4,7 @@ import android.net.Uri
 
 internal object TransferFromShopPositionContract {
     val PATH = "TransferFromShopPosition"
-    val URI = Uri.withAppendedPath(TransferContract.BASE_URI, PATH)
+    val URI = Uri.withAppendedPath(TransferFromShopContract.BASE_URI, PATH)
 
     /**
      * Уникальный идентификатор документа передачи
