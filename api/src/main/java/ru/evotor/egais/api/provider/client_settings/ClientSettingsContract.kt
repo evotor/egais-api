@@ -3,20 +3,12 @@ package ru.evotor.egais.api.provider.client_settings
 import android.net.Uri
 import ru.evotor.egais.api.provider.MainContract
 
-internal object ClientSettingsContract {
+object ClientSettingsContract {
     const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.clientsettings"
 
-    @JvmField
-    val BASE_URI = Uri.parse("content://${AUTHORITY}")
+    const val FSRAR_ID_COLUMN_NAME = "FSRAR_ID"
+    const val FSRAR_ID_PATH = "FsRarId"
 
-    @JvmField
-    val PATH = "ClientSettings"
-
-    @JvmField
-    val URI = Uri.withAppendedPath(BASE_URI, PATH)
-
-    /**
-     * Название колонки настроек
-     */
-    const val COLUMN_SETTING_NAME = "SETTING_NAME"
+    val BASE_URI = Uri.parse("content://$AUTHORITY")
+    val FSRAR_ID_URI = Uri.withAppendedPath(BASE_URI, FSRAR_ID_PATH)
 }
