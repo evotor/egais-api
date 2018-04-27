@@ -117,7 +117,7 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
     val wbRegId = addFieldFilter<String?>(WayBillContract.COLUMN_WB_REG_ID)
 
     /**
-     * Направление документа в представлени УТМ (входящий/исходящий)
+     * Направление документа в представлении УТМ (входящий/исходящий)
      */
     @JvmField
     val direction = addFieldFilter<Direction>(UtmDocumentContract.COLUMN_DIRECTION)
@@ -239,7 +239,7 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val wbRegId = addFieldSorter(WayBillContract.COLUMN_WB_REG_ID)
 
         /**
-         * Направление документа в представлени УТМ (входящий/исходящий)
+         * Направление документа в представлении УТМ (входящий/исходящий)
          */
         @JvmField
         val direction = addFieldSorter(UtmDocumentContract.COLUMN_DIRECTION)

@@ -26,7 +26,7 @@ import java.util.*
  *  @property resolution резолюция по накладной
  *  @property ttnInformF2RegUuid uuid формы 2 для накладной
  *  @property wbRegId ИД накладной в системе (присвоенный)
- *  @property direction Направление документа в представлени УТМ (входящий/исходящий)
+ *  @property direction Направление документа в представлении УТМ (входящий/исходящий)
  *  @property version Версия протокола ЕГАИС, по которому отправлена накладная
  */
 data class WayBill(
@@ -36,8 +36,8 @@ data class WayBill(
         val type: Type,
         val unitType: UnitType?,
         val number: String,
-        var date: Date,
-        var shippingDate: Date,
+        val date: Date,
+        val shippingDate: Date,
         val transport: Transport?,
         val shipperId: String,
         val consigneeId: String,

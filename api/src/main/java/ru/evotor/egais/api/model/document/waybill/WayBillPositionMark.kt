@@ -10,7 +10,7 @@ import java.util.*
  * @property mark Марка
  */
 data class WayBillPositionMark(
-        val wayBillPositionUuid: UUID?,
+        val wayBillPositionUuid: UUID,
         val boxNumber: String?,
         val mark: String
 )

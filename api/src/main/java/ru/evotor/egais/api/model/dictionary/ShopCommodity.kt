@@ -10,6 +10,6 @@ import java.math.BigDecimal
  * @property productInfo Информация о продукции
  */
 data class ShopCommodity(
-        @JvmField var quantity: BigDecimal,
-        @JvmField var productInfo: ProductInfo
+        @JvmField val quantity: BigDecimal,
+        @JvmField val productInfo: ProductInfo
 ) : EgaisDocument()
