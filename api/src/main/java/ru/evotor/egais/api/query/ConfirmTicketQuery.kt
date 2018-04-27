@@ -162,7 +162,7 @@ class ConfirmTicketQuery : FilterBuilder<ConfirmTicketQuery, ConfirmTicketQuery.
                 cursor.getString(columnIndexIdentity),
                 ConclusionType.valueOf(cursor.getString(columnIndexIsConfirm)),
                 cursor.getString(columnIndexTicketNumber),
-                Date(cursor.getString(columnIndexTicketDate)),
+                DateConverter.toDate(cursor.getString(columnIndexTicketDate)),
                 cursor.getString(columnIndexWbRegId),
                 cursor.getString(columnIndexNote),
                 ConfirmTicketStatus.valueOf(cursor.getString(columnIndexStatus)),

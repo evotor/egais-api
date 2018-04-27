@@ -169,7 +169,7 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
                 cursor.getString(columnIndexOwner),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexNumber),
-                cursor.getString(columnIndexActDate)?.let { Date(it) },
+                cursor.getString(columnIndexActDate)?.let { DateConverter.toDate(it) },
                 TypeWriteOff.valueOf(cursor.getString(columnIndexType)),
                 cursor.getString(columnIndexNote),
                 ActWriteOffStatus.valueOf(cursor.getString(columnIndexStatus)),

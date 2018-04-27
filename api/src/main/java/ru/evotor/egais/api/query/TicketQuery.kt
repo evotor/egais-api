@@ -236,7 +236,7 @@ class TicketQuery : FilterBuilder<TicketQuery, TicketQuery.SortOrder, Ticket>(Ti
         return Ticket(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 cursor.getString(columnIndexOwner),
-                cursor.getString(columnIndexTicketDate)?.let { Date(it) },
+                cursor.getString(columnIndexTicketDate)?.let { DateConverter.toDate(it) },
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexDocId),
                 cursor.getString(columnTransportId),
@@ -244,12 +244,12 @@ class TicketQuery : FilterBuilder<TicketQuery, TicketQuery.SortOrder, Ticket>(Ti
                 cursor.getString(columnDocHash),
                 cursor.getString(columnDocType)?.let { DocType.valueOf(it) },
                 cursor.getString(columnResultConclusion)?.let { ConclusionType.valueOf(it) },
-                cursor.getString(columnResultDate)?.let { Date(it) },
+                cursor.getString(columnResultDate)?.let { DateConverter.toDate(it) },
                 cursor.getString(columnResultComments),
                 cursor.getString(columnOperationResultName),
                 cursor.getString(columnOperationResultResult)?.let { OperationResult.valueOf(it) },
                 cursor.getString(columnOperationResultComment),
-                cursor.getString(columnOperationResultDate)?.let { Date(it) }
+                cursor.getString(columnOperationResultDate)?.let { DateConverter.toDate(it) }
         )
     }
 }

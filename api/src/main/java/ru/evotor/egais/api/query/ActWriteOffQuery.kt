@@ -183,7 +183,7 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
                 cursor.getString(columnIndexOwner),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexNumber),
-                Date(cursor.getString(columnIndexActDate)),
+                DateConverter.toDate(cursor.getString(columnIndexActDate)),
                 cursor.getString(columnIndexType)?.let { TypeWriteOff.valueOf(it) },
                 cursor.getString(columnIndexNote),
                 ActWriteOffStatus.valueOf(cursor.getString(columnIndexStatus)),

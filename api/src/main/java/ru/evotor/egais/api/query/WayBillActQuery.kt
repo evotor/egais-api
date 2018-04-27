@@ -211,7 +211,7 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
                 cursor.getString(columnIdentity),
                 cursor.getString(columnAcceptType)?.let { AcceptType.valueOf(it) },
                 cursor.getString(columnNumber),
-                Date(cursor.getString(columnDate)),
+                DateConverter.toDate(cursor.getString(columnDate)),
                 cursor.getString(columnWbRegId),
                 cursor.getString(columnNote),
                 cursor.getString(columnType)?.let { Type.valueOf(it) },

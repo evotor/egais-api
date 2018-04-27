@@ -184,7 +184,7 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
                 cursor.getString(columnIndexOwner),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexNumber),
-                Date(cursor.getString(columnIndexDate)),
+                DateConverter.toDate(cursor.getString(columnIndexDate)),
                 Type.valueOf(cursor.getString(columnIndexType)),
                 cursor.getString(columnIndexActWriteOff),
                 cursor.getString(columnIndexNote),
