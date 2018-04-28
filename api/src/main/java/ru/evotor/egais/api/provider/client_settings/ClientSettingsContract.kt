@@ -3,7 +3,7 @@ package ru.evotor.egais.api.provider.client_settings
 import android.net.Uri
 import ru.evotor.egais.api.provider.MainContract
 
-object ClientSettingsContract {
+internal object ClientSettingsContract {
     const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.clientsettings"
 
     const val FSRAR_ID_COLUMN_NAME = "FSRAR_ID"
