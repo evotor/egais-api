@@ -4,7 +4,9 @@ import ru.evotor.egais.api.model.Version
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOff
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
 import ru.evotor.egais.api.model.document.actwriteoff.TypeWriteOff
+import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
@@ -42,7 +44,7 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
      * Дата составления
      */
     @JvmField
-    val actDate = addFieldFilter<Date>(ActWriteOffContract.COLUMN_ACT_DATE)
+    val actDate = addFieldFilter<Date, String>(ActWriteOffContract.COLUMN_ACT_DATE, { DateConverter.toString(it) })
 
     /**
      * Причина списания (Пересортица/Недостача/Уценка/Порча/Потери/Проверки/Арест/Иные цели/Реализация)
@@ -73,6 +75,12 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
      */
     @JvmField
     val version = addFieldFilter<Version>(ActWriteOffContract.COLUMN_VERSION)
+
+    /**
+     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+     */
+    @JvmField
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
     override val currentQuery: ActWriteOffQuery
         get() = this
@@ -142,6 +150,12 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
         @JvmField
         val version = addFieldSorter(ActWriteOffContract.COLUMN_VERSION)
 
+        /**
+         * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+         */
+        @JvmField
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -162,18 +176,20 @@ class ActWriteOffQuery : FilterBuilder<ActWriteOffQuery, ActWriteOffQuery.SortOr
         val columnIndexStatus = cursor.getColumnIndex(ActWriteOffContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActWriteOffContract.COLUMN_REJECT_COMMENT)
         val columnIndexVersion = cursor.getColumnIndex(ActWriteOffContract.COLUMN_VERSION)
+        val columnIndexReplyId = cursor.getColumnIndex(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return ActWriteOff(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 cursor.getString(columnIndexOwner),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexNumber),
-                Date(cursor.getString(columnIndexActDate)),
-                TypeWriteOff.valueOf(cursor.getString(columnIndexType)),
+                DateConverter.toDate(cursor.getString(columnIndexActDate)),
+                cursor.getString(columnIndexType)?.let { TypeWriteOff.valueOf(it) },
                 cursor.getString(columnIndexNote),
                 ActWriteOffStatus.valueOf(cursor.getString(columnIndexStatus)),
                 cursor.getString(columnIndexRejectComment),
-                Version.valueOf(cursor.getString(columnIndexVersion))
+                Version.valueOf(cursor.getString(columnIndexVersion)),
+                cursor.getString(columnIndexReplyId)
         )
     }
 }

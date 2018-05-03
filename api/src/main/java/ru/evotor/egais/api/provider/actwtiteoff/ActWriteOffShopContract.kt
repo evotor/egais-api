@@ -59,5 +59,4 @@ internal object ActWriteOffShopContract {
      * Комментарий для отказа на акт списания из магазина
      */
     const val COLUMN_REJECT_COMMENT = "REJECT_COMMENT"
-
 }

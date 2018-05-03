@@ -64,5 +64,4 @@ internal object ActWriteOffContract {
      * Версия протокола ЕГАИС
      */
     const val COLUMN_VERSION = "VERSION"
-
 }

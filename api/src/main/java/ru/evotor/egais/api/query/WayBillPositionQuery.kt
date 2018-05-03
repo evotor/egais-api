@@ -86,6 +86,12 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
     @JvmField
     val informF2RegId = addFieldFilter<String?>(WayBillPositionContract.COLUMN_INFORM_F2_REG_ID)
 
+    /**
+     * Информация о продукции
+     */
+    @JvmField
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<WayBillPositionQuery, WayBillPositionQuery.SortOrder, WayBillPosition>())
+
     override val currentQuery: WayBillPositionQuery
         get() = this
 
@@ -160,6 +166,12 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         @JvmField
         val informF2RegId = addFieldSorter(WayBillPositionContract.COLUMN_INFORM_F2_REG_ID)
 
+        /**
+         * Информация о продукции
+         */
+        @JvmField
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<WayBillPositionQuery.SortOrder>())
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -173,7 +185,6 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_UUID)
         val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
         val columnProductIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)
-        val columnProductAlcoCode = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
         val columnPackId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PACKID)
         val columnQuantity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_QUANTITY)
         val columnPrice = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRICE)
@@ -185,7 +196,7 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
                 uuid = UUID.fromString(cursor.getString(columnUuid)),
                 wayBillUuid = UUID.fromString(cursor.getString(columnWayBillUuid)),
                 productIdentity = cursor.getString(columnProductIdentity),
-                productAlcoCode = cursor.getString(columnProductAlcoCode),
+                productInfo = cursor.createProductInfo(),
                 packId = cursor.getString(columnPackId),
                 quantity = QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
                 price = MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnPrice)),

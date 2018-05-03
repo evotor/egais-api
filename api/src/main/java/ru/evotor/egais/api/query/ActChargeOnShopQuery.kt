@@ -3,7 +3,9 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShop
 import ru.evotor.egais.api.model.document.actchargeonshop.Status
 import ru.evotor.egais.api.model.document.actchargeonshop.Type
+import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
@@ -41,7 +43,7 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
      * Дата постановски на баланс
      */
     @JvmField
-    val actDate = addFieldFilter<Date>(ActChargeOnShopContract.COLUMN_ACT_DATE)
+    val actDate = addFieldFilter<Date, String>(ActChargeOnShopContract.COLUMN_ACT_DATE, { DateConverter.toString(it) })
 
     /**
      * Причина постановки на баланс (Пересортица/Излишки/Продукция, полученная до 01.01.2016)
@@ -73,6 +75,12 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
      */
     @JvmField
     val rejectComment = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
+
+    /**
+     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+     */
+    @JvmField
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
     override val currentQuery: ActChargeOnShopQuery
         get() = this
@@ -143,6 +151,12 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
         @JvmField
         val rejectComment = addFieldSorter(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
 
+        /**
+         * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+         */
+        @JvmField
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -163,18 +177,20 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
         val columnIndexNote = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_NOTE)
         val columnIndexStatus = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
+        val columnIndexReplyId = cursor.getColumnIndex(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return ActChargeOnShop(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 cursor.getString(columnIndexOwner),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexNumber),
-                Date(cursor.getString(columnIndexDate)),
+                DateConverter.toDate(cursor.getString(columnIndexDate)),
                 Type.valueOf(cursor.getString(columnIndexType)),
                 cursor.getString(columnIndexActWriteOff),
                 cursor.getString(columnIndexNote),
                 Status.valueOf(cursor.getString(columnIndexStatus)),
-                cursor.getString(columnIndexRejectComment)
+                cursor.getString(columnIndexRejectComment),
+                cursor.getString(columnIndexReplyId)
         )
     }
 }

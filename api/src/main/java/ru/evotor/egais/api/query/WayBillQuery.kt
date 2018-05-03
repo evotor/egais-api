@@ -1,6 +1,10 @@
 package ru.evotor.egais.api.query
 
+import ru.evotor.egais.api.model.Version
+import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.waybill.*
+import ru.evotor.egais.api.provider.UtmDocumentContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.waybill.WayBillContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -51,13 +55,13 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
      * Дата составления.
      */
     @JvmField
-    val date = addFieldFilter<Date>(WayBillContract.COLUMN_DATE)
+    val date = addFieldFilter<Date, String>(WayBillContract.COLUMN_DATE, { DateConverter.toString(it) })
 
     /**
      * Дата отгрузки продукции.
      */
     @JvmField
-    val shippingDate = addFieldFilter<Date>(WayBillContract.COLUMN_SHIPPING_DATE)
+    val shippingDate = addFieldFilter<Date, String>(WayBillContract.COLUMN_SHIPPING_DATE, { DateConverter.toString(it) })
 
     /**
      * Грузоотправитель.
@@ -112,6 +116,18 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
      */
     @JvmField
     val wbRegId = addFieldFilter<String?>(WayBillContract.COLUMN_WB_REG_ID)
+
+    /**
+     * Направление документа в представлени УТМ (входящий/исходящий)
+     */
+    @JvmField
+    val direction = addFieldFilter<Direction>(UtmDocumentContract.COLUMN_DIRECTION)
+
+    /**
+     * Версия протокола ЕГАИС, по которому отправлена накладная
+     */
+    @JvmField
+    val version = addFieldFilter<Version>(WayBillContract.COLUMN_VERSION)
 
     override val currentQuery: WayBillQuery
         get() = this
@@ -223,6 +239,18 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         @JvmField
         val wbRegId = addFieldSorter(WayBillContract.COLUMN_WB_REG_ID)
 
+        /**
+         * Направление документа в представлени УТМ (входящий/исходящий)
+         */
+        @JvmField
+        val direction = addFieldSorter(UtmDocumentContract.COLUMN_DIRECTION)
+
+        /**
+         * Версия протокола ЕГАИС, по которому отправлена накладная
+         */
+        @JvmField
+        val version = addFieldSorter(WayBillContract.COLUMN_VERSION)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -260,6 +288,8 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val columnResolution = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION)
         val columnTtnInformF2RegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
         val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
+        val columnDirection = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_DIRECTION)
+        val columnVersion = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_VERSION)
 
         val transportType = cursor.getString(columnTransportType)
         val transportCompany = cursor.getString(columnTransportCompany)
@@ -305,8 +335,8 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
                 type = Type.valueOf(cursor.getString(columnType)),
                 unitType = cursor.getString(columnUnitType)?.let { UnitType.valueOf(it) },
                 number = cursor.getString(columnNumber),
-                date = Date(cursor.getString(columnDate)),
-                shippingDate = Date(cursor.getString(columnShippingDate)),
+                date = DateConverter.toDate(cursor.getString(columnDate)),
+                shippingDate = DateConverter.toDate(cursor.getString(columnShippingDate)),
                 transport = transport,
                 shipperId = cursor.getString(columnShipperId),
                 consigneeId = cursor.getString(columnConsigneeId),
@@ -316,7 +346,9 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
                 status = Status.valueOf(cursor.getString(columnStatus)),
                 resolution = Resolution.valueOf(cursor.getString(columnResolution)),
                 ttnInformF2RegUuid = cursor.getString(columnTtnInformF2RegId)?.let { UUID.fromString(it) },
-                wbRegId = cursor.getString(columnWBRegId)
+                wbRegId = cursor.getString(columnWBRegId),
+                direction = Direction.valueOf(cursor.getString(columnDirection)),
+                version = Version.valueOf(cursor.getString(columnVersion))
         )
     }
 }

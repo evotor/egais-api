@@ -54,10 +54,10 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
     val informF2MarkInfoJson = addFieldFilter<String?>(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
     /**
-     * Алкокод информации о продукции
+     * Информация о продукции
      */
     @JvmField
-    val productInfoAlcCode = addFieldFilter<String>(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<ActWriteOffPositionQuery, ActWriteOffPositionQuery.SortOrder, ActWriteOffPosition>())
 
     override val currentQuery: ActWriteOffPositionQuery
         get() = this
@@ -104,10 +104,10 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
         val informF2MarkInfoJson = addFieldSorter(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
         /**
-         * Алкокод информации о продукции
+         * Информация о продукции
          */
         @JvmField
-        val productInfoAlcCode = addFieldSorter(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<ActWriteOffPositionQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this
@@ -125,7 +125,6 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
         val columnIndexQuantity = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY)
         val columnIndexInformF2RegId = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_F2_REG_ID)
         val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
-        val columnIndexAlcCode = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
         val columnIndexMarkList = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_MARK_LIST)
 
         return ActWriteOffPosition(
@@ -135,7 +134,7 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexMarkJson),
-                cursor.getString(columnIndexAlcCode),
+                cursor.createProductInfo(),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
         )
     }

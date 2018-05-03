@@ -1,10 +1,12 @@
 package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.Version
-import ru.evotor.egais.api.model.document.waybill.Status
+import ru.evotor.egais.api.model.document.waybillact.Status
 import ru.evotor.egais.api.model.document.waybillact.AcceptType
 import ru.evotor.egais.api.model.document.waybillact.Type
 import ru.evotor.egais.api.model.document.waybillact.WayBillAct
+import ru.evotor.egais.api.provider.UtmDocumentContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.waybillact.WayBillActContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -49,7 +51,7 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
      * Дата составления акта
      */
     @JvmField
-    val creationDate = addFieldFilter<Date>(WayBillActContract.COLUMN_CREATION_DATE)
+    val creationDate = addFieldFilter<Date, String>(WayBillActContract.COLUMN_CREATION_DATE, { DateConverter.toString(it) })
 
     /**
      * Идентификатор накладной в системе
@@ -86,6 +88,12 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
      */
     @JvmField
     val rejectComment = addFieldFilter<String?>(WayBillActContract.COLUMN_REJECT_COMMENT)
+
+    /**
+     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+     */
+    @JvmField
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
     override val currentQuery: WayBillActQuery
         get() = this
@@ -167,6 +175,12 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
         @JvmField
         val rejectComment = addFieldSorter(WayBillActContract.COLUMN_REJECT_COMMENT)
 
+        /**
+         * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+         */
+        @JvmField
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -189,20 +203,22 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
         val columnVersion = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_VERSION)
         val columnStatus = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_STATUS)
         val columnRejectComment = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_REJECT_COMMENT)
+        val columnReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return WayBillAct(
                 UUID.fromString(cursor.getString(columnUuid)),
                 cursor.getString(columnOwner),
                 cursor.getString(columnIdentity),
-                AcceptType.valueOf(cursor.getString(columnAcceptType)),
+                cursor.getString(columnAcceptType)?.let { AcceptType.valueOf(it) },
                 cursor.getString(columnNumber),
-                Date(cursor.getString(columnDate)),
+                DateConverter.toDate(cursor.getString(columnDate)),
                 cursor.getString(columnWbRegId),
                 cursor.getString(columnNote),
-                Type.valueOf(cursor.getString(columnType)),
-                Version.valueOf(cursor.getString(columnVersion)),
-                ru.evotor.egais.api.model.document.waybillact.Status.valueOf(cursor.getString(columnStatus)),
-                cursor.getString(columnRejectComment)
+                cursor.getString(columnType)?.let { Type.valueOf(it) },
+                cursor.getString(columnVersion)?.let { Version.valueOf(it) },
+                Status.valueOf(cursor.getString(columnStatus)),
+                cursor.getString(columnRejectComment),
+                cursor.getString(columnReplyId)
         )
     }
 }

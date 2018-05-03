@@ -15,6 +15,7 @@ import java.util.*
  * @property note Примечание
  * @property status Статус акта списания
  * @property rejectComment Комментарий для отказа на акт списания из зала
+ * @property replyId Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
  */
 data class ActWriteOffShop(
         val uuid: UUID,
@@ -25,5 +26,6 @@ data class ActWriteOffShop(
         val typeWriteOff: TypeWriteOff,
         val note: String?,
         var status: ActWriteOffStatus,
-        val rejectComment: String?
+        val rejectComment: String?,
+        val replyId: String?
 ) : EgaisDocument()
