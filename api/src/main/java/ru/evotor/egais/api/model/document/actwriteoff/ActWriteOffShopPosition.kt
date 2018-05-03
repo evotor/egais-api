@@ -1,5 +1,6 @@
 package ru.evotor.egais.api.model.document.actwriteoff
 
+import ru.evotor.egais.api.model.dictionary.ProductInfo
 import java.math.BigDecimal
 import java.util.*
 
@@ -11,7 +12,7 @@ import java.util.*
  * @property identity Идентификатор позиции внутри накладной
  * @property quantity Количество
  * @property informF2MarkInfoJson Информация о марках в формате JSON
- * @property productInfoAlcCode Алкокод информации о продукции
+ * @property productInfo Информация о продукции
  * @property markList Перечень считанных кодов марок
  */
 data class ActWriteOffShopPosition(
@@ -20,6 +21,6 @@ data class ActWriteOffShopPosition(
         @JvmField val identity: String?,
         @JvmField val quantity: BigDecimal,
         @JvmField val informF2MarkInfoJson: String?,
-        @JvmField val productInfoAlcCode: String,
+        @JvmField val productInfo: ProductInfo,
         @JvmField val markList: List<String>
 )

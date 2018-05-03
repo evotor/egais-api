@@ -31,5 +31,6 @@ data class WayBillAct(
         val type: Type?,
         val version: Version?,
         val status: Status,
-        val rejectComment: String?
+        val rejectComment: String?,
+        val replyId: String?
 ) : EgaisDocument()

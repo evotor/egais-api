@@ -17,6 +17,7 @@ import java.util.*
  * @property status Состояние
  * @property rejectComment Комментарий для отказа на акт списания со склада
  * @property version Версия протокола ЕГАИС
+ * @property replyId Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
  */
 data class ActWriteOff(
         val uuid: UUID,
@@ -28,5 +29,6 @@ data class ActWriteOff(
         val note: String?,
         val status: ActWriteOffStatus,
         val rejectComment: String?,
-        val version: Version
+        val version: Version,
+        val replyId: String?
 ) : EgaisDocument()

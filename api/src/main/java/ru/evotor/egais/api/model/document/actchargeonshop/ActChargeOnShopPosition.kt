@@ -1,5 +1,6 @@
 package ru.evotor.egais.api.model.document.actchargeonshop
 
+import ru.evotor.egais.api.model.dictionary.ProductInfo
 import java.math.BigDecimal
 import java.util.*
 
@@ -10,12 +11,12 @@ import java.util.*
  * @property actChargeOnShopUuid Идентификатор акта постановки, содержащего позицию
  * @property identity Идентификатор позиции внутри накладной
  * @property quantity Количество
- * @property productInfoAlcCode Алкокод информации о продукции
+ * @property productInfo Информация о продукции
  */
 data class ActChargeOnShopPosition(
         @JvmField val uuid: UUID,
         @JvmField val actChargeOnShopUuid: UUID,
         @JvmField val identity: String,
         @JvmField val quantity: BigDecimal,
-        @JvmField val productInfoAlcCode: String
+        @JvmField val productInfo: ProductInfo
 )

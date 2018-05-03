@@ -41,10 +41,10 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
     )
 
     /**
-     * Алкокод информации о продукции
+     * Информация о продукции
      */
     @JvmField
-    val productInfoAlcCode = addFieldFilter<String>(ActChargeOnShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<ActChargeOnShopPositionQuery, ActChargeOnShopPositionQuery.SortOrder, ActChargeOnShopPosition>())
 
     override val currentQuery: ActChargeOnShopPositionQuery
         get() = this
@@ -79,10 +79,10 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
         val quantity = addFieldSorter(ActChargeOnShopPositionContract.COLUMN_QUANTITY)
 
         /**
-         * Алкокод информации о продукции
+         * Информация о продукции
          */
         @JvmField
-        val productInfoAlcCode = addFieldSorter(ActChargeOnShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<ActChargeOnShopPositionQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this
@@ -98,14 +98,13 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
         val columnIndexActUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_ACT_CHARGE_ON_SHOP_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_IDENTITY)
         val columnIndexQuantity = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY)
-        val columnIndexAlcCode = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
         return ActChargeOnShopPosition(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
-                cursor.getString(columnIndexAlcCode)
+                cursor.createProductInfo()
         )
     }
 }

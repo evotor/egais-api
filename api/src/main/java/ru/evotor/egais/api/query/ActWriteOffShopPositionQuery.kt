@@ -48,10 +48,11 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
     val informF2MarkInfoJson = addFieldFilter<String?>(ActWriteOffShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
     /**
-     * Алкокод информации о продукции
+     * Информация о продукции
      */
     @JvmField
-    val productInfoAlcCode = addFieldFilter<String>(ActWriteOffShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<ActWriteOffShopPositionQuery, ActWriteOffShopPositionQuery.SortOrder, ActWriteOffShopPosition>())
+
 
     override val currentQuery: ActWriteOffShopPositionQuery
         get() = this
@@ -92,10 +93,10 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
         val informF2MarkInfoJson = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
         /**
-         * Алкокод информации о продукции
+         * Информация о продукции
          */
         @JvmField
-        val productInfoAlcCode = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<ActWriteOffShopPositionQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this
@@ -112,7 +113,6 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_IDENTITY)
         val columnIndexQuantity = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_QUANTITY)
         val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
-        val columnIndexAlcCode = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
         val columnIndexMarkList = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_MARK_LIST)
 
         return ActWriteOffShopPosition(
@@ -121,7 +121,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
                 cursor.getString(columnIndexIdentity),
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.getString(columnIndexMarkJson),
-                cursor.getString(columnIndexAlcCode),
+                cursor.createProductInfo(),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
         )
     }

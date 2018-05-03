@@ -3,7 +3,9 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffShop
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffStatus
 import ru.evotor.egais.api.model.document.actwriteoff.TypeWriteOff
+import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopContract
+import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
@@ -41,7 +43,7 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
      * Дата составления
      */
     @JvmField
-    val actDate = addFieldFilter<Date?>(ActWriteOffShopContract.COLUMN_ACT_DATE)
+    val actDate = addFieldFilter<Date?, String?>(ActWriteOffShopContract.COLUMN_ACT_DATE, { DateConverter.toNullableString(it) })
 
     /**
      * Причина списания (Пересортица/Недостача/Уценка/Порча/Потери/Проверки/Арест/Иные цели/Реализация)
@@ -66,6 +68,12 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
      */
     @JvmField
     val rejectComment = addFieldFilter<String?>(ActWriteOffShopContract.COLUMN_REJECT_COMMENT)
+
+    /**
+     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+     */
+    @JvmField
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
     override val currentQuery: ActWriteOffShopQuery
         get() = this
@@ -129,6 +137,12 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
         @JvmField
         val rejectComment = addFieldSorter(ActWriteOffShopContract.COLUMN_REJECT_COMMENT)
 
+        /**
+         * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+         */
+        @JvmField
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -148,17 +162,19 @@ class ActWriteOffShopQuery : FilterBuilder<ActWriteOffShopQuery, ActWriteOffShop
         val columnIndexNote = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_NOTE)
         val columnIndexStatus = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_STATUS)
         val columnIndexRejectComment = cursor.getColumnIndex(ActWriteOffShopContract.COLUMN_REJECT_COMMENT)
+        val columnIndexReplyId = cursor.getColumnIndex(UtmDocumentContract.COLUMN_REPLY_ID)
 
         return ActWriteOffShop(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 cursor.getString(columnIndexOwner),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexNumber),
-                Date(cursor.getString(columnIndexActDate)),
+                cursor.getString(columnIndexActDate)?.let { DateConverter.toDate(it) },
                 TypeWriteOff.valueOf(cursor.getString(columnIndexType)),
                 cursor.getString(columnIndexNote),
                 ActWriteOffStatus.valueOf(cursor.getString(columnIndexStatus)),
-                cursor.getString(columnIndexRejectComment)
+                cursor.getString(columnIndexRejectComment),
+                cursor.getString(columnIndexReplyId)
         )
     }
 }
