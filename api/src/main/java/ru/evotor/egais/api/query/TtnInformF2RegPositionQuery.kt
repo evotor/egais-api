@@ -30,7 +30,7 @@ class TtnInformF2RegPositionQuery : FilterBuilder<TtnInformF2RegPositionQuery, T
     val identity = addFieldFilter<String>(TtnInformF2RegPositionContract.COLUMN_IDENTITY)
 
     /**
-     * Регистрационный номер записи справки Б
+     * Регистрационный номер записи справки 2
      */
     @JvmField
     val informF2RegId = addFieldFilter<String>(TtnInformF2RegPositionContract.COLUMN_INFORM_F2_REG_ID)
@@ -56,7 +56,7 @@ class TtnInformF2RegPositionQuery : FilterBuilder<TtnInformF2RegPositionQuery, T
         val identity = addFieldSorter(TtnInformF2RegPositionContract.COLUMN_IDENTITY)
 
         /**
-         * Регистрационный номер записи справки Б
+         * Регистрационный номер записи справки 2
          */
         @JvmField
         val informF2RegId = addFieldSorter(TtnInformF2RegPositionContract.COLUMN_INFORM_F2_REG_ID)

@@ -15,6 +15,6 @@ import java.math.BigDecimal
 data class StockCommodity(
         @JvmField val informF1RegId: String,
         @JvmField val informF2RegId: String,
-        @JvmField var quantity: BigDecimal,
-        @JvmField var productInfo: ProductInfo
+        @JvmField val quantity: BigDecimal,
+        @JvmField val productInfo: ProductInfo
 ) : EgaisDocument()

@@ -26,8 +26,8 @@ data class ActWriteOff(
         val number: String?,
         val actDate: Date,
         val typeWriteOff: TypeWriteOff?,
-        var note: String?,
-        var status: ActWriteOffStatus,
+        val note: String?,
+        val status: ActWriteOffStatus,
         val rejectComment: String?,
         val version: Version,
         val replyId: String?

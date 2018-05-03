@@ -22,7 +22,7 @@ internal object TtnInformF2RegPositionContract {
     const val COLUMN_IDENTITY = "IDENTITY"
 
     /**
-     * Регистрационный номер записи справки Б
+     * Регистрационный номер записи справки 2
      */
     const val COLUMN_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"
 

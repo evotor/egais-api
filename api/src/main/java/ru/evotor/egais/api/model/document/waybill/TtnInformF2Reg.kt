@@ -22,34 +22,15 @@ import java.util.*
 data class TtnInformF2Reg(
         val uuid: UUID,
         val docOwner: String,
-        var identity: String?,
-        var wbRegId: String,
-        var egaisFixNumber: String?,
-        private var _egaisFixDate: Date?,
-        var wbNumber: String?,
-        private var _wbDate: Date?,
-        var shipperId: String?,
-        var consigneeId: String?,
-        var supplierId: String?,
-        var wayBillId: UUID?,
-        var status: TtnInformF2RegStatus
-) : EgaisDocument() {
-
-    var egaisFixDate: Date?
-        get() = copyDate(_egaisFixDate)
-        set(value) {
-            _egaisFixDate = copyDate(value)
-        }
-
-    var wbDate: Date?
-        get() = copyDate(_wbDate)
-        set(value) {
-            _wbDate = copyDate(value)
-        }
-
-    private fun copyDate(date: Date?): Date? {
-        return if (date == null) {
-            null
-        } else Date(date.time)
-    }
-}
+        val identity: String?,
+        val wbRegId: String,
+        val egaisFixNumber: String?,
+        val egaisFixDate: Date?,
+        val wbNumber: String?,
+        val wbDate: Date?,
+        val shipperId: String?,
+        val consigneeId: String?,
+        val supplierId: String?,
+        val wayBillId: UUID?,
+        val status: TtnInformF2RegStatus
+) : EgaisDocument()
