@@ -2,6 +2,7 @@ package ru.evotor.egais.api.sender
 
 import android.os.Bundle
 import ru.evotor.egais.api.model.Version
+import ru.evotor.egais.api.model.document.ticket.ConclusionType
 import ru.evotor.egais.api.model.document.ticket.DocType
 import ru.evotor.egais.api.model.document.waybillact.AcceptType
 import java.math.BigDecimal
@@ -22,6 +23,8 @@ object BundleHelper {
     private const val INFORM_F2_REG_ID = "inforF2RegId"
     private const val REAL_QUANTITY = "realQuantity"
     private const val MARKS = "marks"
+
+    private const val CONCLUSION_TYPE = "conclusionType"
 
     /**
      * Добавление акта разногласий к ТТН в Bundle
@@ -62,6 +65,27 @@ object BundleHelper {
         bundle.putString(INFORM_F2_REG_ID, informF2RegId)
         bundle.putSerializable(REAL_QUANTITY, realQuantity)
         bundle.putStringArrayList(MARKS, ArrayList(marks))
+
+        return bundle
+    }
+
+    /**
+     * Добавление тикета подтверждения для акта разногласий к ТТН в Bundle
+     *
+     * @param identity ИД Акта (клиентский)
+     * @param isConfirm Тип подтверждения: Принимаем/отказываем
+     * @param number Номер акта
+     * @param wbRegId ИД накладной в системе
+     * @param note Заметки
+     */
+    fun confirmTicketToBundle(identity: String?, isConfirm: ConclusionType?, ticketNumber: String, wbRegId: String, note: String?): Bundle {
+        val bundle = Bundle()
+        bundle.putString(DOC_TYPE, DocType.CONFIRM_TICKET.toString())
+        bundle.putString(IDENTITY, identity)
+        bundle.putString(CONCLUSION_TYPE, isConfirm.toString())
+        bundle.putString(NUMBER, ticketNumber)
+        bundle.putString(WB_REG_ID, wbRegId)
+        bundle.putString(NOTE, note)
 
         return bundle
     }
@@ -120,4 +144,9 @@ object BundleHelper {
      * Количество фактическое
      */
     fun Bundle.getRealQuantity() = getSerializable(REAL_QUANTITY) as? BigDecimal
+
+    /**
+     * Тип подтверждения: Принимаем/отказываем
+     */
+    fun Bundle.getConclusionType() = getString(CONCLUSION_TYPE)?.let { ConclusionType.valueOf(it) }
 }
