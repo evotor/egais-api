@@ -73,16 +73,16 @@ object BundleHelper {
      * Добавление тикета подтверждения для акта разногласий к ТТН в Bundle
      *
      * @param identity ИД Акта (клиентский)
-     * @param isConfirm Тип подтверждения: Принимаем/отказываем
+     * @param conclusionType Тип подтверждения: Принимаем/отказываем
      * @param number Номер акта
      * @param wbRegId ИД накладной в системе
      * @param note Заметки
      */
-    fun confirmTicketToBundle(identity: String?, isConfirm: ConclusionType?, ticketNumber: String, wbRegId: String, note: String?): Bundle {
+    fun confirmTicketToBundle(identity: String?, conclusionType: ConclusionType?, ticketNumber: String, wbRegId: String, note: String?): Bundle {
         val bundle = Bundle()
         bundle.putString(DOC_TYPE, DocType.CONFIRM_TICKET.toString())
         bundle.putString(IDENTITY, identity)
-        bundle.putString(CONCLUSION_TYPE, isConfirm.toString())
+        bundle.putString(CONCLUSION_TYPE, conclusionType.toString())
         bundle.putString(NUMBER, ticketNumber)
         bundle.putString(WB_REG_ID, wbRegId)
         bundle.putString(NOTE, note)
