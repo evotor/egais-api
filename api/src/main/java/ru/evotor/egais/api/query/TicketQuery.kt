@@ -216,40 +216,6 @@ class TicketQuery : FilterBuilder<TicketQuery, TicketQuery.SortOrder, Ticket>(Ti
     }
 
     override fun getValue(cursor: Cursor<Ticket>): Ticket {
-        val columnIndexUuid = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_UUID)
-        val columnIndexOwner = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_OWNER)
-        val columnIndexTicketDate = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_TICKET_DATE)
-        val columnIndexIdentity = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_IDENTITY)
-        val columnIndexDocId = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_DOC_ID)
-        val columnTransportId = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_TRANSPORT_ID)
-        val columnRegId = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_REG_ID)
-        val columnDocHash = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_DOC_HASH)
-        val columnDocType = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_DOC_TYPE)
-        val columnResultConclusion = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_RESULT_CONCLUSION)
-        val columnResultDate = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_RESULT_DATE)
-        val columnResultComments = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_RESULT_COMMENTS)
-        val columnOperationResultName = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_OPERATION_RESULT_NAME)
-        val columnOperationResultResult = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_OPERATION_RESULT_RESULT)
-        val columnOperationResultComment = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_OPERATION_RESULT_COMMENT)
-        val columnOperationResultDate = cursor.getColumnIndexOrThrow(TicketContract.COLUMN_OPERATION_RESULT_DATE)
-
-        return Ticket(
-                UUID.fromString(cursor.getString(columnIndexUuid)),
-                cursor.getString(columnIndexOwner),
-                cursor.getString(columnIndexTicketDate)?.let { DateConverter.toDate(it) },
-                cursor.getString(columnIndexIdentity),
-                cursor.getString(columnIndexDocId),
-                cursor.getString(columnTransportId),
-                cursor.getString(columnRegId),
-                cursor.getString(columnDocHash),
-                cursor.getString(columnDocType)?.let { DocType.valueOf(it) },
-                cursor.getString(columnResultConclusion)?.let { ConclusionType.valueOf(it) },
-                cursor.getString(columnResultDate)?.let { DateConverter.toDate(it) },
-                cursor.getString(columnResultComments),
-                cursor.getString(columnOperationResultName),
-                cursor.getString(columnOperationResultResult)?.let { OperationResult.valueOf(it) },
-                cursor.getString(columnOperationResultComment),
-                cursor.getString(columnOperationResultDate)?.let { DateConverter.toDate(it) }
-        )
+        return cursor.createTicket()
     }
 }
