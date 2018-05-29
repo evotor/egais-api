@@ -33,8 +33,8 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
      */
     @JvmField
     val quantity = addFieldFilter<BigDecimal, Long>(
-            TransferFromShopPositionContract.COLUMN_QUANTITY.wrapCastToInteger(),
-            {QuantityBigDecimalConverter.toLong(it) }
+            TransferFromShopPositionContract.COLUMN_QUANTITY,
+            { QuantityBigDecimalConverter.toLong(it) }
     )
 
     /**
@@ -79,7 +79,7 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
          * Количество
          */
         @JvmField
-        val quantity = addFieldSorter(TransferFromShopPositionContract.COLUMN_QUANTITY.wrapCastToInteger())
+        val quantity = addFieldSorter(TransferFromShopPositionContract.COLUMN_QUANTITY)
 
         /**
          * Регистрационный номер раздела справки 2

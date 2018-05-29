@@ -190,7 +190,7 @@ class TtnInformF2RegQuery : FilterBuilder<TtnInformF2RegQuery, TtnInformF2RegQue
         val columnUuid = cursor.getColumnIndexOrThrow(TtnInformF2RegContract.COLUMN_UUID)
         val columnOwner = cursor.getColumnIndexOrThrow(TtnInformF2RegContract.COLUMN_OWNER)
         val columnIdentity = cursor.getColumnIndexOrThrow(TtnInformF2RegContract.COLUMN_IDENTITY)
-        val columnWbRegId= cursor.getColumnIndexOrThrow(TtnInformF2RegContract.COLUMN_WB_REG_ID)
+        val columnWbRegId = cursor.getColumnIndexOrThrow(TtnInformF2RegContract.COLUMN_WB_REG_ID)
         val columnEgaisFixNumber = cursor.getColumnIndexOrThrow(TtnInformF2RegContract.COLUMN_EGAIS_FIX_NUMBER)
         val columnEgaisFixDate = cursor.getColumnIndexOrThrow(TtnInformF2RegContract.COLUMN_EGAIS_FIX_DATE)
         val columnWbNumber = cursor.getColumnIndexOrThrow(TtnInformF2RegContract.COLUMN_WB_NUMBER)
