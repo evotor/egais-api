@@ -5,6 +5,5 @@ enum class Status {
     WAIT_UTM_ANSWER,
     NOT_CONFIRMED,
     ERROR,
-    FINISH,
-    REJECTED
+    FINISH
 }
