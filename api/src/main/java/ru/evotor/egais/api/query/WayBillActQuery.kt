@@ -39,7 +39,7 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
      * Тип подтверждения: Принимаем/есть расхождения/отказываем
      */
     @JvmField
-    val acceptType = addFieldFilter<AcceptType?>(WayBillActContract.COLUMN_TYPE)
+    val acceptType = addFieldFilter<AcceptType?>(WayBillActContract.COLUMN_ACCEPT_TYPE)
 
     /**
      * Номер акта
@@ -125,7 +125,7 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
          * Тип подтверждения: Принимаем/есть расхождения/отказываем
          */
         @JvmField
-        val acceptType = addFieldSorter(WayBillActContract.COLUMN_TYPE)
+        val acceptType = addFieldSorter(WayBillActContract.COLUMN_ACCEPT_TYPE)
 
         /**
          * Номер акта
