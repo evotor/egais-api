@@ -29,7 +29,7 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
      */
     @JvmField
     val quantity = addFieldFilter<BigDecimal, Long>(
-            StockCommodityContract.COLUMN_QUANTITY.wrapCastToInteger(),
+            StockCommodityContract.COLUMN_QUANTITY,
             { QuantityBigDecimalConverter.toLong(it) }
     )
 
