@@ -3,7 +3,7 @@ package ru.evotor.egais.api.provider
 import android.net.Uri
 
 object EgaisDocumentStatusRecordContract {
-    const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.egaisdocumentsettings"
+    const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.egaisdocumentstatus"
 
     const val EGAIS_DOCUMENT_STATUS_RECORD_PATH = "EgaisDocumentStatusRecord"
 
