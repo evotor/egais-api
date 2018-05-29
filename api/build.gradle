@@ -58,7 +58,7 @@ publishing {
         mavenKotlin(MavenPublication) {
             groupId 'ru.evotor'
             artifactId "egais-api"
-            version "0.0.9-dev"
+            version "0.0.121-dev"
             artifact(sourceJar)
             artifact(javadocJar)
             artifact "${project.buildDir}/outputs/aar/${project.archivesBaseName}-release.aar"
