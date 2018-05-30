@@ -37,7 +37,7 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
      * Информация о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<StockCommodityQuery, StockCommodityQuery.SortOrder, StockCommodity>())
 
     override val currentQuery: StockCommodityQuery
         get() = this
@@ -69,7 +69,7 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<StockCommodityQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this

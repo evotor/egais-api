@@ -47,7 +47,7 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
      * Алкокод информации о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<TransferFromShopPositionQuery, TransferFromShopPositionQuery.SortOrder, TransferFromShopPosition>())
 
     override val currentQuery: TransferFromShopPositionQuery
         get() = this
@@ -91,7 +91,7 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<TransferFromShopPositionQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this

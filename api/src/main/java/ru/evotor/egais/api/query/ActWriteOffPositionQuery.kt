@@ -57,7 +57,7 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
      * Информация о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter<ActWriteOffPositionQuery, ActWriteOffPositionQuery.SortOrder, ActWriteOffPosition>())
 
     override val currentQuery: ActWriteOffPositionQuery
         get() = this
@@ -107,7 +107,7 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<ActWriteOffPositionQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this
