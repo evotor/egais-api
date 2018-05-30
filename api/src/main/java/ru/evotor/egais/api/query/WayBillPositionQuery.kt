@@ -90,7 +90,7 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
      * Информация о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter<WayBillPositionQuery, WayBillPositionQuery.SortOrder, WayBillPosition>())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
 
     override val currentQuery: WayBillPositionQuery
         get() = this
@@ -170,7 +170,7 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<WayBillPositionQuery.SortOrder>())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
 
         override val currentSortOrder: SortOrder
             get() = this

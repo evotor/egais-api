@@ -40,7 +40,7 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
      * Информация о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter<ProductRestQuery, ProductRestQuery.SortOrder, ProductRest>())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
 
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
         /**
@@ -65,7 +65,7 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<ProductRestQuery.SortOrder>())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
 
         override val currentSortOrder: SortOrder
             get() = this
