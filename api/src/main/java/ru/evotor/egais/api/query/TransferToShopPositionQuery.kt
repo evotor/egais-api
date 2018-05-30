@@ -103,7 +103,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<TransferToShopPositionQuery.SortOrder>())
 
         override val currentSortOrder: SortOrder
             get() = this
