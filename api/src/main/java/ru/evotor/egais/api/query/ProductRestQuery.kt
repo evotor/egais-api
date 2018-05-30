@@ -14,7 +14,7 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
      */
     @JvmField
     val stockQuantity = addFieldFilter<BigDecimal, Long>(
-            ProductRestContract.COLUMN_STOCK_QUANTITY.wrapCastToInteger(),
+            ProductRestContract.COLUMN_STOCK_QUANTITY,
             { QuantityBigDecimalConverter.toLong(it) }
     )
 
@@ -23,7 +23,7 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
      */
     @JvmField
     val shopQuantity = addFieldFilter<BigDecimal, Long>(
-            ProductRestContract.COLUMN_SHOP_QUANTITY.wrapCastToInteger(),
+            ProductRestContract.COLUMN_SHOP_QUANTITY,
             { QuantityBigDecimalConverter.toLong(it) }
     )
 
@@ -32,7 +32,7 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
      */
     @JvmField
     val totalQuantity = addFieldFilter<BigDecimal, Long>(
-            ProductRestContract.COLUMN_TOTAL_QUANTITY.wrapCastToInteger(),
+            ProductRestContract.COLUMN_TOTAL_QUANTITY,
             { QuantityBigDecimalConverter.toLong(it) }
     )
 
@@ -40,7 +40,7 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
      * Информация о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter<ProductRestQuery, ProductRestQuery.SortOrder, ProductRest>())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
 
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
         /**
@@ -65,7 +65,7 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<ProductRestQuery.SortOrder>())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
 
         override val currentSortOrder: SortOrder
             get() = this

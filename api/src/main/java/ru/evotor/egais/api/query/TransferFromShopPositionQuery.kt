@@ -33,8 +33,8 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
      */
     @JvmField
     val quantity = addFieldFilter<BigDecimal, Long>(
-            TransferFromShopPositionContract.COLUMN_QUANTITY.wrapCastToInteger(),
-            {QuantityBigDecimalConverter.toLong(it) }
+            TransferFromShopPositionContract.COLUMN_QUANTITY,
+            { QuantityBigDecimalConverter.toLong(it) }
     )
 
     /**
@@ -47,7 +47,7 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
      * Алкокод информации о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter<TransferFromShopPositionQuery, TransferFromShopPositionQuery.SortOrder, TransferFromShopPosition>())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
 
     override val currentQuery: TransferFromShopPositionQuery
         get() = this
@@ -79,7 +79,7 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
          * Количество
          */
         @JvmField
-        val quantity = addFieldSorter(TransferFromShopPositionContract.COLUMN_QUANTITY.wrapCastToInteger())
+        val quantity = addFieldSorter(TransferFromShopPositionContract.COLUMN_QUANTITY)
 
         /**
          * Регистрационный номер раздела справки 2
@@ -91,7 +91,7 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<TransferFromShopPositionQuery.SortOrder>())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
 
         override val currentSortOrder: SortOrder
             get() = this

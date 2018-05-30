@@ -18,15 +18,15 @@ class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.
      */
     @JvmField
     val quantity = addFieldFilter<BigDecimal, Long>(
-            ShopCommodityContract.COLUMN_QUANTITY.wrapCastToInteger(),
-            {QuantityBigDecimalConverter.toLong(it)}
+            ShopCommodityContract.COLUMN_QUANTITY,
+            { QuantityBigDecimalConverter.toLong(it) }
     )
 
     /**
      * Информация о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter<ShopCommodityQuery, ShopCommodityQuery.SortOrder, ShopCommodity>())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
 
     override val currentQuery: ShopCommodityQuery
         get() = this
@@ -46,7 +46,7 @@ class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<ShopCommodityQuery.SortOrder>())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
 
         override val currentSortOrder: SortOrder
             get() = this

@@ -37,8 +37,8 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
      */
     @JvmField
     val quantity = addFieldFilter<BigDecimal, Long>(
-            ActWriteOffShopPositionContract.COLUMN_QUANTITY.wrapCastToInteger(),
-            {QuantityBigDecimalConverter.toLong(it)}
+            ActWriteOffShopPositionContract.COLUMN_QUANTITY,
+            { QuantityBigDecimalConverter.toLong(it) }
     )
 
     /**
@@ -51,7 +51,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
      * Информация о продукции
      */
     @JvmField
-    val productInfo = addInnerFilterBuilder(ProductInfoFilter<ActWriteOffShopPositionQuery, ActWriteOffShopPositionQuery.SortOrder, ActWriteOffShopPosition>())
+    val productInfo = addInnerFilterBuilder(ProductInfoFilter())
 
 
     override val currentQuery: ActWriteOffShopPositionQuery
@@ -96,7 +96,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
          * Информация о продукции
          */
         @JvmField
-        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder<ActWriteOffShopPositionQuery.SortOrder>())
+        val productInfo = addInnerSortOrder(ProductInfoFilter.SortOrder())
 
         override val currentSortOrder: SortOrder
             get() = this
