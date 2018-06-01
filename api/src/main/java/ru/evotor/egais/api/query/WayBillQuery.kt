@@ -129,6 +129,12 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
     @JvmField
     val version = addFieldFilter<Version>(WayBillContract.COLUMN_VERSION)
 
+    /**
+     * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+     */
+    @JvmField
+    val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
+
     override val currentQuery: WayBillQuery
         get() = this
 
@@ -251,6 +257,12 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         @JvmField
         val version = addFieldSorter(WayBillContract.COLUMN_VERSION)
 
+        /**
+         * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+         */
+        @JvmField
+        val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -290,6 +302,7 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
         val columnDirection = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_DIRECTION)
         val columnVersion = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_VERSION)
+        val columnReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
 
         val transportType = cursor.getString(columnTransportType)
         val transportCompany = cursor.getString(columnTransportCompany)
@@ -348,7 +361,8 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
                 ttnInformF2RegUuid = cursor.getString(columnTtnInformF2RegId)?.let { UUID.fromString(it) },
                 wbRegId = cursor.getString(columnWBRegId),
                 direction = Direction.valueOf(cursor.getString(columnDirection)),
-                version = Version.valueOf(cursor.getString(columnVersion))
+                version = Version.valueOf(cursor.getString(columnVersion)),
+                replyId = cursor.getString(columnReplyId)
         )
     }
 }
