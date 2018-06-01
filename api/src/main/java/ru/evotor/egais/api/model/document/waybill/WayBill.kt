@@ -28,6 +28,7 @@ import java.util.*
  *  @property wbRegId ИД накладной в системе (присвоенный)
  *  @property direction Направление документа в представлении УТМ (входящий/исходящий)
  *  @property version Версия протокола ЕГАИС, по которому отправлена накладная
+ *  @property replyId Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
  */
 data class WayBill(
         val uuid: UUID,
@@ -49,5 +50,6 @@ data class WayBill(
         val ttnInformF2RegUuid: UUID?,
         val wbRegId: String?,
         val direction: Direction,
-        val version: Version
+        val version: Version,
+        val replyId: String?
 ) : EgaisDocument()
