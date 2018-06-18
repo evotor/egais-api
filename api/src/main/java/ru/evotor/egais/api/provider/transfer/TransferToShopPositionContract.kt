@@ -17,11 +17,6 @@ internal object TransferToShopPositionContract {
     const val COLUMN_IDENTITY = "IDENTITY"
 
     /**
-     * Регистрационный код продукции
-     */
-    const val COLUMN_PRODUCT_CODE = "PRODUCT_CODE"
-
-    /**
      * Количество
      */
     const val COLUMN_QUANTITY = "QUANTITY"
