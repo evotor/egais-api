@@ -26,7 +26,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
      * Регистрационный код продукции
      */
     @JvmField
-    val productCode = addFieldFilter<String>(TransferToShopPositionContract.COLUMN_PRODUCT_CODE)
+    val productCode = addFieldFilter<String>(TransferToShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
     /**
      * Количество
@@ -79,7 +79,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
          * Регистрационный код продукции
          */
         @JvmField
-        val productCode = addFieldSorter(TransferToShopPositionContract.COLUMN_PRODUCT_CODE)
+        val productCode = addFieldSorter(TransferToShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
 
         /**
          * Количество
@@ -113,7 +113,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
     override fun getValue(cursor: Cursor<TransferToShopPosition>): TransferToShopPosition {
         val columnIndexTransferToShopUuid = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_TRANSFER_TO_SHOP_ID)
         val columnIndexIdentity = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_IDENTITY)
-        val columnIndexProductCode = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_PRODUCT_CODE)
+        val columnIndexProductCode = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
         val columnIndexQuantity = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_QUANTITY)
         val columnIndexInformF2RegId = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_INFORM_F2_REG_ID)
         val columnIndexInformF2MarkInfoJson = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
