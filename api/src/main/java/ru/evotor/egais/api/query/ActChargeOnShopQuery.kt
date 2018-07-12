@@ -1,8 +1,8 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShop
-import ru.evotor.egais.api.model.document.actchargeonshop.Status
-import ru.evotor.egais.api.model.document.actchargeonshop.Type
+import ru.evotor.egais.api.model.document.actchargeon.ActChargeOnShop
+import ru.evotor.egais.api.model.document.actchargeon.Status
+import ru.evotor.egais.api.model.document.actchargeon.Type
 import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopContract
 import ru.evotor.egais.api.provider.converter.DateConverter

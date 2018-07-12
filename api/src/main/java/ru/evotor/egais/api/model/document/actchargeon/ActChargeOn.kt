@@ -1,10 +1,10 @@
-package ru.evotor.egais.api.model.document.actchargeonshop
+package ru.evotor.egais.api.model.document.actchargeon
 
 import ru.evotor.egais.api.model.document.EgaisDocument
 import java.util.*
 
 /**
- * Акт постановки на баланс в торговый зал
+ * Акт постановки на баланс на склад
  *
  * @property uuid Уникальный идентификатор
  * @property docOwner Кто подает документы
@@ -18,8 +18,9 @@ import java.util.*
  * @property status Статус документа
  * @property rejectComment Комментарий при отказе
  * @property replyId Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
+
  */
-data class ActChargeOnShop(
+data class ActChargeOn(
         val uuid: UUID,
         val docOwner: String,
         val identity: String?,
@@ -31,5 +32,4 @@ data class ActChargeOnShop(
         val status: Status,
         val rejectComment: String?,
         val replyId: String?
-) : EgaisDocument() {
-}
+) : EgaisDocument()

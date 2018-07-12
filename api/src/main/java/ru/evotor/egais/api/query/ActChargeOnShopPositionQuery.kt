@@ -1,6 +1,6 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShopPosition
+import ru.evotor.egais.api.model.document.actchargeon.ActChargeOnShopPosition
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopPositionContract
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.query.Cursor
