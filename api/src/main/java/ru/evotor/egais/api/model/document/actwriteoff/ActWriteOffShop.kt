@@ -25,7 +25,7 @@ data class ActWriteOffShop(
         val actDate: Date?,
         val typeWriteOff: TypeWriteOff,
         val note: String?,
-        var status: ActWriteOffStatus,
+        val status: ActWriteOffStatus,
         val rejectComment: String?,
         val replyId: String?
 ) : EgaisDocument()
