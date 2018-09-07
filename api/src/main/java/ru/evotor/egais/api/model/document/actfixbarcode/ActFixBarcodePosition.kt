@@ -15,6 +15,5 @@ data class ActFixBarcodePosition(
         val uuid: UUID,
         val actFixBarcodeUuid: UUID,
         val identity: String,
-        val informF2RegId: String,
-        val marks: List<String>
+        val informF2RegId: String
 )

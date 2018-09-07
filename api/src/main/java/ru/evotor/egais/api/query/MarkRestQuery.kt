@@ -1,7 +1,7 @@
 package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.dictionary.MarkRest
-import ru.evotor.egais.api.provider.reply.MarkRestContract
+import ru.evotor.egais.api.provider.dictionary.MarkRestContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
