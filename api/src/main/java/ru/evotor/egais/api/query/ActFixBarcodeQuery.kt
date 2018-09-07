@@ -4,13 +4,14 @@ import ru.evotor.egais.api.model.document.actfixbarcode.ActFixBarcode
 import ru.evotor.egais.api.model.document.actfixbarcode.Status
 import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.actfixbarcode.ActFixBarcodeContract
+import ru.evotor.egais.api.provider.actfixbarcode.ActFixBarcodePositionContract
 import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
 
 /**
- * Класс для формирования запроса на получение позиций акта привязки марок к партии
+ * Класс для формирования запроса на получение акта привязки марок к партии
  */
 class ActFixBarcodeQuery : FilterBuilder<ActFixBarcodeQuery, ActFixBarcodeQuery.SortOrder, ActFixBarcode>(ActFixBarcodeContract.URI) {
 
@@ -67,6 +68,12 @@ class ActFixBarcodeQuery : FilterBuilder<ActFixBarcodeQuery, ActFixBarcodeQuery.
      */
     @JvmField
     val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
+
+    /**
+     * Регистрационный номер раздела справки 2 в позициях акта привязки
+     */
+    @JvmField
+    val informF2RegId = addFieldFilter<String?>(ActFixBarcodePositionContract.COLUMN_INFORM_F2_REG_ID)
 
     override val currentQuery: ActFixBarcodeQuery
         get() = this
@@ -129,6 +136,12 @@ class ActFixBarcodeQuery : FilterBuilder<ActFixBarcodeQuery, ActFixBarcodeQuery.
          */
         @JvmField
         val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
+
+        /**
+         * Регистрационный номер раздела справки 2 в позициях акта привязки
+         */
+        @JvmField
+        val informF2RegId = addFieldSorter(ActFixBarcodePositionContract.COLUMN_INFORM_F2_REG_ID)
 
         override val currentSortOrder: SortOrder
             get() = this
