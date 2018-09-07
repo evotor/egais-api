@@ -20,7 +20,7 @@ internal object MarkRestContract {
     /**
      * Регистрационный номер раздела справки Б
      */
-    const val COLUMN_NAME_INFORM_B_REG_ID = "INFORM_B_REG_ID"
+    const val COLUMN_NAME_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"
 
     /**
      * Марка

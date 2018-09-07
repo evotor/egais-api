@@ -19,10 +19,10 @@ class MarkRestQuery : FilterBuilder<MarkRestQuery, MarkRestQuery.SortOrder, Mark
     val docUuid = addFieldFilter<UUID>(MarkRestContract.COLUMN_DOCUMENT_UUID)
 
     /**
-     * Регистрационный номер раздела справки Б
+     * Регистрационный номер раздела справки 2
      */
     @JvmField
-    val informBRegId = addFieldFilter<UUID>(MarkRestContract.COLUMN_NAME_INFORM_B_REG_ID)
+    val informF2RegId = addFieldFilter<UUID>(MarkRestContract.COLUMN_NAME_INFORM_F2_REG_ID)
 
     /**
      * Марка
@@ -45,10 +45,10 @@ class MarkRestQuery : FilterBuilder<MarkRestQuery, MarkRestQuery.SortOrder, Mark
         val docUuid = addFieldSorter(MarkRestContract.COLUMN_DOCUMENT_UUID)
 
         /**
-         * Регистрационный номер раздела справки Б
+         * Регистрационный номер раздела справки 2
          */
         @JvmField
-        val informBRegId = addFieldSorter(MarkRestContract.COLUMN_NAME_INFORM_B_REG_ID)
+        val informF2RegId = addFieldSorter(MarkRestContract.COLUMN_NAME_INFORM_F2_REG_ID)
 
         /**
          * Марка
@@ -66,11 +66,11 @@ class MarkRestQuery : FilterBuilder<MarkRestQuery, MarkRestQuery.SortOrder, Mark
 
     private fun createMarkRest(cursor: android.database.Cursor): MarkRest {
         val columnIndexDocUuid = cursor.getColumnIndex(MarkRestContract.COLUMN_DOCUMENT_UUID)
-        val columnIndexInformBRegId = cursor.getColumnIndex(MarkRestContract.COLUMN_NAME_INFORM_B_REG_ID)
+        val columnIndexInformF2RegId = cursor.getColumnIndex(MarkRestContract.COLUMN_NAME_INFORM_F2_REG_ID)
         val columnIndexMark = cursor.getColumnIndex(MarkRestContract.COLUMN_MARK)
         return MarkRest(
                 UUID.fromString(cursor.getString(columnIndexDocUuid)),
-                cursor.getString(columnIndexInformBRegId),
+                cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexMark)
         )
     }
