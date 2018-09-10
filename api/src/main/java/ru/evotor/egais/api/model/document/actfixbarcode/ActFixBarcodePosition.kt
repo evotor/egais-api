@@ -9,7 +9,6 @@ import java.util.*
  * @property actFixBarcodeUuid Уникальный идентификатор акта привязки, содержащего позицию
  * @property identity Идентификатор позиции внутри накладной
  * @property informF2RegId Регистрационный номер раздела справки 2
- * @property marks Список марок
  */
 data class ActFixBarcodePosition(
         val uuid: UUID,

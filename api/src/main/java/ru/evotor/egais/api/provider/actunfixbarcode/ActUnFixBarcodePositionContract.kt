@@ -5,7 +5,7 @@ import android.net.Uri
 internal object ActUnFixBarcodePositionContract {
 
     @JvmField
-    val PATH = "ActFixBarcodePosition"
+    val PATH = "ActUnFixBarcodePosition"
 
     @JvmField
     val URI = Uri.withAppendedPath(ActUnFixBarcodeContract.BASE_URI, PATH)
