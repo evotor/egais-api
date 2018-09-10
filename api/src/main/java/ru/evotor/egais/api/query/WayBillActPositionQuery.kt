@@ -9,7 +9,7 @@ import java.math.BigDecimal
 import java.util.*
 
 /**
- * Класс для формирования запроса на получение позиций акта ТТН
+ * Класс для формирования запроса на получение позиций ТТН
  */
 class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillActPositionQuery.SortOrder, WayBillActPosition>(WayBillActPositionContract.URI) {
 

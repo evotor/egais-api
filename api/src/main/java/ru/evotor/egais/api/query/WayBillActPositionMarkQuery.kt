@@ -7,12 +7,12 @@ import ru.evotor.query.FilterBuilder
 import java.util.*
 
 /**
- * Класс для формирования запроса на получение марок позиций акта ТТН
+ * Класс для формирования запроса на получение марок позиций ТТН
  */
 class WayBillActPositionMarkQuery : FilterBuilder<WayBillActPositionMarkQuery, WayBillActPositionMarkQuery.SortOrder, WayBillActPositionMark>(WayBillActPositionMarkContract.URI) {
 
     /**
-     * Уникальный идентификатор позиции акта ТТН
+     * Уникальный идентификатор позиции ТТН
      */
     @JvmField
     val wayBillActPositionUuid = addFieldFilter<UUID>(WayBillActPositionMarkContract.COLUMN_WAY_BILL_ACT_POSITION_UUID)
@@ -42,7 +42,7 @@ class WayBillActPositionMarkQuery : FilterBuilder<WayBillActPositionMarkQuery, W
     class SortOrder : FilterBuilder.SortOrder<SortOrder>() {
 
         /**
-         * Уникальный идентификатор позиции акта ТТН
+         * Уникальный идентификатор позиции ТТН
          */
         @JvmField
         val wayBillActPositionUuid = addFieldSorter(WayBillActPositionMarkContract.COLUMN_WAY_BILL_ACT_POSITION_UUID)
