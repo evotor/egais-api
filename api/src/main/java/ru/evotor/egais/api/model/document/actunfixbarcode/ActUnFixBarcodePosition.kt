@@ -9,12 +9,10 @@ import java.util.*
  * @property actUnFixBarcodeUuid Уникальный идентификатор акта отвязки, содержащего позицию
  * @property identity Идентификатор позиции внутри накладной
  * @property informF2RegId Регистрационный номер раздела справки 2
- * @property marks Список марок
  */
 data class ActUnFixBarcodePosition(
         val uuid: UUID,
         val actUnFixBarcodeUuid: UUID,
         val identity: String,
-        val informF2RegId: String,
-        val marks: List<String>
+        val informF2RegId: String
 )
