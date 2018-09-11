@@ -22,7 +22,7 @@ class ActFixBarcodePositionQuery : FilterBuilder<ActFixBarcodePositionQuery, Act
      * Уникальный идентификатор акта привязки марок к партии
      */
     @JvmField
-    val actWriteOffUuid = addFieldFilter<UUID>(ActFixBarcodePositionContract.COLUMN_ACT_FIX_BARCODE_UUID)
+    val actFixBarcodeUuid = addFieldFilter<UUID>(ActFixBarcodePositionContract.COLUMN_ACT_FIX_BARCODE_UUID)
 
     /**
      * Идентификатор позиции акта привязки марок к партии
