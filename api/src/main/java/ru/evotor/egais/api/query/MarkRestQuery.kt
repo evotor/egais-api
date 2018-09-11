@@ -11,7 +11,6 @@ import java.util.*
  */
 class MarkRestQuery : FilterBuilder<MarkRestQuery, MarkRestQuery.SortOrder, MarkRest>(MarkRestContract.URI) {
 
-
     /**
      * UUID документа основания
      */
@@ -22,13 +21,13 @@ class MarkRestQuery : FilterBuilder<MarkRestQuery, MarkRestQuery.SortOrder, Mark
      * Регистрационный номер раздела справки 2
      */
     @JvmField
-    val informF2RegId = addFieldFilter<UUID>(MarkRestContract.COLUMN_NAME_INFORM_F2_REG_ID)
+    val informF2RegId = addFieldFilter<String>(MarkRestContract.COLUMN_NAME_INFORM_F2_REG_ID)
 
     /**
      * Марка
      */
     @JvmField
-    val mark = addFieldFilter<UUID>(MarkRestContract.COLUMN_MARK)
+    val mark = addFieldFilter<String>(MarkRestContract.COLUMN_MARK)
 
     override val currentQuery: MarkRestQuery
         get() = this
