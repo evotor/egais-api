@@ -1,80 +1,80 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.model.document.actchargeon.ActChargeOnShop
+import ru.evotor.egais.api.model.document.actchargeon.ActChargeOn
 import ru.evotor.egais.api.model.document.actchargeon.Status
 import ru.evotor.egais.api.model.document.actchargeon.Type
 import ru.evotor.egais.api.provider.UtmDocumentContract
-import ru.evotor.egais.api.provider.actchargeon.ActChargeOnShopContract
+import ru.evotor.egais.api.provider.actchargeon.ActChargeOnContract
 import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
 
 /**
- * Класс для формирования запроса на получение актов поставки на баланс в торговый зал
+ * Класс для формирования запроса на получение актов постановки на баланс на склад
  */
-class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShopQuery.SortOrder, ActChargeOnShop>(ActChargeOnShopContract.URI) {
+class ActChargeOnQuery : FilterBuilder<ActChargeOnQuery, ActChargeOnQuery.SortOrder, ActChargeOn>(ActChargeOnContract.URI) {
 
     /**
      * Уникальный идентификатор
      */
     @JvmField
-    val uuid = addFieldFilter<UUID>(ActChargeOnShopContract.COLUMN_UUID)
+    val uuid = addFieldFilter<UUID>(ActChargeOnContract.COLUMN_UUID)
 
     /**
      * Кто подает документы
      */
     @JvmField
-    val docOwner = addFieldFilter<String>(ActChargeOnShopContract.COLUMN_OWNER)
+    val docOwner = addFieldFilter<String>(ActChargeOnContract.COLUMN_OWNER)
 
     /**
      * ID акта (клиентсикй)
      */
     @JvmField
-    val identity = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_IDENTITY)
+    val identity = addFieldFilter<String?>(ActChargeOnContract.COLUMN_IDENTITY)
 
     /**
      * Номер документа
      */
     @JvmField
-    val number = addFieldFilter<String>(ActChargeOnShopContract.COLUMN_NUMBER)
+    val number = addFieldFilter<String>(ActChargeOnContract.COLUMN_NUMBER)
 
     /**
      * Дата постановски на баланс
      */
     @JvmField
-    val actDate = addFieldFilter<Date, String>(ActChargeOnShopContract.COLUMN_ACT_DATE, { DateConverter.toString(it) })
+    val actDate = addFieldFilter<Date, String>(ActChargeOnContract.COLUMN_ACT_DATE) { DateConverter.toString(it) }
 
     /**
      * Причина постановки на баланс (Пересортица/Излишки/Продукция, полученная до 01.01.2016)
      */
     @JvmField
-    val type = addFieldFilter<Type>(ActChargeOnShopContract.COLUMN_TYPE_ACT_CHARGE_ON_SHOP)
+    val type = addFieldFilter<Type>(ActChargeOnContract.COLUMN_TYPE_ACT_CHARGE_ON)
 
     /**
      * Регистрационный номер акта списания по типу "Пересортица".
      * Обязательно для заполнения для типа постановки на баланс "Пересортица".
      */
     @JvmField
-    val actWriteOff = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_ACT_WRITE_OFF)
+    val actWriteOff = addFieldFilter<String?>(ActChargeOnContract.COLUMN_ACT_WRITE_OFF)
 
     /**
      * Примечание
      */
     @JvmField
-    val note = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_NOTE)
+    val note = addFieldFilter<String?>(ActChargeOnContract.COLUMN_NOTE)
 
     /**
      * Статус документа
      */
     @JvmField
-    val status = addFieldFilter<Status>(ActChargeOnShopContract.COLUMN_STATUS)
+    val status = addFieldFilter<Status>(ActChargeOnContract.COLUMN_STATUS)
 
     /**
      * Комментарий при отказе
      */
     @JvmField
-    val rejectComment = addFieldFilter<String?>(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
+    val rejectComment = addFieldFilter<String?>(ActChargeOnContract.COLUMN_REJECT_COMMENT)
 
     /**
      * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
@@ -82,7 +82,7 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
     @JvmField
     val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
-    override val currentQuery: ActChargeOnShopQuery
+    override val currentQuery: ActChargeOnQuery
         get() = this
 
     /**
@@ -94,62 +94,62 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
          * Уникальный идентификатор
          */
         @JvmField
-        val uuid = addFieldSorter(ActChargeOnShopContract.COLUMN_UUID)
+        val uuid = addFieldSorter(ActChargeOnContract.COLUMN_UUID)
 
         /**
          * Кто подает документы
          */
         @JvmField
-        val docOwner = addFieldSorter(ActChargeOnShopContract.COLUMN_OWNER)
+        val docOwner = addFieldSorter(ActChargeOnContract.COLUMN_OWNER)
 
         /**
          * ID акта (клиентсикй)
          */
         @JvmField
-        val identity = addFieldSorter(ActChargeOnShopContract.COLUMN_IDENTITY)
+        val identity = addFieldSorter(ActChargeOnContract.COLUMN_IDENTITY)
 
         /**
          * Номер документа
          */
         @JvmField
-        val number = addFieldSorter(ActChargeOnShopContract.COLUMN_NUMBER)
+        val number = addFieldSorter(ActChargeOnContract.COLUMN_NUMBER)
 
         /**
          * Дата постановски на баланс
          */
         @JvmField
-        val actDate = addFieldSorter(ActChargeOnShopContract.COLUMN_ACT_DATE)
+        val actDate = addFieldSorter(ActChargeOnContract.COLUMN_ACT_DATE)
 
         /**
          * Причина постановки на баланс (Пересортица/Излишки/Продукция, полученная до 01.01.2016)
          */
         @JvmField
-        val type = addFieldSorter(ActChargeOnShopContract.COLUMN_TYPE_ACT_CHARGE_ON_SHOP)
+        val type = addFieldSorter(ActChargeOnContract.COLUMN_TYPE_ACT_CHARGE_ON)
 
         /**
          * Регистрационный номер акта списания по типу "Пересортица".
          * Обязательно для заполнения для типа постановки на баланс "Пересортица".
          */
         @JvmField
-        val actWriteOff = addFieldSorter(ActChargeOnShopContract.COLUMN_ACT_WRITE_OFF)
+        val actWriteOff = addFieldSorter(ActChargeOnContract.COLUMN_ACT_WRITE_OFF)
 
         /**
          * Примечание
          */
         @JvmField
-        val note = addFieldSorter(ActChargeOnShopContract.COLUMN_NOTE)
+        val note = addFieldSorter(ActChargeOnContract.COLUMN_NOTE)
 
         /**
          * Статус документа
          */
         @JvmField
-        val status = addFieldSorter(ActChargeOnShopContract.COLUMN_STATUS)
+        val status = addFieldSorter(ActChargeOnContract.COLUMN_STATUS)
 
         /**
          * Комментарий при отказе
          */
         @JvmField
-        val rejectComment = addFieldSorter(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
+        val rejectComment = addFieldSorter(ActChargeOnContract.COLUMN_REJECT_COMMENT)
 
         /**
          * Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
@@ -162,24 +162,24 @@ class ActChargeOnShopQuery : FilterBuilder<ActChargeOnShopQuery, ActChargeOnShop
 
     }
 
-    override fun getValue(cursor: Cursor<ActChargeOnShop>): ActChargeOnShop {
+    override fun getValue(cursor: Cursor<ActChargeOn>): ActChargeOn {
         return createActChargeOnShop(cursor)
     }
 
-    private fun createActChargeOnShop(cursor: android.database.Cursor): ActChargeOnShop {
-        val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_UUID)
-        val columnIndexOwner = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_OWNER)
-        val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_IDENTITY)
-        val columnIndexNumber = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_NUMBER)
-        val columnIndexDate = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_ACT_DATE)
-        val columnIndexType = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_TYPE_ACT_CHARGE_ON_SHOP)
-        val columnIndexActWriteOff = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_ACT_WRITE_OFF)
-        val columnIndexNote = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_NOTE)
-        val columnIndexStatus = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_STATUS)
-        val columnIndexRejectComment = cursor.getColumnIndex(ActChargeOnShopContract.COLUMN_REJECT_COMMENT)
+    private fun createActChargeOnShop(cursor: android.database.Cursor): ActChargeOn {
+        val columnIndexUuid = cursor.getColumnIndex(ActChargeOnContract.COLUMN_UUID)
+        val columnIndexOwner = cursor.getColumnIndex(ActChargeOnContract.COLUMN_OWNER)
+        val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnContract.COLUMN_IDENTITY)
+        val columnIndexNumber = cursor.getColumnIndex(ActChargeOnContract.COLUMN_NUMBER)
+        val columnIndexDate = cursor.getColumnIndex(ActChargeOnContract.COLUMN_ACT_DATE)
+        val columnIndexType = cursor.getColumnIndex(ActChargeOnContract.COLUMN_TYPE_ACT_CHARGE_ON)
+        val columnIndexActWriteOff = cursor.getColumnIndex(ActChargeOnContract.COLUMN_ACT_WRITE_OFF)
+        val columnIndexNote = cursor.getColumnIndex(ActChargeOnContract.COLUMN_NOTE)
+        val columnIndexStatus = cursor.getColumnIndex(ActChargeOnContract.COLUMN_STATUS)
+        val columnIndexRejectComment = cursor.getColumnIndex(ActChargeOnContract.COLUMN_REJECT_COMMENT)
         val columnIndexReplyId = cursor.getColumnIndex(UtmDocumentContract.COLUMN_REPLY_ID)
 
-        return ActChargeOnShop(
+        return ActChargeOn(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 cursor.getString(columnIndexOwner),
                 cursor.getString(columnIndexIdentity),
