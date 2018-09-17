@@ -26,7 +26,7 @@ class ActChargeOnPositionQuery : FilterBuilder<ActChargeOnPositionQuery, ActChar
      * Идентификатор акта постановки, содержащего позицию
      */
     @JvmField
-    val actChargeOnShopUuid = addFieldFilter<UUID>(ActChargeOnPositionContract.COLUMN_ACT_CHARGE_ON_UUID)
+    val actChargeOnUuid = addFieldFilter<UUID>(ActChargeOnPositionContract.COLUMN_ACT_CHARGE_ON_UUID)
 
     /**
      * Идентификатор позиции внутри накладной
@@ -100,7 +100,7 @@ class ActChargeOnPositionQuery : FilterBuilder<ActChargeOnPositionQuery, ActChar
          * Идентификатор акта постановки, содержащего позицию
          */
         @JvmField
-        val actChargeOnShopUuid = addFieldSorter(ActChargeOnPositionContract.COLUMN_ACT_CHARGE_ON_UUID)
+        val actChargeOnUuid = addFieldSorter(ActChargeOnPositionContract.COLUMN_ACT_CHARGE_ON_UUID)
 
         /**
          * Идентификатор позиции внутри накладной
@@ -162,10 +162,10 @@ class ActChargeOnPositionQuery : FilterBuilder<ActChargeOnPositionQuery, ActChar
     }
 
     override fun getValue(cursor: Cursor<ActChargeOnPosition>): ActChargeOnPosition {
-        return createActChargeOnShopPosition(cursor)
+        return createActChargeOnPosition(cursor)
     }
 
-    private fun createActChargeOnShopPosition(cursor: android.database.Cursor): ActChargeOnPosition {
+    private fun createActChargeOnPosition(cursor: android.database.Cursor): ActChargeOnPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActChargeOnPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActChargeOnPositionContract.COLUMN_ACT_CHARGE_ON_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnPositionContract.COLUMN_IDENTITY)
