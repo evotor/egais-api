@@ -65,7 +65,7 @@ publishing {
             //generate pom nodes for dependencies
             pom.withXml {
                 def dependenciesNode = asNode().appendNode('dependencies')
-                configurations.compile.allDependencies.each { dependency ->
+                configurations.api.allDependencies.each { dependency ->
                     if (dependency.group) {
                         def dependencyNode = dependenciesNode.appendNode('dependency')
                         dependencyNode.appendNode('groupId', dependency.group)
