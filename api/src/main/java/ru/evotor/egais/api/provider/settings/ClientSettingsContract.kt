@@ -1,4 +1,4 @@
-package ru.evotor.egais.api.provider.client_settings
+package ru.evotor.egais.api.provider.settings
 
 import android.net.Uri
 import ru.evotor.egais.api.provider.MainContract
