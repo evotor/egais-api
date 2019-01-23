@@ -43,4 +43,9 @@ internal object ActWriteOffShopPositionContract {
      * Перечень считанных кодов марок
      */
     const val COLUMN_MARK_LIST = "MARK_LIST"
+
+    /**
+     * Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
+     */
+    const val COLUMN_SUM_SALE = "SUM_SALE"
 }
