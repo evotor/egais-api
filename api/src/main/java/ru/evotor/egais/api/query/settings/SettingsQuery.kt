@@ -23,4 +23,12 @@ class SettingsQuery {
                     cursor.getString(cursor.getColumnIndex(SettingsContract.ALCOHOL_ENABLED_COLUMN_NAME))?.toBoolean()
                 } ?: true
     }
+
+    fun isLinkEgaisCommodity(context: Context): Boolean {
+        return context.contentResolver.query(SettingsContract.LINK_EGAIS_COMMODITY_URI, null, null, null, null)
+                ?.use { cursor ->
+                    cursor.moveToFirst()
+                    cursor.getString(cursor.getColumnIndex(SettingsContract.LINK_EGAIS_COMMODITY_COLUMN_NAME))?.toBoolean()
+                } ?: true
+    }
 }
