@@ -1,6 +1,7 @@
 package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.Version
+import ru.evotor.egais.api.model.dictionary.UnitType
 import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.waybill.*
 import ru.evotor.egais.api.provider.UtmDocumentContract
@@ -42,6 +43,7 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
     /**
      * Тип упаковки.
      */
+    @Deprecated("Use unitType of each position ProductInfo")
     @JvmField
     val unitType = addFieldFilter<UnitType?>(WayBillContract.COLUMN_UNIT_TYPE)
 
@@ -170,6 +172,7 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         /**
          * Тип упаковки.
          */
+        @Deprecated("Use unitType of each position ProductInfo")
         @JvmField
         val unitType = addFieldSorter(WayBillContract.COLUMN_UNIT_TYPE)
 

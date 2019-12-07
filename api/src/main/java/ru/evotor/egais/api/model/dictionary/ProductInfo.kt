@@ -1,8 +1,5 @@
 package ru.evotor.egais.api.model.dictionary
 
-import java.util.*
-
-
 /**
  * Информация о продукции
  *
@@ -15,6 +12,7 @@ import java.util.*
  * @property producerId Производитель
  * @property importerId Импортер
  * @property productVCode Код вида продукции.
+ * @property unitType Тип поставки (упакованная или нет)
  */
 data class ProductInfo(
         @JvmField val type: ProductType,
@@ -25,7 +23,8 @@ data class ProductInfo(
         @JvmField val alcVolume: String?,
         @JvmField val producerId: String?,
         @JvmField val importerId: String?,
-        @JvmField val productVCode: String?
+        @JvmField val productVCode: String?,
+        @JvmField val unitType: UnitType
 ) {
 
     companion object {

@@ -1,4 +1,4 @@
-package ru.evotor.egais.api.model.document.waybill
+package ru.evotor.egais.api.model.dictionary
 
 /**
  *  - PACKED упакованная
