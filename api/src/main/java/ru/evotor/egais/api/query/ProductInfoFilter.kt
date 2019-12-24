@@ -60,6 +60,12 @@ class ProductInfoFilter<Q, S : FilterBuilder.SortOrder<S>, R> : FilterBuilder.In
     val productVCode = addFieldFilter<String?>(ProductInfoContract.COLUMN_PRODUCT_V_CODE)
 
     /**
+     * Тип поставки (упакованная или нет)
+     */
+    @JvmField
+    val unitType = addFieldFilter<String?>(ProductInfoContract.COLUMN_UNIT_TYPE)
+
+    /**
      * Класс для сортировки полей в результе запроса
      */
     class SortOrder<S : FilterBuilder.SortOrder<S>> : FilterBuilder.Inner.SortOrder<S>() {
@@ -118,5 +124,10 @@ class ProductInfoFilter<Q, S : FilterBuilder.SortOrder<S>, R> : FilterBuilder.In
         @JvmField
         val productVCode = addFieldSorter(ProductInfoContract.COLUMN_PRODUCT_V_CODE)
 
+        /**
+         * Тип поставки (упакованная или нет)
+         */
+        @JvmField
+        val untiType = addFieldSorter(ProductInfoContract.COLUMN_UNIT_TYPE)
     }
 }
