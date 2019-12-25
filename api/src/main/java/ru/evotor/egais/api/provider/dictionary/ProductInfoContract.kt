@@ -61,4 +61,9 @@ internal object ProductInfoContract {
      */
     const val COLUMN_PRODUCT_V_CODE = "PRODUCT_V_CODE"
 
+    /**
+     * Тип поставки (упакованная или нет)
+     */
+    const val COLUMN_UNIT_TYPE = "UNIT_TYPE"
+
 }

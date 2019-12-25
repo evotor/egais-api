@@ -189,7 +189,7 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         val columnQuantity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_QUANTITY)
         val columnPrice = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRICE)
         val columnParty = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PARTY)
-        val columnIndentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_IDENTITY)
+        val columnIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_IDENTITY)
         val columnInformF1RegId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_INFORM_INFORM_F1_REG_ID)
         val columnInformF2RegId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_INFORM_F2_REG_ID)
         return WayBillPosition(
@@ -201,7 +201,7 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
                 quantity = QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
                 price = MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnPrice)),
                 party = cursor.getString(columnParty),
-                identity = cursor.getString(columnIndentity),
+                identity = cursor.getString(columnIdentity),
                 informF1RegId = cursor.getString(columnInformF1RegId),
                 informF2RegId = cursor.getString(columnInformF2RegId)
         )

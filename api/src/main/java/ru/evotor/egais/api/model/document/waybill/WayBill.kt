@@ -1,6 +1,7 @@
 package ru.evotor.egais.api.model.document.waybill
 
 import ru.evotor.egais.api.model.Version
+import ru.evotor.egais.api.model.dictionary.UnitType
 import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.EgaisDocument
 import java.util.*
@@ -35,7 +36,7 @@ data class WayBill(
         val docOwner: String,
         val identity: String?,
         val type: Type,
-        val unitType: UnitType?,
+        @Deprecated("Use unitType of each position ProductInfo") val unitType: UnitType?,
         val number: String,
         val date: Date,
         val shippingDate: Date,

@@ -3,6 +3,7 @@ package ru.evotor.egais.api.query
 import android.database.Cursor
 import ru.evotor.egais.api.model.dictionary.ProductInfo
 import ru.evotor.egais.api.model.dictionary.ProductType
+import ru.evotor.egais.api.model.dictionary.UnitType
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
 
 internal fun Cursor.createProductInfo(): ProductInfo {
@@ -15,6 +16,7 @@ internal fun Cursor.createProductInfo(): ProductInfo {
     val columnIndexProducerId = this.getColumnIndex(ProductInfoContract.COLUMN_PRODUCER_CLIENT_REG_ID)
     val columnIndexImporterId = this.getColumnIndex(ProductInfoContract.COLUMN_IMPORTER_CLIENT_REG_ID)
     val columnIndexProductVCode = this.getColumnIndex(ProductInfoContract.COLUMN_PRODUCT_V_CODE)
+    val columnIndexUnitType = this.getColumnIndex(ProductInfoContract.COLUMN_UNIT_TYPE)
 
     return ProductInfo(
             ProductType.valueOf(this.getString(columnIndexType)),
@@ -25,6 +27,9 @@ internal fun Cursor.createProductInfo(): ProductInfo {
             this.getString(columnIndexAlcVolume),
             this.getString(columnIndexProducerId),
             this.getString(columnIndexImporterId),
-            this.getString(columnIndexProductVCode)
+            this.getString(columnIndexProductVCode),
+            takeIf { columnIndexUnitType != -1 }?.let {
+                UnitType.valueOf(this.getString(columnIndexUnitType))
+            } ?: UnitType.PACKED
     )
 }
