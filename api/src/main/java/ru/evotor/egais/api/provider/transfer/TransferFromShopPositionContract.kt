@@ -22,6 +22,11 @@ internal object TransferFromShopPositionContract {
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
+     * Количество c дополнительным разрядом
+     */
+    const val COLUMN_QUANTITY_DAL = "QUANTITY_DAL"
+
+    /**
      * Регистрационный номер раздела справки 2
      */
     const val COLUMN_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"

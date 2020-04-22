@@ -57,10 +57,18 @@ class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.
     }
 
     private fun createShopCommodity(cursor: android.database.Cursor): ShopCommodity {
-        val columnQuantity = cursor.getColumnIndex(ShopCommodityContract.COLUMN_QUANTITY)
+        val columnQuantity = getQuantityColumnIndex(cursor)
         return ShopCommodity(
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
                 cursor.createProductInfo()
         )
+    }
+
+    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(ShopCommodityContract.COLUMN_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(ShopCommodityContract.COLUMN_QUANTITY)
+        } else {
+            cursor.getColumnIndex(ShopCommodityContract.COLUMN_QUANTITY_DAL)
+        }
     }
 }

@@ -131,7 +131,7 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_ACT_WRITE_OFF_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_IDENTITY)
-        val columnIndexQuantity = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY)
+        val columnIndexQuantity = getQuantityColumnIndex(cursor)
         val columnIndexInformF2RegId = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_F2_REG_ID)
         val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
         val columnIndexMarkList = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_MARK_LIST)
@@ -148,5 +148,13 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
                 if (cursor.isNull(columnIndexSumSale)) null else QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexSumSale)),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
         )
+    }
+
+    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY)
+        } else {
+            cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY_DAL)
+        }
     }
 }

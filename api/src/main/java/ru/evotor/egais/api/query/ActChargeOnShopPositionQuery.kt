@@ -97,7 +97,7 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
         val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_ACT_CHARGE_ON_SHOP_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_IDENTITY)
-        val columnIndexQuantity = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY)
+        val columnIndexQuantity = getQuantityColumnIndex(cursor)
 
         return ActChargeOnShopPosition(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
@@ -107,4 +107,14 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
                 cursor.createProductInfo()
         )
     }
+
+    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY)
+        } else {
+            cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY_DAL)
+        }
+    }
+
+
 }

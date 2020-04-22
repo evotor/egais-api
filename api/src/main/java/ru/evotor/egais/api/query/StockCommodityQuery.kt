@@ -83,7 +83,7 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
     private fun createStockCommodity(cursor: android.database.Cursor): StockCommodity {
         val columnInformF1RegId = cursor.getColumnIndex(StockCommodityContract.COLUMN_INFORM_F1_REG_ID)
         val columnInformF2RegId = cursor.getColumnIndex(StockCommodityContract.COLUMN_INFORM_F2_REG_ID)
-        val columnQuantity = cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY)
+        val columnQuantity = getQuantityColumnIndex(cursor)
 
         return StockCommodity(
                 cursor.getString(columnInformF1RegId),
@@ -91,5 +91,13 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
                 cursor.createProductInfo()
         )
+    }
+
+    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY)
+        } else {
+            cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY_DAL)
+        }
     }
 }

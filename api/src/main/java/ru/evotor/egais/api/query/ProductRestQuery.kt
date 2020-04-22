@@ -77,12 +77,28 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
 
     override fun getValue(cursor: Cursor<ProductRest>): ProductRest {
         val productInfo = cursor.createProductInfo()
-        val columnStockQuantity = cursor.getColumnIndex(ProductRestContract.COLUMN_STOCK_QUANTITY)
-        val columnShopQuantity = cursor.getColumnIndex(ProductRestContract.COLUMN_SHOP_QUANTITY)
+        val columnStockQuantity = getStockQuantityColumnIndex(cursor)
+        val columnShopQuantity = getShopQuantityColumnIndex(cursor)
         return ProductRest(
                 productInfo,
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnStockQuantity)),
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnShopQuantity))
         )
+    }
+
+    private fun getStockQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(ProductRestContract.COLUMN_STOCK_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(ProductRestContract.COLUMN_STOCK_QUANTITY)
+        } else {
+            cursor.getColumnIndex(ProductRestContract.COLUMN_STOCK_QUANTITY_DAL)
+        }
+    }
+
+    private fun getShopQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(ProductRestContract.COLUMN_SHOP_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(ProductRestContract.COLUMN_SHOP_QUANTITY)
+        } else {
+            cursor.getColumnIndex(ProductRestContract.COLUMN_SHOP_QUANTITY_DAL)
+        }
     }
 }

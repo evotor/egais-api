@@ -186,7 +186,7 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
         val columnProductIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)
         val columnPackId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PACKID)
-        val columnQuantity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_QUANTITY)
+        val columnQuantity = getQuantityColumnIndex(cursor)
         val columnPrice = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRICE)
         val columnParty = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PARTY)
         val columnIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_IDENTITY)
@@ -207,4 +207,11 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         )
     }
 
+    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY)
+        } else {
+            cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY_DAL)
+        }
+    }
 }

@@ -97,7 +97,7 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
         val columnUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_UUID)
         val columnWayBillActUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_WAY_BILL_ACT_UUID)
         val columnIdentity = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_IDENTITY)
-        val columnQuantity = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
+        val columnQuantity = getQuantityColumnIndex(cursor)
         val columnInformF2RegId = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_INFORM_F2_REG_ID)
 
         return WayBillActPosition(
@@ -107,5 +107,13 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
                 cursor.getString(columnInformF2RegId),
                 QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
         )
+    }
+
+    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
+        } else {
+            cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY_DAL)
+        }
     }
 }

@@ -102,7 +102,7 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
         val columnIndexTransferFromShopUuid = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_TRANSFER_FROM_SHOP_ID)
         val columnIndexIdentity = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_IDENTITY)
         val columnIndexProductCode = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
-        val columnIndexQuantity = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_QUANTITY)
+        val columnIndexQuantity = getQuantityColumnIndex(cursor)
         val columnIndexInformF2RegId = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_INFORM_F2_REG_ID)
 
         return TransferFromShopPosition(
@@ -113,5 +113,13 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.createProductInfo()
         )
+    }
+
+    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
+        return if (cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY_DAL) == -1) {
+            cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY)
+        } else {
+            cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY_DAL)
+        }
     }
 }

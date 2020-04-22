@@ -30,6 +30,11 @@ internal object ActChargeOnShopPositionContract {
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
+     * Количество c дополнительным разрядом
+     */
+    const val COLUMN_QUANTITY_DAL = "QUANTITY_DAL"
+
+    /**
      * Алкокод информации о продукции
      */
     const val COLUMN_PRODUCT_INFO_ALC_CODE = "PRODUCT_INFO_ALC_CODE"
