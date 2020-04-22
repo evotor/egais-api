@@ -2,6 +2,7 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.document.waybillact.WayBillActPosition
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.waybillact.WayBillActPositionContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -93,6 +94,8 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
         return createWayBillActPosition(cursor)
     }
 
+    private var isItQuantityDal: Boolean = false
+
     private fun createWayBillActPosition(cursor: android.database.Cursor): WayBillActPosition {
         val columnUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_UUID)
         val columnWayBillActUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_WAY_BILL_ACT_UUID)
@@ -105,7 +108,10 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
                 UUID.fromString(cursor.getString(columnWayBillActUuid)),
                 cursor.getString(columnIdentity),
                 cursor.getString(columnInformF2RegId),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
+                if (isItQuantityDal)
+                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
+                else
+                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
         )
     }
 
@@ -113,6 +119,7 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
         return if (cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY_DAL) == -1) {
             cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
         } else {
+            isItQuantityDal = true
             cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY_DAL)
         }
     }

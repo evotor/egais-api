@@ -2,6 +2,7 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.document.transfer.TransferFromShopPosition
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.transfer.TransferFromShopPositionContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -98,6 +99,8 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
 
     }
 
+    private var isItQuantityDal: Boolean = false
+
     override fun getValue(cursor: Cursor<TransferFromShopPosition>): TransferFromShopPosition {
         val columnIndexTransferFromShopUuid = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_TRANSFER_FROM_SHOP_ID)
         val columnIndexIdentity = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_IDENTITY)
@@ -109,7 +112,10 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
                 UUID.fromString(cursor.getString(columnIndexTransferFromShopUuid)),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexProductCode),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                if (isItQuantityDal)
+                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity))
+                else
+                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.createProductInfo()
         )
@@ -119,6 +125,7 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
         return if (cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY_DAL) == -1) {
             cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY)
         } else {
+            isItQuantityDal = true
             cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY_DAL)
         }
     }

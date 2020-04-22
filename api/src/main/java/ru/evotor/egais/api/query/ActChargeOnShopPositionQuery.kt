@@ -3,6 +3,7 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShopPosition
 import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopPositionContract
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
@@ -93,6 +94,8 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
         return createActChargeOnShopPosition(cursor)
     }
 
+    private var isItQuantityDal: Boolean = false
+
     private fun createActChargeOnShopPosition(cursor: android.database.Cursor): ActChargeOnShopPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_ACT_CHARGE_ON_SHOP_UUID)
@@ -103,7 +106,10 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                if (isItQuantityDal)
+                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity))
+                else
+                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.createProductInfo()
         )
     }
@@ -112,6 +118,7 @@ class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery,
         return if (cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY_DAL) == -1) {
             cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY)
         } else {
+            isItQuantityDal = true
             cursor.getColumnIndex(ActChargeOnShopPositionContract.COLUMN_QUANTITY_DAL)
         }
     }

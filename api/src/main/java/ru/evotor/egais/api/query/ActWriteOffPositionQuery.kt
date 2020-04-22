@@ -4,6 +4,7 @@ import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffPosition
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffPositionContract
 import ru.evotor.egais.api.provider.converter.MarkListConverter
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
@@ -127,6 +128,8 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
         return createActWriteOffPosition(cursor)
     }
 
+    private var isItQuantityDal: Boolean = false
+
     private fun createActWriteOffPosition(cursor: android.database.Cursor): ActWriteOffPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_ACT_WRITE_OFF_UUID)
@@ -141,7 +144,10 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                if (isItQuantityDal)
+                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity))
+                else
+                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexMarkJson),
                 cursor.createProductInfo(),
@@ -154,6 +160,7 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
         return if (cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY_DAL) == -1) {
             cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY)
         } else {
+            isItQuantityDal = true
             cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY_DAL)
         }
     }

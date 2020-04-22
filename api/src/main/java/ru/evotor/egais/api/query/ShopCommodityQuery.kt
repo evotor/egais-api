@@ -2,6 +2,7 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.dictionary.ShopCommodity
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.shop_commodity.ShopCommodityContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -56,10 +57,15 @@ class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.
         return createShopCommodity(cursor)
     }
 
+    private var isItQuantityDal: Boolean = false
+
     private fun createShopCommodity(cursor: android.database.Cursor): ShopCommodity {
         val columnQuantity = getQuantityColumnIndex(cursor)
         return ShopCommodity(
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
+                if (isItQuantityDal)
+                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
+                else
+                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
                 cursor.createProductInfo()
         )
     }
@@ -68,6 +74,7 @@ class ShopCommodityQuery : FilterBuilder<ShopCommodityQuery, ShopCommodityQuery.
         return if (cursor.getColumnIndex(ShopCommodityContract.COLUMN_QUANTITY_DAL) == -1) {
             cursor.getColumnIndex(ShopCommodityContract.COLUMN_QUANTITY)
         } else {
+            isItQuantityDal = true
             cursor.getColumnIndex(ShopCommodityContract.COLUMN_QUANTITY_DAL)
         }
     }

@@ -3,6 +3,7 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.waybill.WayBillPosition
 import ru.evotor.egais.api.provider.converter.MoneyBigDecimalConverter
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.waybill.WayBillPositionContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -181,6 +182,8 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         return createWayBillPosition(cursor)
     }
 
+    private var isItQuantityDal: Boolean = false
+
     private fun createWayBillPosition(cursor: android.database.Cursor): WayBillPosition {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_UUID)
         val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
@@ -198,7 +201,10 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
                 productIdentity = cursor.getString(columnProductIdentity),
                 productInfo = cursor.createProductInfo(),
                 packId = cursor.getString(columnPackId),
-                quantity = QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
+                quantity = if (isItQuantityDal)
+                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
+                else
+                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
                 price = MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnPrice)),
                 party = cursor.getString(columnParty),
                 identity = cursor.getString(columnIdentity),
@@ -211,6 +217,7 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         return if (cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY_DAL) == -1) {
             cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY)
         } else {
+            isItQuantityDal = true
             cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY_DAL)
         }
     }
