@@ -4,7 +4,6 @@ import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffPosition
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffPositionContract
 import ru.evotor.egais.api.provider.converter.MarkListConverter
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
-import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
@@ -128,13 +127,10 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
         return createActWriteOffPosition(cursor)
     }
 
-    private var isItQuantityDal: Boolean = false
-
     private fun createActWriteOffPosition(cursor: android.database.Cursor): ActWriteOffPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_ACT_WRITE_OFF_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_IDENTITY)
-        val columnIndexQuantity = getQuantityColumnIndex(cursor)
         val columnIndexInformF2RegId = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_F2_REG_ID)
         val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
         val columnIndexMarkList = cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_MARK_LIST)
@@ -144,24 +140,12 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                if (isItQuantityDal)
-                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity))
-                else
-                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                cursor.getQuantity(ActWriteOffPositionContract.COLUMN_QUANTITY, ActWriteOffPositionContract.COLUMN_QUANTITY_DAL),
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexMarkJson),
                 cursor.createProductInfo(),
                 if (cursor.isNull(columnIndexSumSale)) null else QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexSumSale)),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
         )
-    }
-
-    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
-        return if (cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY_DAL) == -1) {
-            cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY)
-        } else {
-            isItQuantityDal = true
-            cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_QUANTITY_DAL)
-        }
     }
 }

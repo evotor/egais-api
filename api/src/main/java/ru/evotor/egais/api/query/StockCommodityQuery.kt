@@ -2,7 +2,6 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.dictionary.StockCommodity
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
-import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.stock_commodity.StockCommodityContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -81,30 +80,15 @@ class StockCommodityQuery : FilterBuilder<StockCommodityQuery, StockCommodityQue
         return createStockCommodity(cursor)
     }
 
-    private var isItQuantityDal: Boolean = false
-
     private fun createStockCommodity(cursor: android.database.Cursor): StockCommodity {
         val columnInformF1RegId = cursor.getColumnIndex(StockCommodityContract.COLUMN_INFORM_F1_REG_ID)
         val columnInformF2RegId = cursor.getColumnIndex(StockCommodityContract.COLUMN_INFORM_F2_REG_ID)
-        val columnQuantity = getQuantityColumnIndex(cursor)
 
         return StockCommodity(
                 cursor.getString(columnInformF1RegId),
                 cursor.getString(columnInformF2RegId),
-                if (isItQuantityDal)
-                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
-                else
-                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
+                cursor.getQuantity(StockCommodityContract.COLUMN_QUANTITY, StockCommodityContract.COLUMN_QUANTITY_DAL),
                 cursor.createProductInfo()
         )
-    }
-
-    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
-        return if (cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY_DAL) == -1) {
-            cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY)
-        } else {
-            isItQuantityDal = true
-            cursor.getColumnIndex(StockCommodityContract.COLUMN_QUANTITY_DAL)
-        }
     }
 }

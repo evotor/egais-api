@@ -2,7 +2,6 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.document.transfer.TransferFromShopPosition
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
-import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.transfer.TransferFromShopPositionContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -99,34 +98,19 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
 
     }
 
-    private var isItQuantityDal: Boolean = false
-
     override fun getValue(cursor: Cursor<TransferFromShopPosition>): TransferFromShopPosition {
         val columnIndexTransferFromShopUuid = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_TRANSFER_FROM_SHOP_ID)
         val columnIndexIdentity = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_IDENTITY)
         val columnIndexProductCode = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
-        val columnIndexQuantity = getQuantityColumnIndex(cursor)
         val columnIndexInformF2RegId = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_INFORM_F2_REG_ID)
 
         return TransferFromShopPosition(
                 UUID.fromString(cursor.getString(columnIndexTransferFromShopUuid)),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexProductCode),
-                if (isItQuantityDal)
-                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity))
-                else
-                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                cursor.getQuantity(TransferFromShopPositionContract.COLUMN_QUANTITY, TransferFromShopPositionContract.COLUMN_QUANTITY_DAL),
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.createProductInfo()
         )
-    }
-
-    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
-        return if (cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY_DAL) == -1) {
-            cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY)
-        } else {
-            isItQuantityDal = true
-            cursor.getColumnIndex(TransferFromShopPositionContract.COLUMN_QUANTITY_DAL)
-        }
     }
 }

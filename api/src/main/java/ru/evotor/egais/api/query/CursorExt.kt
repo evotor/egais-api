@@ -4,7 +4,10 @@ import android.database.Cursor
 import ru.evotor.egais.api.model.dictionary.ProductInfo
 import ru.evotor.egais.api.model.dictionary.ProductType
 import ru.evotor.egais.api.model.dictionary.UnitType
+import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.dictionary.ProductInfoContract
+import java.math.BigDecimal
 
 internal fun Cursor.createProductInfo(): ProductInfo {
     val columnIndexType = this.getColumnIndex(ProductInfoContract.COLUMN_TYPE)
@@ -32,4 +35,18 @@ internal fun Cursor.createProductInfo(): ProductInfo {
                 UnitType.valueOf(this.getString(columnIndexUnitType))
             } ?: UnitType.PACKED
     )
+}
+
+internal fun Cursor.getQuantity(quantityColumnName: String, quantityColumnDal: String): BigDecimal {
+    var isItQuantityDal: Boolean = false
+    val columnIndex = if (this.getColumnIndex(quantityColumnDal) == -1) {
+        this.getColumnIndex(quantityColumnName)
+    } else {
+        isItQuantityDal = true
+        this.getColumnIndex(quantityColumnDal)
+    }
+    return if (isItQuantityDal)
+        QuantityDalBigDecimalConverter.toBigDecimal(this.getLong(columnIndex))
+    else
+        QuantityBigDecimalConverter.toBigDecimal(this.getLong(columnIndex))
 }

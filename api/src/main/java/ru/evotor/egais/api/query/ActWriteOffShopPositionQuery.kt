@@ -4,7 +4,6 @@ import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffShopPosition
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffShopPositionContract
 import ru.evotor.egais.api.provider.converter.MarkListConverter
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
-import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
@@ -55,7 +54,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
      * Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
      */
     @JvmField
-    val sumSale = addFieldFilter<BigDecimal?, Long?>(ActWriteOffShopPositionContract.COLUMN_SUM_SALE) { it?.let { QuantityBigDecimalConverter.toLong(it)} }
+    val sumSale = addFieldFilter<BigDecimal?, Long?>(ActWriteOffShopPositionContract.COLUMN_SUM_SALE) { it?.let { QuantityBigDecimalConverter.toLong(it) } }
 
     override val currentQuery: ActWriteOffShopPositionQuery
         get() = this
@@ -116,13 +115,10 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
         return createActWriteOffShopPosition(cursor)
     }
 
-    private var isItQuantityDal: Boolean = false
-
     private fun createActWriteOffShopPosition(cursor: android.database.Cursor): ActWriteOffShopPosition {
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_ACT_WRITE_OFF_SHOP_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_IDENTITY)
-        val columnIndexQuantity = getQuantityColumnIndex(cursor)
         val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
         val columnIndexMarkList = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_MARK_LIST)
         val columnIndexSumSale = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_SUM_SALE)
@@ -131,23 +127,11 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                if (isItQuantityDal)
-                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity))
-                else
-                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                cursor.getQuantity(ActWriteOffShopPositionContract.COLUMN_QUANTITY, ActWriteOffShopPositionContract.COLUMN_QUANTITY_DAL),
                 cursor.getString(columnIndexMarkJson),
                 cursor.createProductInfo(),
                 if (cursor.isNull(columnIndexSumSale)) null else QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexSumSale)),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
         )
-    }
-
-    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
-        return if (cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_QUANTITY_DAL) == -1) {
-            cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_QUANTITY)
-        } else {
-            isItQuantityDal = true
-            cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_QUANTITY_DAL)
-        }
     }
 }

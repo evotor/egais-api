@@ -2,7 +2,6 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.dictionary.ProductRest
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
-import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.dictionary.ProductRestContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -76,41 +75,12 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
     override val currentQuery: ProductRestQuery
         get() = this
 
-    private var isItStockQuantityDal: Boolean = false
-    private var isItShopQuantityDal: Boolean = false
-
     override fun getValue(cursor: Cursor<ProductRest>): ProductRest {
         val productInfo = cursor.createProductInfo()
-        val columnStockQuantity = getStockQuantityColumnIndex(cursor)
-        val columnShopQuantity = getShopQuantityColumnIndex(cursor)
         return ProductRest(
                 productInfo,
-                if (isItStockQuantityDal)
-                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnStockQuantity))
-                else
-                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnStockQuantity)),
-                if (isItShopQuantityDal)
-                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnShopQuantity))
-                else
-                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnShopQuantity))
+                cursor.getQuantity(ProductRestContract.COLUMN_STOCK_QUANTITY, ProductRestContract.COLUMN_STOCK_QUANTITY_DAL),
+                cursor.getQuantity(ProductRestContract.COLUMN_SHOP_QUANTITY, ProductRestContract.COLUMN_SHOP_QUANTITY_DAL)
         )
-    }
-
-    private fun getStockQuantityColumnIndex(cursor: android.database.Cursor): Int {
-        return if (cursor.getColumnIndex(ProductRestContract.COLUMN_STOCK_QUANTITY_DAL) == -1) {
-            cursor.getColumnIndex(ProductRestContract.COLUMN_STOCK_QUANTITY)
-        } else {
-            isItStockQuantityDal = true
-            cursor.getColumnIndex(ProductRestContract.COLUMN_STOCK_QUANTITY_DAL)
-        }
-    }
-
-    private fun getShopQuantityColumnIndex(cursor: android.database.Cursor): Int {
-        return if (cursor.getColumnIndex(ProductRestContract.COLUMN_SHOP_QUANTITY_DAL) == -1) {
-            cursor.getColumnIndex(ProductRestContract.COLUMN_SHOP_QUANTITY)
-        } else {
-            isItShopQuantityDal = true
-            cursor.getColumnIndex(ProductRestContract.COLUMN_SHOP_QUANTITY_DAL)
-        }
     }
 }

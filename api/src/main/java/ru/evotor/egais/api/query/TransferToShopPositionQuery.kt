@@ -2,7 +2,6 @@ package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.document.transfer.TransferToShopPosition
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
-import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.transfer.TransferToShopPositionContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -111,13 +110,10 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
 
     }
 
-    private var isItQuantityDal: Boolean = false
-
     override fun getValue(cursor: Cursor<TransferToShopPosition>): TransferToShopPosition {
         val columnIndexTransferToShopUuid = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_TRANSFER_TO_SHOP_ID)
         val columnIndexIdentity = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_IDENTITY)
         val columnIndexProductCode = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
-        val columnIndexQuantity = getQuantityColumnIndex(cursor)
         val columnIndexInformF2RegId = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_INFORM_F2_REG_ID)
         val columnIndexInformF2MarkInfoJson = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
@@ -125,22 +121,10 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
                 UUID.fromString(cursor.getString(columnIndexTransferToShopUuid)),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexProductCode),
-                if (isItQuantityDal)
-                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity))
-                else
-                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                cursor.getQuantity(TransferToShopPositionContract.COLUMN_QUANTITY, TransferToShopPositionContract.COLUMN_QUANTITY_DAL),
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexInformF2MarkInfoJson),
                 cursor.createProductInfo()
         )
-    }
-
-    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
-        return if (cursor.getColumnIndex(TransferToShopPositionContract.COLUMN_QUANTITY_DAL) == -1) {
-            cursor.getColumnIndex(TransferToShopPositionContract.COLUMN_QUANTITY)
-        } else {
-            isItQuantityDal = true
-            cursor.getColumnIndex(TransferToShopPositionContract.COLUMN_QUANTITY_DAL)
-        }
     }
 }

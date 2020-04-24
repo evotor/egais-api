@@ -3,7 +3,6 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.waybill.WayBillPosition
 import ru.evotor.egais.api.provider.converter.MoneyBigDecimalConverter
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
-import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.egais.api.provider.waybill.WayBillPositionContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -182,14 +181,11 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         return createWayBillPosition(cursor)
     }
 
-    private var isItQuantityDal: Boolean = false
-
     private fun createWayBillPosition(cursor: android.database.Cursor): WayBillPosition {
         val columnUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_UUID)
         val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
         val columnProductIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)
         val columnPackId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PACKID)
-        val columnQuantity = getQuantityColumnIndex(cursor)
         val columnPrice = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRICE)
         val columnParty = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PARTY)
         val columnIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_IDENTITY)
@@ -201,24 +197,12 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
                 productIdentity = cursor.getString(columnProductIdentity),
                 productInfo = cursor.createProductInfo(),
                 packId = cursor.getString(columnPackId),
-                quantity = if (isItQuantityDal)
-                    QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
-                else
-                    QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
+                quantity = cursor.getQuantity(WayBillPositionContract.COLUMN_QUANTITY, WayBillPositionContract.COLUMN_QUANTITY_DAL),
                 price = MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnPrice)),
                 party = cursor.getString(columnParty),
                 identity = cursor.getString(columnIdentity),
                 informF1RegId = cursor.getString(columnInformF1RegId),
                 informF2RegId = cursor.getString(columnInformF2RegId)
         )
-    }
-
-    private fun getQuantityColumnIndex(cursor: android.database.Cursor): Int {
-        return if (cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY_DAL) == -1) {
-            cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY)
-        } else {
-            isItQuantityDal = true
-            cursor.getColumnIndex(WayBillPositionContract.COLUMN_QUANTITY_DAL)
-        }
     }
 }
