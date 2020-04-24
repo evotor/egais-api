@@ -54,7 +54,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
      * Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
      */
     @JvmField
-    val sumSale = addFieldFilter<BigDecimal?, Long?>(ActWriteOffShopPositionContract.COLUMN_SUM_SALE) { it?.let { QuantityBigDecimalConverter.toLong(it)} }
+    val sumSale = addFieldFilter<BigDecimal?, Long?>(ActWriteOffShopPositionContract.COLUMN_SUM_SALE) { it?.let { QuantityBigDecimalConverter.toLong(it) } }
 
     override val currentQuery: ActWriteOffShopPositionQuery
         get() = this
@@ -119,7 +119,6 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
         val columnIndexUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_UUID)
         val columnIndexActUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_ACT_WRITE_OFF_SHOP_UUID)
         val columnIndexIdentity = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_IDENTITY)
-        val columnIndexQuantity = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_QUANTITY)
         val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
         val columnIndexMarkList = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_MARK_LIST)
         val columnIndexSumSale = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_SUM_SALE)
@@ -128,7 +127,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                cursor.getQuantity(ActWriteOffShopPositionContract.COLUMN_QUANTITY, ActWriteOffShopPositionContract.COLUMN_QUANTITY_DAL),
                 cursor.getString(columnIndexMarkJson),
                 cursor.createProductInfo(),
                 if (cursor.isNull(columnIndexSumSale)) null else QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexSumSale)),

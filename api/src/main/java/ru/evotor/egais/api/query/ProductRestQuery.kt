@@ -77,12 +77,10 @@ class ProductRestQuery : FilterBuilder<ProductRestQuery, ProductRestQuery.SortOr
 
     override fun getValue(cursor: Cursor<ProductRest>): ProductRest {
         val productInfo = cursor.createProductInfo()
-        val columnStockQuantity = cursor.getColumnIndex(ProductRestContract.COLUMN_STOCK_QUANTITY)
-        val columnShopQuantity = cursor.getColumnIndex(ProductRestContract.COLUMN_SHOP_QUANTITY)
         return ProductRest(
                 productInfo,
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnStockQuantity)),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnShopQuantity))
+                cursor.getQuantity(ProductRestContract.COLUMN_STOCK_QUANTITY, ProductRestContract.COLUMN_STOCK_QUANTITY_DAL),
+                cursor.getQuantity(ProductRestContract.COLUMN_SHOP_QUANTITY, ProductRestContract.COLUMN_SHOP_QUANTITY_DAL)
         )
     }
 }

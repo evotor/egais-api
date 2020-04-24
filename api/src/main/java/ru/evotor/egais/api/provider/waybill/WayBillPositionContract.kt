@@ -37,6 +37,11 @@ internal object WayBillPositionContract {
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
+     * Количество c дополнительным разрядом
+     */
+    const val COLUMN_QUANTITY_DAL = "QUANTITY_DAL"
+
+    /**
      * Цена за единицу товара.
      */
     const val COLUMN_PRICE = "PRICE"

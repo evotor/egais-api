@@ -114,7 +114,6 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
         val columnIndexTransferToShopUuid = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_TRANSFER_TO_SHOP_ID)
         val columnIndexIdentity = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_IDENTITY)
         val columnIndexProductCode = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
-        val columnIndexQuantity = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_QUANTITY)
         val columnIndexInformF2RegId = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_INFORM_F2_REG_ID)
         val columnIndexInformF2MarkInfoJson = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
@@ -122,7 +121,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
                 UUID.fromString(cursor.getString(columnIndexTransferToShopUuid)),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexProductCode),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                cursor.getQuantity(TransferToShopPositionContract.COLUMN_QUANTITY, TransferToShopPositionContract.COLUMN_QUANTITY_DAL),
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexInformF2MarkInfoJson),
                 cursor.createProductInfo()

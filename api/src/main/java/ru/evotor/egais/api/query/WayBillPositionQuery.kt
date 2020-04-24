@@ -186,7 +186,6 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
         val columnWayBillUuid = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_WAYBILL_UUID)
         val columnProductIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRODUCT_INFO_IDENTITY)
         val columnPackId = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PACKID)
-        val columnQuantity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_QUANTITY)
         val columnPrice = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PRICE)
         val columnParty = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_PARTY)
         val columnIdentity = cursor.getColumnIndexOrThrow(WayBillPositionContract.COLUMN_IDENTITY)
@@ -198,7 +197,7 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
                 productIdentity = cursor.getString(columnProductIdentity),
                 productInfo = cursor.createProductInfo(),
                 packId = cursor.getString(columnPackId),
-                quantity = QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity)),
+                quantity = cursor.getQuantity(WayBillPositionContract.COLUMN_QUANTITY, WayBillPositionContract.COLUMN_QUANTITY_DAL),
                 price = MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnPrice)),
                 party = cursor.getString(columnParty),
                 identity = cursor.getString(columnIdentity),
@@ -206,5 +205,4 @@ class WayBillPositionQuery : FilterBuilder<WayBillPositionQuery, WayBillPosition
                 informF2RegId = cursor.getString(columnInformF2RegId)
         )
     }
-
 }

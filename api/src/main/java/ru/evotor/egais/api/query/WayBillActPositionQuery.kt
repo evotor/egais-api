@@ -97,7 +97,6 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
         val columnUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_UUID)
         val columnWayBillActUuid = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_WAY_BILL_ACT_UUID)
         val columnIdentity = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_IDENTITY)
-        val columnQuantity = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_REAL_QUANTITY)
         val columnInformF2RegId = cursor.getColumnIndex(WayBillActPositionContract.COLUMN_INFORM_F2_REG_ID)
 
         return WayBillActPosition(
@@ -105,7 +104,7 @@ class WayBillActPositionQuery : FilterBuilder<WayBillActPositionQuery, WayBillAc
                 UUID.fromString(cursor.getString(columnWayBillActUuid)),
                 cursor.getString(columnIdentity),
                 cursor.getString(columnInformF2RegId),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnQuantity))
+                cursor.getQuantity(WayBillActPositionContract.COLUMN_REAL_QUANTITY, WayBillActPositionContract.COLUMN_REAL_QUANTITY_DAL)
         )
     }
 }
