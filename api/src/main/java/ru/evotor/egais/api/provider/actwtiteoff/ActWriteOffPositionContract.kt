@@ -30,6 +30,11 @@ internal object ActWriteOffPositionContract {
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
+     * Количество c дополнительным разрядом
+     */
+    const val COLUMN_QUANTITY_DAL = "QUANTITY_DAL"
+
+    /**
      * Регистрационный номер раздела справки 2
      */
     const val COLUMN_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"
@@ -48,4 +53,9 @@ internal object ActWriteOffPositionContract {
      * Перечень считанных кодов марок
      */
     const val COLUMN_MARK_LIST = "MARK_LIST"
+
+    /**
+     * Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
+     */
+    const val COLUMN_SUM_SALE = "SUM_SALE"
 }

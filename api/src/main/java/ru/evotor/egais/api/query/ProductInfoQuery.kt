@@ -65,6 +65,12 @@ class ProductInfoQuery : FilterBuilder<ProductInfoQuery, ProductInfoQuery.SortOr
     @JvmField
     val productVCode = addFieldFilter<String?>(ProductInfoContract.COLUMN_PRODUCT_V_CODE)
 
+    /**
+     * Тип поставки (упакованная или нет)
+     */
+    @JvmField
+    val unitType = addFieldFilter<String?>(ProductInfoContract.COLUMN_UNIT_TYPE)
+
     override val currentQuery: ProductInfoQuery
         get() = this
 
@@ -127,6 +133,11 @@ class ProductInfoQuery : FilterBuilder<ProductInfoQuery, ProductInfoQuery.SortOr
         @JvmField
         val productVCode = addFieldSorter(ProductInfoContract.COLUMN_PRODUCT_V_CODE)
 
+        /**
+         * Тип поставки (упакованная или нет)
+         */
+        @JvmField
+        val unitType = addFieldSorter(ProductInfoContract.COLUMN_UNIT_TYPE)
         override val currentSortOrder: SortOrder
             get() = this
 

@@ -29,6 +29,11 @@ internal object WayBillActPositionContract {
     const val COLUMN_REAL_QUANTITY = "REAL_QUANTITY"
 
     /**
+     * Количество c дополнительным разрядом
+     */
+    const val COLUMN_REAL_QUANTITY_DAL = "REAL_QUANTITY_DAL"
+
+    /**
      * Регистрационный номер раздела справки 2
      */
     const val COLUMN_INFORM_F2_REG_ID = "INFORM_F2_REG_ID"

@@ -30,6 +30,11 @@ internal object ActWriteOffShopPositionContract {
     const val COLUMN_QUANTITY = "QUANTITY"
 
     /**
+     * Количество c дополнительным разрядом
+     */
+    const val COLUMN_QUANTITY_DAL = "QUANTITY_DAL"
+
+    /**
      * Информация о марках в формате JSON
      */
     const val COLUMN_INFORM_F2_MARK_INFO_JSON = "INFORM_F2_MARK_INFO_JSON"
@@ -43,4 +48,9 @@ internal object ActWriteOffShopPositionContract {
      * Перечень считанных кодов марок
      */
     const val COLUMN_MARK_LIST = "MARK_LIST"
+
+    /**
+     * Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
+     */
+    const val COLUMN_SUM_SALE = "SUM_SALE"
 }
