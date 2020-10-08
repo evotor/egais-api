@@ -1,7 +1,7 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.model.document.actchargeonshop.ActChargeOnShopPosition
-import ru.evotor.egais.api.provider.actchargeonshop.ActChargeOnShopPositionContract
+import ru.evotor.egais.api.model.document.actchargeon.ActChargeOnShopPosition
+import ru.evotor.egais.api.provider.actchargeon.ActChargeOnShopPositionContract
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -9,7 +9,7 @@ import java.math.BigDecimal
 import java.util.*
 
 /**
- * Класс для формирования запроса на получение позиций акта поставки
+ * Класс для формирования запроса на получение позиций акта поставки на баланс в торговый зал
  */
 class ActChargeOnShopPositionQuery : FilterBuilder<ActChargeOnShopPositionQuery, ActChargeOnShopPositionQuery.SortOrder, ActChargeOnShopPosition>(ActChargeOnShopPositionContract.URI) {
 

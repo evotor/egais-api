@@ -1,4 +1,4 @@
-package ru.evotor.egais.api.provider.actchargeonshop
+package ru.evotor.egais.api.provider.actchargeon
 
 import android.net.Uri
 

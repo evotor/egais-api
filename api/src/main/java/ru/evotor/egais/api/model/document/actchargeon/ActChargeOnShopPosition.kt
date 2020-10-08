@@ -1,11 +1,11 @@
-package ru.evotor.egais.api.model.document.actchargeonshop
+package ru.evotor.egais.api.model.document.actchargeon
 
 import ru.evotor.egais.api.model.dictionary.ProductInfo
 import java.math.BigDecimal
 import java.util.*
 
 /**
- * Позиция в акте постановки на баланс
+ * Позиция в акте постановки на баланс в торговый зал
  *
  * @property uuid Уникальный идентификатор позиции акта
  * @property actChargeOnShopUuid Идентификатор акта постановки, содержащего позицию

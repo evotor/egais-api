@@ -19,6 +19,7 @@ package ru.evotor.egais.api.model.document.ticket
  * @property ACT_WRITE_OFF_SHOP Акт списания из торгового зала
  * @property ACT_FIX_BARCODE Акт привязки марки к партии
  * @property ACT_UNFIX_BARCODE Акт отвязки марки от партии
+ * @property ACT_CHARGE_ON Акт постановки на склад
  */
 enum class DocType {
     WAY_BILL,
@@ -36,5 +37,6 @@ enum class DocType {
     ACT_CHARGE_ON_SHOP,
     ACT_WRITE_OFF_SHOP,
     ACT_FIX_BARCODE,
-    ACT_UNFIX_BARCODE
+    ACT_UNFIX_BARCODE,
+    ACT_CHARGE_ON
 }
