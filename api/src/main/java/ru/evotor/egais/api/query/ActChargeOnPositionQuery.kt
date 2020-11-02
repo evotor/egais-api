@@ -5,7 +5,7 @@ import ru.evotor.egais.api.model.document.actchargeon.InformF1
 import ru.evotor.egais.api.provider.actchargeon.ActChargeOnPositionContract
 import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.converter.MarkListConverter
-import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
+import ru.evotor.egais.api.provider.converter.QuantityDalBigDecimalConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.math.BigDecimal
@@ -38,7 +38,7 @@ class ActChargeOnPositionQuery : FilterBuilder<ActChargeOnPositionQuery, ActChar
      * Количество
      */
     @JvmField
-    val quantity = addFieldFilter<BigDecimal, Long>(ActChargeOnPositionContract.COLUMN_QUANTITY) { QuantityBigDecimalConverter.toLong(it) }
+    val quantity = addFieldFilter<BigDecimal, Long>(ActChargeOnPositionContract.COLUMN_QUANTITY) { QuantityDalBigDecimalConverter.toLong(it) }
 
     /**
      * Информация о продукции
@@ -50,7 +50,7 @@ class ActChargeOnPositionQuery : FilterBuilder<ActChargeOnPositionQuery, ActChar
      * Справка 1: Количество
      */
     @JvmField
-    val informF1Quantity = addFieldFilter<BigDecimal, Long>(ActChargeOnPositionContract.COLUMN_INFORMF1_QUANTITY) { QuantityBigDecimalConverter.toLong(it) }
+    val informF1Quantity = addFieldFilter<BigDecimal, Long>(ActChargeOnPositionContract.COLUMN_INFORMF1_QUANTITY) { QuantityDalBigDecimalConverter.toLong(it) }
 
     /**
      * Справка 1: Дата розлива продукции
@@ -183,10 +183,10 @@ class ActChargeOnPositionQuery : FilterBuilder<ActChargeOnPositionQuery, ActChar
                 UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexActUuid)),
                 cursor.getString(columnIndexIdentity),
-                QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
+                QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexQuantity)),
                 cursor.createProductInfo(),
                 InformF1(
-                        QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexInformF1Quantity)),
+                        QuantityDalBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexInformF1Quantity)),
                         DateConverter.toDate(cursor.getString(columnIndexInformF1BottlingDate)),
                         cursor.getString(columnIndexInformF1TtnNumber),
                         DateConverter.toDate(cursor.getString(columnIndexInformF1TtnDate)),

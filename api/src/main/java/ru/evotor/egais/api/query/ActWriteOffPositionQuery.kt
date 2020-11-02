@@ -3,6 +3,7 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.actwriteoff.ActWriteOffPosition
 import ru.evotor.egais.api.provider.actwtiteoff.ActWriteOffPositionContract
 import ru.evotor.egais.api.provider.converter.MarkListConverter
+import ru.evotor.egais.api.provider.converter.MoneyBigDecimalConverter
 import ru.evotor.egais.api.provider.converter.QuantityBigDecimalConverter
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -60,7 +61,7 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
      * Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
      */
     @JvmField
-    val sumSale = addFieldFilter<BigDecimal?, Long?>(ActWriteOffPositionContract.COLUMN_SUM_SALE) { it?.let { QuantityBigDecimalConverter.toLong(it) } }
+    val sumSale = addFieldFilter<BigDecimal?, Long?>(ActWriteOffPositionContract.COLUMN_SUM_SALE) { it?.let { MoneyBigDecimalConverter.toLong(it) } }
 
     override val currentQuery: ActWriteOffPositionQuery
         get() = this
@@ -144,7 +145,7 @@ class ActWriteOffPositionQuery : FilterBuilder<ActWriteOffPositionQuery, ActWrit
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexMarkJson),
                 cursor.createProductInfo(),
-                if (cursor.isNull(columnIndexSumSale)) null else QuantityBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexSumSale)),
+                if (cursor.isNull(columnIndexSumSale)) null else MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexSumSale)),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
         )
     }
