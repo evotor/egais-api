@@ -11,6 +11,12 @@ import java.util.*
 class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, TransferToShopPositionQuery.SortOrder, TransferToShopPosition>(TransferToShopPositionContract.URI) {
 
     /**
+     * Уникальный идентификатор позиции документа передачи
+     */
+    @JvmField
+    val uuid = addFieldFilter<UUID>(TransferToShopPositionContract.COLUMN_UUID)
+
+    /**
      * Уникальный идентификатор документа передачи
      */
     @JvmField
@@ -46,6 +52,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
     /**
      * Информация о марках в формате JSON
      */
+    @Deprecated("Не используется")
     @JvmField
     val informF2MarkInfoJson = addFieldFilter<String?>(TransferToShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
@@ -96,6 +103,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
         /**
          * Информация о марках в формате JSON
          */
+        @Deprecated("Не используется")
         @JvmField
         val informF2MarkInfoJson = addFieldSorter(TransferToShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
@@ -111,6 +119,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
     }
 
     override fun getValue(cursor: Cursor<TransferToShopPosition>): TransferToShopPosition {
+        val columnIndexUuid = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_UUID)
         val columnIndexTransferToShopUuid = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_TRANSFER_TO_SHOP_ID)
         val columnIndexIdentity = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_IDENTITY)
         val columnIndexProductCode = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
@@ -118,6 +127,7 @@ class TransferToShopPositionQuery : FilterBuilder<TransferToShopPositionQuery, T
         val columnIndexInformF2MarkInfoJson = cursor.getColumnIndexOrThrow(TransferToShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
 
         return TransferToShopPosition(
+                UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexTransferToShopUuid)),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexProductCode),

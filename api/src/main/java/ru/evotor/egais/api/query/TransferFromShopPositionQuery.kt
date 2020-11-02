@@ -11,6 +11,12 @@ import java.util.*
 class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuery, TransferFromShopPositionQuery.SortOrder, TransferFromShopPosition>(TransferFromShopPositionContract.URI) {
 
     /**
+     * Уникальный идентификатор позиции документа передачи
+     */
+    @JvmField
+    val uuid = addFieldFilter<UUID>(TransferFromShopPositionContract.COLUMN_UUID)
+
+    /**
      * Уникальный идентификатор документа передачи
      */
     @JvmField
@@ -99,12 +105,14 @@ class TransferFromShopPositionQuery : FilterBuilder<TransferFromShopPositionQuer
     }
 
     override fun getValue(cursor: Cursor<TransferFromShopPosition>): TransferFromShopPosition {
+        val columnIndexUuid = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_UUID)
         val columnIndexTransferFromShopUuid = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_TRANSFER_FROM_SHOP_ID)
         val columnIndexIdentity = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_IDENTITY)
         val columnIndexProductCode = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_PRODUCT_INFO_ALC_CODE)
         val columnIndexInformF2RegId = cursor.getColumnIndexOrThrow(TransferFromShopPositionContract.COLUMN_INFORM_F2_REG_ID)
 
         return TransferFromShopPosition(
+                UUID.fromString(cursor.getString(columnIndexUuid)),
                 UUID.fromString(cursor.getString(columnIndexTransferFromShopUuid)),
                 cursor.getString(columnIndexIdentity),
                 cursor.getString(columnIndexProductCode),

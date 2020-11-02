@@ -7,6 +7,7 @@ import java.util.*
 /**
  * Позиция акта передачи продукции из торгового зала на склад
  *
+ * @property uuid Уникальный идентификатор позиции документа передачи
  * @property transferFromShopUuid Уникальный идентификатор документа передачи
  * @property identity Идентификатор позиции внутри акта
  * @property productCode Регистрационный код продукции
@@ -15,6 +16,7 @@ import java.util.*
  * @property productInfo Информация о продукции
  */
 data class TransferFromShopPosition(
+        val uuid: UUID,
         val transferFromShopUuid: UUID,
         val identity: String?,
         val productCode: String,
