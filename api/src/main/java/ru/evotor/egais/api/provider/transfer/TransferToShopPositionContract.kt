@@ -7,6 +7,11 @@ internal object TransferToShopPositionContract {
     val URI = Uri.withAppendedPath(TransferToShopContract.BASE_URI, PATH)
 
     /**
+     * Уникальный идентификатор позиции документа передачи
+     */
+    const val COLUMN_UUID = "UUID"
+
+    /**
      * Уникальный идентификатор документа передачи
      */
     const val COLUMN_TRANSFER_TO_SHOP_ID = "TRANSFER_TO_SHOP_ID"
@@ -34,6 +39,7 @@ internal object TransferToShopPositionContract {
     /**
      * Информация о марках в формате JSON
      */
+    @Deprecated("Не используется")
     const val COLUMN_INFORM_F2_MARK_INFO_JSON = "INFORM_F2_MARK_INFO_JSON"
 
     /**

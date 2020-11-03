@@ -7,6 +7,11 @@ internal object TransferFromShopPositionContract {
     val URI = Uri.withAppendedPath(TransferFromShopContract.BASE_URI, PATH)
 
     /**
+     * Уникальный идентификатор позиции документа передачи
+     */
+    const val COLUMN_UUID = "UUID"
+
+    /**
      * Уникальный идентификатор документа передачи
      */
     const val COLUMN_TRANSFER_FROM_SHOP_ID = "TRANSFER_FROM_SHOP_ID"
