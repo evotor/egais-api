@@ -14,6 +14,7 @@ import java.util.*
  * @property acceptType Тип подтверждения: Принимаем/есть расхождения/отказываем
  * @property number Номер акта
  * @property creationDate Дата составления акта
+ * @property transport Транспортный раздел
  * @property wbRegId Идентификатор накладной в системе
  * @property note Заметки
  * @property type Типа акта расхождения к ТТН (Полный/Частичный)
@@ -26,6 +27,7 @@ data class WayBillAct(
         val acceptType: AcceptType?,
         val number: String?,
         val creationDate: Date,
+        val transport: Transport?,
         val wbRegId: String?,
         val note: String?,
         val type: Type?,

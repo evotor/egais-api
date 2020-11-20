@@ -1,10 +1,8 @@
 package ru.evotor.egais.api.query
 
 import ru.evotor.egais.api.model.Version
-import ru.evotor.egais.api.model.document.waybillact.AcceptType
-import ru.evotor.egais.api.model.document.waybillact.Status
-import ru.evotor.egais.api.model.document.waybillact.Type
-import ru.evotor.egais.api.model.document.waybillact.WayBillAct
+import ru.evotor.egais.api.model.document.waybill.ChangeOwnership
+import ru.evotor.egais.api.model.document.waybillact.*
 import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.waybillact.WayBillActContract
@@ -197,6 +195,7 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
         val columnAcceptType = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_ACCEPT_TYPE)
         val columnNumber = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_NUMBER)
         val columnDate = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_CREATION_DATE)
+        val columnTransportChangeOwnership = cursor.getColumnIndex(WayBillActContract.COLUMN_TRANSPORT_CHANGE_OWNERSHIP)
         val columnWbRegId = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_WB_REG_ID)
         val columnNote = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_NOTE)
         val columnType = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_TYPE)
@@ -205,6 +204,9 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
         val columnRejectComment = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_REJECT_COMMENT)
         val columnReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
 
+        val transportChangeOwnership =
+                if (columnTransportChangeOwnership != -1) cursor.getString(columnTransportChangeOwnership)?.let { ChangeOwnership.valueOf(it) }
+                else null
         return WayBillAct(
                 UUID.fromString(cursor.getString(columnUuid)),
                 cursor.getString(columnOwner),
@@ -212,6 +214,7 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
                 cursor.getString(columnAcceptType)?.let { AcceptType.valueOf(it) },
                 cursor.getString(columnNumber),
                 DateConverter.toDate(cursor.getString(columnDate)),
+                if (transportChangeOwnership != null) Transport(transportChangeOwnership) else null,
                 cursor.getString(columnWbRegId),
                 cursor.getString(columnNote),
                 cursor.getString(columnType)?.let { Type.valueOf(it) },

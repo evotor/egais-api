@@ -285,6 +285,8 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val columnDate = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_DATE)
         val columnShippingDate = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_SHIPPING_DATE)
         val columnTransportType = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_TYPE)
+        val columnTransportTransportType = cursor.getColumnIndex(WayBillContract.COLUMN_TRANSPORT_TRANSPORT_TYPE)
+        val columnTransportChangeOwnership = cursor.getColumnIndex(WayBillContract.COLUMN_TRANSPORT_CHANGE_OWNERSHIP)
         val columnTransportCompany = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_COMPANY)
         val columnTransportCar = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_CAR)
         val columnTransportTrailer = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_TRAILER)
@@ -308,6 +310,12 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val columnReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
 
         val transportType = cursor.getString(columnTransportType)
+        val transportTransportType = if (columnTransportTransportType != -1)
+            cursor.getString(columnTransportTransportType)?.let { TransportType.valueOf(it) }
+        else null
+        val transportChangeOwnership = if (columnTransportChangeOwnership != -1)
+            cursor.getString(columnTransportChangeOwnership)?.let { ChangeOwnership.valueOf(it) }
+        else null
         val transportCompany = cursor.getString(columnTransportCompany)
         val transportCar = cursor.getString(columnTransportCar)
         val transportTrailer = cursor.getString(columnTransportTrailer)
@@ -320,6 +328,8 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
 
         val transport = if (
                 transportType != null ||
+                transportTransportType != null ||
+                transportChangeOwnership != null ||
                 transportCompany != null ||
                 transportCar != null ||
                 transportTrailer != null ||
@@ -332,6 +342,8 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         ) {
             Transport(
                     type = transportType,
+                    transportType = transportTransportType,
+                    changeOwnership = transportChangeOwnership,
                     company = transportCompany,
                     car = transportCar,
                     trailer = transportTrailer,

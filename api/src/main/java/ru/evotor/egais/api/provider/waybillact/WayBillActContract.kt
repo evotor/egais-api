@@ -44,6 +44,11 @@ internal object WayBillActContract {
     const val COLUMN_CREATION_DATE = "CREATION_DATE"
 
     /**
+     * Транспорт. Право собственности
+     */
+    const val COLUMN_TRANSPORT_CHANGE_OWNERSHIP = "TRANSPORT_CHANGE_OWNERSHIP"
+
+    /**
      * Идентификатор накладной в системе
      */
     const val COLUMN_WB_REG_ID = "WB_REG_ID"
