@@ -10,7 +10,7 @@ import java.util.*
  * @param bottlingDate Дата розлива продукции
  * @param ttnNumber Номер ТТН
  * @param ttnDate Дата накладной
- * @param egaisFixNumber Номер подтверждения о фиксации в ЕГАИ
+ * @param egaisFixNumber Номер подтверждения о фиксации в ЕГАИС
  * @param egaisFixDate Дата подтверждения о фиксации в ЕГАИС
  */
 data class InformF1(
@@ -18,6 +18,6 @@ data class InformF1(
         val bottlingDate: Date,
         val ttnNumber: String,
         val ttnDate: Date,
-        val egaisFixNumber: String,
-        val egaisFixDate: Date
+        val egaisFixNumber: String?,
+        val egaisFixDate: Date?
 )
