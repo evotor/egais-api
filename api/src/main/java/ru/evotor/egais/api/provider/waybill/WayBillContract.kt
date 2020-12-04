@@ -102,6 +102,14 @@ internal object WayBillContract {
      */
     const val COLUMN_TRANSPORT_TYPE = "TRANSPORT_TYPE"
     /**
+     * Транспорт. Тип транспортного средства.
+     */
+    const val COLUMN_TRANSPORT_TRANSPORT_TYPE = "TRANSPORT_TRANSPORT_TYPE"
+    /**
+     * Транспорт. Право собственности.
+     */
+    const val COLUMN_TRANSPORT_CHANGE_OWNERSHIP = "TRANSPORT_CHANGE_OWNERSHIP"
+    /**
      * Транспорт. Название компании перевозчика.
      */
     const val COLUMN_TRANSPORT_COMPANY = "TRANSPORT_COMPANY"

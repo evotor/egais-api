@@ -4,6 +4,8 @@ package ru.evotor.egais.api.model.document.waybill
  * Транспорт
  *
  * @property type Тип перевозки
+ * @property transportType Тип транспортного средства
+ * @property changeOwnership Право собственности
  * @property company Название компании перевозчика
  * @property car Автомобиль
  * @property trailer Прицеп
@@ -16,6 +18,8 @@ package ru.evotor.egais.api.model.document.waybill
  */
 data class Transport(
         val type: String?,
+        val transportType: TransportType?,
+        val changeOwnership: ChangeOwnership?,
         val company: String?,
         val car: String?,
         val trailer: String?,
