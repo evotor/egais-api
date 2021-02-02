@@ -31,4 +31,12 @@ class SettingsQuery {
                     cursor.getString(cursor.getColumnIndex(SettingsContract.LINK_EGAIS_COMMODITY_COLUMN_NAME))?.toBoolean()
                 } ?: true
     }
+
+    fun isUtmSyncEnabled(context: Context): Boolean {
+        return context.contentResolver.query(SettingsContract.UTM_SYNCHRONIZATION_URI, null, null, null, null)
+                ?.use { cursor ->
+                    cursor.moveToFirst()
+                    cursor.getString(cursor.getColumnIndex(SettingsContract.UTM_SYNCHRONIZATION_COLUMN_NAME))?.toBoolean()
+                } ?: true
+    }
 }
