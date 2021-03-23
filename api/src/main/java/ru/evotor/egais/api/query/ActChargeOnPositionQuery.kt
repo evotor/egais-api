@@ -191,7 +191,7 @@ class ActChargeOnPositionQuery : FilterBuilder<ActChargeOnPositionQuery, ActChar
                         cursor.getString(columnIndexInformF1TtnNumber),
                         DateConverter.toDate(cursor.getString(columnIndexInformF1TtnDate)),
                         cursor.getString(columnIndexInformF1EgaisFixNumber),
-                        DateConverter.toDate(cursor.getString(columnIndexInformF1EgaisFixDate))
+                        cursor.getString(columnIndexInformF1EgaisFixDate)?.let { DateConverter.toDate(it) }
                 ),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarks))
         )
