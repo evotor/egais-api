@@ -6,9 +6,11 @@ package ru.evotor.egais.api.model.dictionary
  * @property WAYBILL_V1 - версия 1
  * @property WAYBILL_V2 - версия 2
  * @property WAYBILL_V3 - версия 3
+ * @property WAYBILL_V4 - версия 4
  */
 enum class WBTypeUsed {
     WAYBILL_V1,
     WAYBILL_V2,
-    WAYBILL_V3
+    WAYBILL_V3,
+    WAYBILL_V4
 }
