@@ -7,7 +7,7 @@ import java.util.*
 
 class UtmDocumentQuery {
     fun getLastSuccessfulUtmDocumentDate(context: Context): Date? {
-        return context.contentResolver.query(UtmDocumentContract.LAST_UTM_DOCUMENT_URI, null, null, null, null)
+        return context.contentResolver.query(UtmDocumentContract.UTM_DOCUMENT_URI, null, null, null, null)
                 ?.use { cursor ->
                     cursor.moveToFirst()
                     cursor.getString(cursor.getColumnIndex(UtmDocumentContract.CREATION_DATE_COLUMN_NAME))
