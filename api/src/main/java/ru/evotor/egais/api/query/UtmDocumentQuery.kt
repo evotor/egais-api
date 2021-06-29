@@ -11,7 +11,7 @@ class UtmDocumentQuery {
                 ?.use { cursor ->
                     cursor.moveToFirst()
                     cursor.getString(cursor.getColumnIndex(UtmDocumentContract.CREATION_DATE_COLUMN_NAME))
-                             .let { SimpleDateFormat(UtmDocumentContract.DATE_FORMAT_CREATION_DATE, Locale.getDefault()).parse(it) }
+                            .let { SimpleDateFormat(UtmDocumentContract.DATE_FORMAT_CREATION_DATE, Locale.getDefault()).parse(it) }
                 }
     }
 
