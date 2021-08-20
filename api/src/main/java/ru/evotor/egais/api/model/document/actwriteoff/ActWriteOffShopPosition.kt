@@ -15,6 +15,7 @@ import java.util.*
  * @property productInfo Информация о продукции
  * @property sumSale Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
  * @property markList Перечень считанных кодов марок
+ * @property receiptUuid UUID чека продажи
  */
 data class ActWriteOffShopPosition(
         @JvmField val uuid: UUID,
@@ -24,5 +25,6 @@ data class ActWriteOffShopPosition(
         @JvmField val informF2MarkInfoJson: String?,
         @JvmField val productInfo: ProductInfo,
         @JvmField val sumSale: BigDecimal?,
-        @JvmField val markList: List<String>
+        @JvmField val markList: List<String>,
+        @JvmField val receiptUuid: String?
 )

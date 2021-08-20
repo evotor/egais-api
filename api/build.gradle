@@ -32,7 +32,7 @@ repositories {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'org.apache.commons:commons-lang3:3.6'
-    compile 'com.github.evotor:query-api:1.0.0'
+    api 'com.github.evotor:query-api:1.0.0'
 }
 
 task sourceJar(type: Jar) {

@@ -57,6 +57,12 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
     @JvmField
     val sumSale = addFieldFilter<BigDecimal?, Long?>(ActWriteOffShopPositionContract.COLUMN_SUM_SALE) { it?.let { MoneyBigDecimalConverter.toLong(it) } }
 
+    /**
+     * UUID чека продажи
+     */
+    @JvmField
+    val receiptUuid = addFieldFilter<String?>(ActWriteOffShopPositionContract.COLUMN_RECEIPT_UUID)
+
     override val currentQuery: ActWriteOffShopPositionQuery
         get() = this
 
@@ -107,6 +113,12 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
         @JvmField
         val sumSale = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_SUM_SALE)
 
+        /**
+         * UUID чека продажи
+         */
+        @JvmField
+        val receiptUuid = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_RECEIPT_UUID)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -123,6 +135,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
         val columnIndexMarkJson = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_INFORM_F2_MARK_INFO_JSON)
         val columnIndexMarkList = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_MARK_LIST)
         val columnIndexSumSale = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_SUM_SALE)
+        val columnIndexReceiptUuid = cursor.getColumnIndex(ActWriteOffShopPositionContract.COLUMN_RECEIPT_UUID)
 
         return ActWriteOffShopPosition(
                 UUID.fromString(cursor.getString(columnIndexUuid)),
@@ -132,7 +145,8 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
                 cursor.getString(columnIndexMarkJson),
                 cursor.createProductInfo(),
                 if (cursor.isNull(columnIndexSumSale)) null else MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexSumSale)),
-                MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
+                MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList)),
+                cursor.getString(columnIndexReceiptUuid)
         )
     }
 }
