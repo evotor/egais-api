@@ -57,12 +57,6 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
     @JvmField
     val sumSale = addFieldFilter<BigDecimal?, Long?>(ActWriteOffShopPositionContract.COLUMN_SUM_SALE) { it?.let { MoneyBigDecimalConverter.toLong(it) } }
 
-    /**
-     * UUID чека продажи
-     */
-    @JvmField
-    val receiptUuid = addFieldFilter<String?>(ActWriteOffShopPositionContract.COLUMN_RECEIPT_UUID)
-
     override val currentQuery: ActWriteOffShopPositionQuery
         get() = this
 
@@ -112,12 +106,6 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
          */
         @JvmField
         val sumSale = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_SUM_SALE)
-
-        /**
-         * UUID чека продажи
-         */
-        @JvmField
-        val receiptUuid = addFieldSorter(ActWriteOffShopPositionContract.COLUMN_RECEIPT_UUID)
 
         override val currentSortOrder: SortOrder
             get() = this
