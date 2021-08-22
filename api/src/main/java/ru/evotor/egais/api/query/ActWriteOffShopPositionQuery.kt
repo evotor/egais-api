@@ -146,7 +146,7 @@ class ActWriteOffShopPositionQuery : FilterBuilder<ActWriteOffShopPositionQuery,
                 cursor.createProductInfo(),
                 if (cursor.isNull(columnIndexSumSale)) null else MoneyBigDecimalConverter.toBigDecimal(cursor.getLong(columnIndexSumSale)),
                 MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList)),
-                cursor.getString(columnIndexReceiptUuid)
+                if (cursor.isNull(columnIndexReceiptUuid)) null else cursor.getString(columnIndexReceiptUuid)
         )
     }
-}
+ }
