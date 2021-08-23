@@ -53,4 +53,9 @@ internal object ActWriteOffShopPositionContract {
      * Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
      */
     const val COLUMN_SUM_SALE = "SUM_SALE"
+
+    /**
+     * UUID чека продажи
+     */
+    const val COLUMN_RECEIPT_UUID = "RECEIPT_UUID"
 }
