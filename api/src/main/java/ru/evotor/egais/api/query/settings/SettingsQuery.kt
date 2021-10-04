@@ -39,4 +39,12 @@ class SettingsQuery {
                     cursor.getString(cursor.getColumnIndex(SettingsContract.UTM_SYNCHRONIZATION_COLUMN_NAME))?.toBoolean()
                 } ?: true
     }
+
+    fun isCloudSyncEnabled(context: Context): Boolean {
+        return context.contentResolver.query(SettingsContract.CLOUD_SYNCHRONIZATION_URI, null, null, null, null)
+                ?.use { cursor ->
+                    cursor.moveToFirst()
+                    cursor.getString(cursor.getColumnIndex(SettingsContract.CLOUD_SYNCHRONIZATION_COLUMN_NAME))?.toBoolean()
+                } ?: true
+    }
 }
