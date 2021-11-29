@@ -7,7 +7,8 @@ import ru.evotor.egais.api.provider.utmcontract.UtmContract
 object UtmQuery {
     /**
      * Проверяет, запущен ли на смарт-терминале УТМ.
-     * Returns: true если УТМ запущен; false если УТМ не запущен.
+     * @param context контекст приложения.
+     * @return `true` если УТМ запущен; `false` если УТМ не запущен
      */
     fun isUtmActive(context: Context) =
         isFeatureActive(
