@@ -10,6 +10,7 @@ object UtmQuery {
      * @param context контекст приложения.
      * @return `true` если УТМ запущен; `false` если УТМ не запущен
      */
+    @JvmStatic
     fun isUtmActive(context: Context) =
         isFeatureActive(
             context,
