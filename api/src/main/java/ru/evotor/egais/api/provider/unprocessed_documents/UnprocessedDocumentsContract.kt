@@ -10,7 +10,7 @@ internal object UnprocessedDocumentsContract {
     val BASE_URI = Uri.parse("content://$AUTHORITY")
 
     @JvmField
-    val PATH = "UnprocessedDocumentsContract"
+    val PATH = "UnprocessedDocuments"
 
     @JvmField
     val URI = Uri.withAppendedPath(BASE_URI, PATH)
