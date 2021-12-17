@@ -33,6 +33,9 @@ class UnprocessedDocumentsQuery :
     @JvmField
     val sender = addFieldFilter<String>(UnprocessedDocumentsContract.COLUMN_SENDER)
 
+    @JvmField
+    val isInWayBill = addFieldFilter<String>(UnprocessedDocumentsContract.COLUMN_IS_IN_WAY_BILL)
+
     override val currentQuery: UnprocessedDocumentsQuery
         get() = this
 
@@ -52,6 +55,9 @@ class UnprocessedDocumentsQuery :
 
         @JvmField
         val sender = addFieldSorter(UnprocessedDocumentsContract.COLUMN_SENDER)
+
+        @JvmField
+        val isInWayBill = addFieldSorter(UnprocessedDocumentsContract.COLUMN_IS_IN_WAY_BILL)
     }
 
     override fun getValue(cursor: Cursor<List<UnprocessedDocument>>): List<UnprocessedDocument> {
@@ -60,6 +66,7 @@ class UnprocessedDocumentsQuery :
 
     private fun createUnprocessedDocuments(cursor: Cursor<List<UnprocessedDocument>>): List<UnprocessedDocument> {
         val unprocessedDocuments = mutableListOf<UnprocessedDocument>()
+
         while (cursor.moveToNext()) {
             val columnIndexId = cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_ID)
             val columnIndexNumber =
@@ -68,12 +75,16 @@ class UnprocessedDocumentsQuery :
                 cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_DATE)
             val columnIndexSender =
                 cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_SENDER)
+            val columnIsInWayBill =
+                cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_IS_IN_WAY_BILL)
+            val isInWayBill = cursor.getInt(columnIsInWayBill) == 1
             unprocessedDocuments.add(
                 UnprocessedDocument(
                     cursor.getString(columnIndexId),
                     cursor.getString(columnIndexNumber),
                     dateFormat.parse(cursor.getString(columnIndexDate)) ?: Date(),
-                    cursor.getString(columnIndexSender)
+                    cursor.getString(columnIndexSender),
+                    isInWayBill
                 )
             )
         }
@@ -81,6 +92,6 @@ class UnprocessedDocumentsQuery :
     }
 
     companion object {
-        private const val DATE_PATTERN = "dd.MM.yyyy"
+        private const val DATE_PATTERN = "yyyy-MM-dd HH:mm:ss"
     }
 }

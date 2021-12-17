@@ -9,10 +9,12 @@ import java.util.*
  * @param number номер накладной
  * @param date дата накладной
  * @param sender отправитель накладной
+ * @param isInWayBill документ с данным идентификатором находится в приёмке
  */
 class UnprocessedDocument(
     val id: String,
     val number: String,
     val date: Date,
-    val sender: String
+    val sender: String,
+    val isInWayBill: Boolean
 ) : EgaisDocument()

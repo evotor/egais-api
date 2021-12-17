@@ -34,4 +34,9 @@ internal object UnprocessedDocumentsContract {
      * Отправитель накладной
      */
     const val COLUMN_SENDER = "SENDER"
+
+    /**
+     * Документ c данным ID находится в приёмке
+     */
+    const val COLUMN_IS_IN_WAY_BILL = "IS_IN_WAY_BILL"
 }
