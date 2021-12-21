@@ -28,7 +28,7 @@ data class ConfirmRepealWb(
     val date: Date?,
     val wbRegId: String?,
     val note: String?,
-    val status: ConfirmTicketStatus,
+    val status: RepealWbStatus,
     val rejectComment: String?,
     val replyId: String?
 ) : EgaisDocument()
