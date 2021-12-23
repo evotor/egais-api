@@ -1,4 +1,4 @@
-package ru.evotor.egais.api.model.document.reply
+package ru.evotor.egais.api.model.document.unprocessed_document
 
 import ru.evotor.egais.api.model.document.EgaisDocument
 import java.util.*
@@ -9,12 +9,12 @@ import java.util.*
  * @param number номер накладной
  * @param date дата накладной
  * @param sender отправитель накладной
- * @param isInWayBill документ с данным идентификатором находится в приёмке
+ * @param status документ с данным идентификатором находится в приёмке
  */
 class UnprocessedDocument(
     val id: String,
     val number: String,
     val date: Date,
     val sender: String,
-    val isInWayBill: Boolean
+    val status: UnprocessedDocumentStatus
 ) : EgaisDocument()

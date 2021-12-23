@@ -36,7 +36,7 @@ internal object UnprocessedDocumentsContract {
     const val COLUMN_SENDER = "SENDER"
 
     /**
-     * Документ c данным ID находится в приёмке
+     * Статус документа
      */
-    const val COLUMN_IS_IN_WAY_BILL = "IS_IN_WAY_BILL"
+    const val COLUMN_STATUS = "STATUS"
 }

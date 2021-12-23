@@ -1,6 +1,7 @@
 package ru.evotor.egais.api.query
 
-import ru.evotor.egais.api.model.document.reply.UnprocessedDocument
+import ru.evotor.egais.api.model.document.unprocessed_document.UnprocessedDocument
+import ru.evotor.egais.api.model.document.unprocessed_document.UnprocessedDocumentStatus
 import ru.evotor.egais.api.provider.unprocessed_documents.UnprocessedDocumentsContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -34,7 +35,8 @@ class UnprocessedDocumentsQuery :
     val sender = addFieldFilter<String>(UnprocessedDocumentsContract.COLUMN_SENDER)
 
     @JvmField
-    val isInWayBill = addFieldFilter<String>(UnprocessedDocumentsContract.COLUMN_IS_IN_WAY_BILL)
+    val status =
+        addFieldFilter<UnprocessedDocumentStatus>(UnprocessedDocumentsContract.COLUMN_STATUS)
 
     override val currentQuery: UnprocessedDocumentsQuery
         get() = this
@@ -57,7 +59,7 @@ class UnprocessedDocumentsQuery :
         val sender = addFieldSorter(UnprocessedDocumentsContract.COLUMN_SENDER)
 
         @JvmField
-        val isInWayBill = addFieldSorter(UnprocessedDocumentsContract.COLUMN_IS_IN_WAY_BILL)
+        val status = addFieldSorter(UnprocessedDocumentsContract.COLUMN_STATUS)
     }
 
     override fun getValue(cursor: Cursor<List<UnprocessedDocument>>): List<UnprocessedDocument> {
@@ -75,16 +77,17 @@ class UnprocessedDocumentsQuery :
                 cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_DATE)
             val columnIndexSender =
                 cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_SENDER)
-            val columnIsInWayBill =
-                cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_IS_IN_WAY_BILL)
-            val isInWayBill = cursor.getInt(columnIsInWayBill) == 1
+            val columnStatus =
+                cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_STATUS)
+            val status =
+                UnprocessedDocumentStatus.valueOf(cursor.getString(columnStatus))
             unprocessedDocuments.add(
                 UnprocessedDocument(
                     cursor.getString(columnIndexId),
                     cursor.getString(columnIndexNumber),
                     dateFormat.parse(cursor.getString(columnIndexDate)) ?: Date(),
                     cursor.getString(columnIndexSender),
-                    isInWayBill
+                    status
                 )
             )
         }
