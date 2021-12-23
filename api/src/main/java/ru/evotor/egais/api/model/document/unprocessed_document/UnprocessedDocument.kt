@@ -5,11 +5,11 @@ import java.util.*
 
 /**
  * Результат запроса на получение необработанных документов
- * @param id Уникальный идентификатор накладной
- * @param number номер накладной
- * @param date дата накладной
- * @param sender отправитель накладной
- * @param status документ с данным идентификатором находится в приёмке
+ * @property id Уникальный идентификатор накладной
+ * @property number номер накладной
+ * @property date дата накладной
+ * @property sender отправитель накладной
+ * @property status статус накладной
  */
 class UnprocessedDocument(
     val id: String,

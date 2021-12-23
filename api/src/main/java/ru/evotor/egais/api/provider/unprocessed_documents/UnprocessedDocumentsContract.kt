@@ -36,7 +36,7 @@ internal object UnprocessedDocumentsContract {
     const val COLUMN_SENDER = "SENDER"
 
     /**
-     * Статус документа
+     * Статус накладной
      */
     const val COLUMN_STATUS = "STATUS"
 }

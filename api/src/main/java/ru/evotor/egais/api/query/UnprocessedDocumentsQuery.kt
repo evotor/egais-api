@@ -10,8 +10,7 @@ import java.util.*
 
 
 /**
- * Класс для формирования запроса на получение результата отправки
- * повторного запроса ТТН
+ * Класс для формирования запроса на получение результата отправки повторного запроса ТТН
  */
 class UnprocessedDocumentsQuery :
     FilterBuilder<UnprocessedDocumentsQuery, UnprocessedDocumentsQuery.SortOrder, List<UnprocessedDocument>>(
