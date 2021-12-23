@@ -68,7 +68,11 @@ class UnprocessedDocumentsQuery :
     private fun createUnprocessedDocuments(cursor: Cursor<List<UnprocessedDocument>>): List<UnprocessedDocument> {
         val unprocessedDocuments = mutableListOf<UnprocessedDocument>()
 
-        while (cursor.moveToNext()) {
+        if (cursor.moveToFirst().not()) {
+            return unprocessedDocuments
+        }
+
+        do {
             val columnIndexId = cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_ID)
             val columnIndexNumber =
                 cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_NUMBER)
@@ -89,7 +93,7 @@ class UnprocessedDocumentsQuery :
                     status
                 )
             )
-        }
+        } while (cursor.moveToNext())
         return unprocessedDocuments
     }
 
