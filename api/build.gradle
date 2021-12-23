@@ -40,7 +40,7 @@ task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
-dokka {
+dokka.configure {
     outputFormat = 'javadoc'
     outputDirectory = "$buildDir/javadoc"
 }
