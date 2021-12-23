@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'maven-publish'
-apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'org.jetbrains.dokka'
 
 
 android {
@@ -40,15 +40,14 @@ task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
-dokka.configure {
-    outputFormat = 'javadoc'
-    outputDirectory = "$buildDir/javadoc"
+dokkaJavadoc.configure {
+    outputDirectory.set(file("$buildDir/javadoc"))
 }
 
 // build a jar with javadoc
-task javadocJar(type: Jar, dependsOn: dokka) {
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     classifier = 'javadoc'
-    from dokka.outputDirectory
+    from dokkaJavadoc.outputDirectory
 }
 
 publishing {
