@@ -1,7 +1,6 @@
 package ru.evotor.egais.api.model.document.repeal_wb
 
 import ru.evotor.egais.api.model.document.EgaisDocument
-import ru.evotor.egais.api.model.document.ticket.ConfirmTicketStatus
 import java.util.*
 
 /**
