@@ -13,7 +13,7 @@ import java.util.*
  * Класс для формирования запроса на получение результата отправки повторного запроса ТТН
  */
 class UnprocessedDocumentsQuery :
-    FilterBuilder<UnprocessedDocumentsQuery, UnprocessedDocumentsQuery.SortOrder, List<UnprocessedDocument>>(
+    FilterBuilder<UnprocessedDocumentsQuery, UnprocessedDocumentsQuery.SortOrder, UnprocessedDocument>(
         UnprocessedDocumentsContract.URI
     ) {
 
@@ -61,18 +61,11 @@ class UnprocessedDocumentsQuery :
         val status = addFieldSorter(UnprocessedDocumentsContract.COLUMN_STATUS)
     }
 
-    override fun getValue(cursor: Cursor<List<UnprocessedDocument>>): List<UnprocessedDocument> {
+    override fun getValue(cursor: Cursor<UnprocessedDocument>): UnprocessedDocument {
         return createUnprocessedDocuments(cursor)
     }
 
-    private fun createUnprocessedDocuments(cursor: Cursor<List<UnprocessedDocument>>): List<UnprocessedDocument> {
-        val unprocessedDocuments = mutableListOf<UnprocessedDocument>()
-
-        if (cursor.moveToFirst().not()) {
-            return unprocessedDocuments
-        }
-
-        do {
+    private fun createUnprocessedDocuments(cursor: Cursor<UnprocessedDocument>): UnprocessedDocument {
             val columnIndexId = cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_ID)
             val columnIndexNumber =
                 cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_NUMBER)
@@ -84,17 +77,13 @@ class UnprocessedDocumentsQuery :
                 cursor.getColumnIndexOrThrow(UnprocessedDocumentsContract.COLUMN_STATUS)
             val status =
                 UnprocessedDocumentStatus.valueOf(cursor.getString(columnStatus))
-            unprocessedDocuments.add(
-                UnprocessedDocument(
-                    cursor.getString(columnIndexId),
-                    cursor.getString(columnIndexNumber),
-                    dateFormat.parse(cursor.getString(columnIndexDate)) ?: Date(),
-                    cursor.getString(columnIndexSender),
-                    status
-                )
-            )
-        } while (cursor.moveToNext())
-        return unprocessedDocuments
+        return UnprocessedDocument(
+            cursor.getString(columnIndexId),
+            cursor.getString(columnIndexNumber),
+            dateFormat.parse(cursor.getString(columnIndexDate)) ?: Date(),
+            cursor.getString(columnIndexSender),
+            status
+        )
     }
 
     companion object {
