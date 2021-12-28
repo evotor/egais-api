@@ -24,7 +24,7 @@ import java.util.*
  * Класс для формирования запроса на получение ответов на запросы об отмене проведения акта для ТТН
  */
 class ConfirmRepealWbQuery :
-    FilterBuilder<ConfirmRepealWbQuery, ConfirmRepealWbQuery.SortOrder, ConfirmRepealWb>(
+    FilterBuilder<ConfirmRepealWbQuery, ConfirmRepealWbQuery.SortOrder, List<ConfirmRepealWb>>(
         ConfirmRepealWbContract.URI
     ) {
 
@@ -174,34 +174,45 @@ class ConfirmRepealWbQuery :
 
     }
 
-    override fun getValue(cursor: Cursor<ConfirmRepealWb>): ConfirmRepealWb {
+    override fun getValue(cursor: Cursor<List<ConfirmRepealWb>>): List<ConfirmRepealWb> {
         return createConfirmRepealWb(cursor)
     }
 
-    private fun createConfirmRepealWb(cursor: android.database.Cursor): ConfirmRepealWb {
-        val columnUuid = cursor.getColumnIndexOrThrow(COLUMN_UUID)
-        val columnDocOwner = cursor.getColumnIndexOrThrow(COLUMN_OWNER)
-        val columnIdentity = cursor.getColumnIndexOrThrow(COLUMN_IDENTITY)
-        val columnConfirmType = cursor.getColumnIndexOrThrow(COLUMN_CONFIRM_TYPE)
-        val columnNumber = cursor.getColumnIndexOrThrow(COLUMN_NUMBER)
-        val columnDate = cursor.getColumnIndexOrThrow(COLUMN_DATE)
-        val columnWBRegId = cursor.getColumnIndexOrThrow(COLUMN_WB_REG_ID)
-        val columnNote = cursor.getColumnIndexOrThrow(COLUMN_NOTE)
-        val columnStatus = cursor.getColumnIndexOrThrow(COLUMN_STATUS)
-        val columnRejectComment = cursor.getColumnIndexOrThrow(COLUMN_REJECT_COMMENT)
-        val columnReplyId = cursor.getColumnIndexOrThrow(COLUMN_REPLY_ID)
-        return ConfirmRepealWb(
-            uuid = UUID.fromString(cursor.getString(columnUuid)),
-            docOwner = cursor.getString(columnDocOwner),
-            identity = cursor.getString(columnIdentity),
-            isConfirm = cursor.getString(columnConfirmType).let { ConfirmType.valueOf(it) },
-            number = cursor.getString(columnNumber),
-            date = DateConverter.toDate(cursor.getString(columnDate)),
-            wbRegId = cursor.getString(columnWBRegId),
-            note = cursor.getString(columnNote),
-            status = RepealWbStatus.valueOf(cursor.getString(columnStatus)),
-            rejectComment = cursor.getString(columnRejectComment),
-            replyId = cursor.getString(columnReplyId)
-        )
+    private fun createConfirmRepealWb(cursor: Cursor<List<ConfirmRepealWb>>): List<ConfirmRepealWb> {
+        val confirmsRepealWb = mutableListOf<ConfirmRepealWb>()
+
+        if (cursor.moveToFirst().not()) {
+            return confirmsRepealWb
+        }
+
+        do {
+            val columnUuid = cursor.getColumnIndexOrThrow(COLUMN_UUID)
+            val columnDocOwner = cursor.getColumnIndexOrThrow(COLUMN_OWNER)
+            val columnIdentity = cursor.getColumnIndexOrThrow(COLUMN_IDENTITY)
+            val columnConfirmType = cursor.getColumnIndexOrThrow(COLUMN_CONFIRM_TYPE)
+            val columnNumber = cursor.getColumnIndexOrThrow(COLUMN_NUMBER)
+            val columnDate = cursor.getColumnIndexOrThrow(COLUMN_DATE)
+            val columnWBRegId = cursor.getColumnIndexOrThrow(COLUMN_WB_REG_ID)
+            val columnNote = cursor.getColumnIndexOrThrow(COLUMN_NOTE)
+            val columnStatus = cursor.getColumnIndexOrThrow(COLUMN_STATUS)
+            val columnRejectComment = cursor.getColumnIndexOrThrow(COLUMN_REJECT_COMMENT)
+            val columnReplyId = cursor.getColumnIndexOrThrow(COLUMN_REPLY_ID)
+            confirmsRepealWb.add(
+                ConfirmRepealWb(
+                    uuid = UUID.fromString(cursor.getString(columnUuid)),
+                    docOwner = cursor.getString(columnDocOwner),
+                    identity = cursor.getString(columnIdentity),
+                    isConfirm = cursor.getString(columnConfirmType).let { ConfirmType.valueOf(it) },
+                    number = cursor.getString(columnNumber),
+                    date = DateConverter.toDate(cursor.getString(columnDate)),
+                    wbRegId = cursor.getString(columnWBRegId),
+                    note = cursor.getString(columnNote),
+                    status = RepealWbStatus.valueOf(cursor.getString(columnStatus)),
+                    rejectComment = cursor.getString(columnRejectComment),
+                    replyId = cursor.getString(columnReplyId)
+                )
+            )
+        } while (cursor.moveToNext())
+        return confirmsRepealWb
     }
 }
