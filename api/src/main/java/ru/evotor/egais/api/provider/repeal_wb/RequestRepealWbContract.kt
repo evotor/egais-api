@@ -53,17 +53,7 @@ internal object RequestRepealWbContract {
     const val COLUMN_STATUS = "STATUS"
 
     /**
-     * Резолюция документа.
-     */
-    const val COLUMN_RESOLUTION = "RESOLUTION"
-
-    /**
      * Комментарий для отказа
      */
     const val COLUMN_REJECT_COMMENT = "REJECT_COMMENT"
-
-    /**
-     * Идентификатор УТМ документа
-     */
-    const val COLUMN_UTM_DOCUMENT_UUID = "UTM_DOCUMENT_UUID"
 }

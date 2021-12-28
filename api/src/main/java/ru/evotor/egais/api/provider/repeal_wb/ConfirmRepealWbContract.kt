@@ -61,9 +61,4 @@ internal object ConfirmRepealWbContract {
      * Комментарий для отказа
      */
     const val COLUMN_REJECT_COMMENT = "REJECT_COMMENT"
-
-    /**
-     * Идентификатор УТМ документа
-     */
-    const val COLUMN_UTM_DOCUMENT_UUID = "UTM_DOCUMENT_UUID"
 }

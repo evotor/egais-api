@@ -1,7 +1,10 @@
 package ru.evotor.egais.api.query
 
+import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.repeal_wb.RepealWbStatus
 import ru.evotor.egais.api.model.document.repeal_wb.RequestRepealWb
+import ru.evotor.egais.api.provider.UtmDocumentContract
+import ru.evotor.egais.api.provider.UtmDocumentContract.COLUMN_DIRECTION
 import ru.evotor.egais.api.provider.UtmDocumentContract.COLUMN_REPLY_ID
 import ru.evotor.egais.api.provider.converter.DateConverter
 import ru.evotor.egais.api.provider.repeal_wb.RequestRepealWbContract
@@ -62,6 +65,12 @@ class RequestRepealWbQuery :
      */
     @JvmField
     val wbRegId = addFieldFilter<String?>(COLUMN_WB_REG_ID)
+
+    /**
+     * Направление документа в представлении УТМ (входящий/исходящий)
+     */
+    @JvmField
+    val direction = addFieldFilter<Direction>(COLUMN_DIRECTION)
 
     /**
      * Заметки.
@@ -132,6 +141,12 @@ class RequestRepealWbQuery :
         val wbRegId = addFieldSorter(COLUMN_WB_REG_ID)
 
         /**
+         * Направление документа в представлении УТМ (входящий/исходящий)
+         */
+        @JvmField
+        val direction = addFieldSorter(COLUMN_DIRECTION)
+
+        /**
          * Заметки.
          */
         @JvmField
@@ -178,6 +193,7 @@ class RequestRepealWbQuery :
             val columnNumber = cursor.getColumnIndexOrThrow(COLUMN_NUMBER)
             val columnDate = cursor.getColumnIndexOrThrow(COLUMN_DATE)
             val columnWBRegId = cursor.getColumnIndexOrThrow(COLUMN_WB_REG_ID)
+            val columnDirection = cursor.getColumnIndexOrThrow(COLUMN_DIRECTION)
             val columnNote = cursor.getColumnIndexOrThrow(COLUMN_NOTE)
             val columnStatus = cursor.getColumnIndexOrThrow(COLUMN_STATUS)
             val columnRejectComment = cursor.getColumnIndexOrThrow(COLUMN_REJECT_COMMENT)
@@ -190,6 +206,7 @@ class RequestRepealWbQuery :
                     number = cursor.getString(columnNumber),
                     date = DateConverter.toDate(cursor.getString(columnDate)),
                     wbRegId = cursor.getString(columnWBRegId),
+                    direction = Direction.valueOf(cursor.getString(columnDirection)),
                     note = cursor.getString(columnNote),
                     status = RepealWbStatus.valueOf(cursor.getString(columnStatus)),
                     rejectComment = cursor.getString(columnRejectComment),

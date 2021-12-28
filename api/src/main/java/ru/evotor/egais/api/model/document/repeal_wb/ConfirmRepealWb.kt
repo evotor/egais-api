@@ -1,5 +1,6 @@
 package ru.evotor.egais.api.model.document.repeal_wb
 
+import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.EgaisDocument
 import java.util.*
 
@@ -13,6 +14,7 @@ import java.util.*
  * @property number Номер документа
  * @property date Дата документа
  * @property wbRegId Идентификатор накладной в системе
+ * @property direction Направление документа в представлении УТМ (входящий/исходящий)
  * @property note Заметки
  * @property status Статус документа
  * @property rejectComment Комментарий при отказе
@@ -26,6 +28,7 @@ data class ConfirmRepealWb(
     val number: String?,
     val date: Date?,
     val wbRegId: String?,
+    val direction: Direction,
     val note: String?,
     val status: RepealWbStatus,
     val rejectComment: String?,
