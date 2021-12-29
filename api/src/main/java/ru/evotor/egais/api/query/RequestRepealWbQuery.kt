@@ -3,7 +3,6 @@ package ru.evotor.egais.api.query
 import ru.evotor.egais.api.model.document.Direction
 import ru.evotor.egais.api.model.document.repeal_wb.RepealWbStatus
 import ru.evotor.egais.api.model.document.repeal_wb.RequestRepealWb
-import ru.evotor.egais.api.provider.UtmDocumentContract
 import ru.evotor.egais.api.provider.UtmDocumentContract.COLUMN_DIRECTION
 import ru.evotor.egais.api.provider.UtmDocumentContract.COLUMN_REPLY_ID
 import ru.evotor.egais.api.provider.converter.DateConverter
@@ -25,7 +24,7 @@ import java.util.*
  * Класс для формирования запроса на получение запросов на отмену проведения акта для ТТН
  */
 class RequestRepealWbQuery :
-    FilterBuilder<RequestRepealWbQuery, RequestRepealWbQuery.SortOrder, List<RequestRepealWb>>(
+    FilterBuilder<RequestRepealWbQuery, RequestRepealWbQuery.SortOrder, RequestRepealWb>(
         RequestRepealWbContract.URI
     ) {
 
@@ -172,48 +171,36 @@ class RequestRepealWbQuery :
 
         override val currentSortOrder: SortOrder
             get() = this
-
     }
 
-    override fun getValue(cursor: Cursor<List<RequestRepealWb>>): List<RequestRepealWb> {
+    override fun getValue(cursor: Cursor<RequestRepealWb>): RequestRepealWb {
         return createRequestRepealWb(cursor)
     }
 
-    private fun createRequestRepealWb(cursor: Cursor<List<RequestRepealWb>>): List<RequestRepealWb> {
-        val requestsRepealWb = mutableListOf<RequestRepealWb>()
-
-        if (cursor.moveToFirst().not()) {
-            return requestsRepealWb
-        }
-
-        do {
-            val columnUuid = cursor.getColumnIndexOrThrow(COLUMN_UUID)
-            val columnDocOwner = cursor.getColumnIndexOrThrow(COLUMN_OWNER)
-            val columnIdentity = cursor.getColumnIndexOrThrow(COLUMN_IDENTITY)
-            val columnNumber = cursor.getColumnIndexOrThrow(COLUMN_NUMBER)
-            val columnDate = cursor.getColumnIndexOrThrow(COLUMN_DATE)
-            val columnWBRegId = cursor.getColumnIndexOrThrow(COLUMN_WB_REG_ID)
-            val columnDirection = cursor.getColumnIndexOrThrow(COLUMN_DIRECTION)
-            val columnNote = cursor.getColumnIndexOrThrow(COLUMN_NOTE)
-            val columnStatus = cursor.getColumnIndexOrThrow(COLUMN_STATUS)
-            val columnRejectComment = cursor.getColumnIndexOrThrow(COLUMN_REJECT_COMMENT)
-            val columnReplyId = cursor.getColumnIndexOrThrow(COLUMN_REPLY_ID)
-            requestsRepealWb.add(
-                RequestRepealWb(
-                    uuid = UUID.fromString(cursor.getString(columnUuid)),
-                    docOwner = cursor.getString(columnDocOwner),
-                    identity = cursor.getString(columnIdentity),
-                    number = cursor.getString(columnNumber),
-                    date = DateConverter.toDate(cursor.getString(columnDate)),
-                    wbRegId = cursor.getString(columnWBRegId),
-                    direction = Direction.valueOf(cursor.getString(columnDirection)),
-                    note = cursor.getString(columnNote),
-                    status = RepealWbStatus.valueOf(cursor.getString(columnStatus)),
-                    rejectComment = cursor.getString(columnRejectComment),
-                    replyId = cursor.getString(columnReplyId)
-                )
-            )
-        } while (cursor.moveToNext())
-        return requestsRepealWb
+    private fun createRequestRepealWb(cursor: Cursor<RequestRepealWb>): RequestRepealWb {
+        val columnUuid = cursor.getColumnIndexOrThrow(COLUMN_UUID)
+        val columnDocOwner = cursor.getColumnIndexOrThrow(COLUMN_OWNER)
+        val columnIdentity = cursor.getColumnIndexOrThrow(COLUMN_IDENTITY)
+        val columnNumber = cursor.getColumnIndexOrThrow(COLUMN_NUMBER)
+        val columnDate = cursor.getColumnIndexOrThrow(COLUMN_DATE)
+        val columnWBRegId = cursor.getColumnIndexOrThrow(COLUMN_WB_REG_ID)
+        val columnDirection = cursor.getColumnIndexOrThrow(COLUMN_DIRECTION)
+        val columnNote = cursor.getColumnIndexOrThrow(COLUMN_NOTE)
+        val columnStatus = cursor.getColumnIndexOrThrow(COLUMN_STATUS)
+        val columnRejectComment = cursor.getColumnIndexOrThrow(COLUMN_REJECT_COMMENT)
+        val columnReplyId = cursor.getColumnIndexOrThrow(COLUMN_REPLY_ID)
+        return RequestRepealWb(
+            uuid = UUID.fromString(cursor.getString(columnUuid)),
+            docOwner = cursor.getString(columnDocOwner),
+            identity = cursor.getString(columnIdentity),
+            number = cursor.getString(columnNumber),
+            date = DateConverter.toDate(cursor.getString(columnDate)),
+            wbRegId = cursor.getString(columnWBRegId),
+            direction = Direction.valueOf(cursor.getString(columnDirection)),
+            note = cursor.getString(columnNote),
+            status = RepealWbStatus.valueOf(cursor.getString(columnStatus)),
+            rejectComment = cursor.getString(columnRejectComment),
+            replyId = cursor.getString(columnReplyId)
+        )
     }
 }
