@@ -4,7 +4,7 @@ import android.net.Uri
 import ru.evotor.egais.api.provider.MainContract
 
 internal object ReplyResendDocumentContract {
-    const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.reply"
+    const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.replyresenddocument"
 
     @JvmField
     val BASE_URI = Uri.parse("content://${AUTHORITY}")
