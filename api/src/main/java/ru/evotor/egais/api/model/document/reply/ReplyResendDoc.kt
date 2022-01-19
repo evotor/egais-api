@@ -5,6 +5,12 @@ import ru.evotor.egais.api.model.document.ticket.Ticket
 import java.util.*
 
 
+@Deprecated(
+    message = """
+        Используйте [ru.evotor.egais.api.model.document.reply.ReplyResendDocument].
+        Класс будет удален в следующем релизе.
+    """
+)
 /**
  * Результат отправки повторного запроса ТТН
  *
@@ -14,8 +20,8 @@ import java.util.*
  * @param ticket Квитанция
  */
 class ReplyResendDoc(
-        val uuid: UUID,
-        val docOwner: String,
-        var wbRegId: String,
-        var ticket: Ticket?
+    val uuid: UUID,
+    val docOwner: String,
+    var wbRegId: String,
+    var ticket: Ticket?
 ) : EgaisDocument()
