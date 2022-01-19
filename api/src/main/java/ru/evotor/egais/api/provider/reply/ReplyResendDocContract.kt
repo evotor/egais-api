@@ -3,6 +3,13 @@ package ru.evotor.egais.api.provider.reply
 import android.net.Uri
 import ru.evotor.egais.api.provider.MainContract
 
+@Deprecated(
+    message = """
+        Используйте [ru.evotor.egais.api.provider.reply.ReplyResendDocumentContract].
+        Для получения квитанции используйте [ru.evotor.egais.api.query.TicketQuery].
+        Класс будет удален в следующем релизе.
+    """
+)
 internal object ReplyResendDocContract {
     const val AUTHORITY = "${MainContract.AUTHORITY_PREFIX}.reply"
 
