@@ -1,7 +1,6 @@
 package ru.evotor.egais.api.model.document.reply
 
 import ru.evotor.egais.api.model.document.EgaisDocument
-import ru.evotor.egais.api.model.document.ticket.ConclusionType
 import java.util.*
 
 /**
@@ -17,7 +16,7 @@ import java.util.*
 class ReplyResendDocument(
     val wbRegId: String,
     val owner: String,
-    val status: ConclusionType?,
+    val status: ResendDocumentStatus,
     val comment: String?,
     val date: Date,
     val ticketUUID: UUID

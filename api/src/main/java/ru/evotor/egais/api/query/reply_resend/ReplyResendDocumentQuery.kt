@@ -1,7 +1,7 @@
 package ru.evotor.egais.api.query.reply_resend
 
 import ru.evotor.egais.api.model.document.reply.ReplyResendDocument
-import ru.evotor.egais.api.model.document.ticket.ConclusionType
+import ru.evotor.egais.api.model.document.reply.ResendDocumentStatus
 import ru.evotor.egais.api.provider.reply.ReplyResendDocumentContract
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
@@ -37,7 +37,7 @@ class ReplyResendDocumentQuery :
      * Статус накладной
      */
     @JvmField
-    val status = addFieldFilter<ConclusionType?>(ReplyResendDocumentContract.COLUMN_STATUS)
+    val status = addFieldFilter<ResendDocumentStatus?>(ReplyResendDocumentContract.COLUMN_STATUS)
 
     /**
      * Комментарий от ЕГАИС
@@ -97,7 +97,7 @@ class ReplyResendDocumentQuery :
         return ReplyResendDocument(
             cursor.getString(columnIndexWbRegId),
             cursor.getString(columnIndexOwner),
-            cursor.getString(columnIndexStatus)?.let { ConclusionType.valueOf(it) },
+            ResendDocumentStatus.valueOf(cursor.getString(columnIndexStatus)),
             cursor.getString(columnIndexComment),
             dateFormat.parse(cursor.getString(columnIndexDate)) ?: Date(),
             UUID.fromString(cursor.getString(ticketUuid))
