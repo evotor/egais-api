@@ -97,7 +97,7 @@ class ReplyResendDocumentQuery :
         return ReplyResendDocument(
             cursor.getString(columnIndexWbRegId),
             cursor.getString(columnIndexOwner),
-            ConclusionType.valueOf(cursor.getString(columnIndexStatus)),
+            cursor.getString(columnIndexStatus)?.let { ConclusionType.valueOf(it) },
             cursor.getString(columnIndexComment),
             dateFormat.parse(cursor.getString(columnIndexDate)) ?: Date(),
             UUID.fromString(cursor.getString(ticketUuid))
