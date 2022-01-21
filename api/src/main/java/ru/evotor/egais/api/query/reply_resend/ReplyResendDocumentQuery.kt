@@ -51,6 +51,12 @@ class ReplyResendDocumentQuery :
     @JvmField
     val date = addFieldFilter<String?>(ReplyResendDocumentContract.COLUMN_DATE)
 
+    /**
+     * ID утм документа для накладной
+     */
+    @JvmField
+    val utmDocumentUuid = addFieldFilter<UUID>(ReplyResendDocumentContract.COLUMN_UTM_DOCUMENT_UUID)
+
     override val currentQuery: ReplyResendDocumentQuery
         get() = this
 
@@ -75,6 +81,9 @@ class ReplyResendDocumentQuery :
 
         @JvmField
         val date = addFieldSorter(ReplyResendDocumentContract.COLUMN_DATE)
+
+        @JvmField
+        val utmDocumentUuid = addFieldSorter(ReplyResendDocumentContract.COLUMN_UTM_DOCUMENT_UUID)
     }
 
     override fun getValue(cursor: Cursor<ReplyResendDocument>): ReplyResendDocument {
@@ -92,7 +101,7 @@ class ReplyResendDocumentQuery :
         val columnIndexStatus =
             cursor.getColumnIndexOrThrow(ReplyResendDocumentContract.COLUMN_STATUS)
         val ticketUuid =
-            cursor.getColumnIndexOrThrow(ReplyResendDocumentContract.COLUMN_TICKET_UUID)
+            cursor.getColumnIndexOrThrow(ReplyResendDocumentContract.COLUMN_UTM_DOCUMENT_UUID)
 
         return ReplyResendDocument(
             cursor.getString(columnIndexWbRegId),

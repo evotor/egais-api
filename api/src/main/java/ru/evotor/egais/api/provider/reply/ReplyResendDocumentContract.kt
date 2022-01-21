@@ -25,5 +25,5 @@ internal object ReplyResendDocumentContract {
 
     const val COLUMN_DATE = "DATE"
 
-    const val COLUMN_TICKET_UUID = "TICKET_UUID"
+    const val COLUMN_UTM_DOCUMENT_UUID = "UTM_DOCUMENT_UUID"
 }
