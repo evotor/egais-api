@@ -5,9 +5,10 @@ package ru.evotor.egais.api.model.document.repeal_wb
  */
 enum class RepealWbStatus {
     NOT_PROCESSED,
-    WAIT_UTM_ANSWER,
-    NOT_CONFIRMED,
     ERROR,
-    FINISH,
-    REJECTED
+    WAIT_UTM_ANSWER,
+    WAIT_ANSWER,
+    CONFIRMED,
+    NOT_CONFIRMED,
+    TERM_ENDED
 }
