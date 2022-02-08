@@ -1,16 +1,27 @@
-package ru.evotor.egais.api.query
+package ru.evotor.egais.api.query.reply_resend
 
 import ru.evotor.egais.api.model.document.reply.ReplyResendDoc
 import ru.evotor.egais.api.provider.reply.ReplyResendDocContract
+import ru.evotor.egais.api.query.createTicket
 import ru.evotor.query.Cursor
 import ru.evotor.query.FilterBuilder
 import java.util.*
 
+@Deprecated(
+    message = """
+        Используйте [ru.evotor.egais.api.query.reply_resend.ReplyResendDocumentQuery].
+        Для получения квитанции используйте [ru.evotor.egais.api.query.TicketQuery].
+        Класс будет удален в следующем релизе.
+    """
+)
 /**
  * Класс для формирования запроса на получение результата отправки
  * повторного запроса ТТН
  */
-class ReplyResendDocQuery : FilterBuilder<ReplyResendDocQuery, ReplyResendDocQuery.SortOrder, ReplyResendDoc>(ReplyResendDocContract.URI) {
+class ReplyResendDocQuery :
+    FilterBuilder<ReplyResendDocQuery, ReplyResendDocQuery.SortOrder, ReplyResendDoc>(
+        ReplyResendDocContract.URI
+    ) {
     /**
      * Уникальный идентификатор запроса
      */
@@ -78,14 +89,16 @@ class ReplyResendDocQuery : FilterBuilder<ReplyResendDocQuery, ReplyResendDocQue
     private fun createReplyResendDoc(cursor: Cursor<ReplyResendDoc>): ReplyResendDoc {
         val columnIndexUuid = cursor.getColumnIndexOrThrow(ReplyResendDocContract.COLUMN_UUID)
         val columnIndexOwner = cursor.getColumnIndexOrThrow(ReplyResendDocContract.COLUMN_OWNER)
-        val columnIndexWbRegId = cursor.getColumnIndexOrThrow(ReplyResendDocContract.COLUMN_WB_REG_ID)
-        val columnIndexTicketUuid = cursor.getColumnIndexOrThrow(ReplyResendDocContract.COLUMN_TICKET_UUID)
+        val columnIndexWbRegId =
+            cursor.getColumnIndexOrThrow(ReplyResendDocContract.COLUMN_WB_REG_ID)
+        val columnIndexTicketUuid =
+            cursor.getColumnIndexOrThrow(ReplyResendDocContract.COLUMN_TICKET_UUID)
 
         return ReplyResendDoc(
-                UUID.fromString(cursor.getString(columnIndexUuid)),
-                cursor.getString(columnIndexOwner),
-                cursor.getString(columnIndexWbRegId),
-                cursor.getString(columnIndexTicketUuid)?.let { cursor.createTicket() }
+            UUID.fromString(cursor.getString(columnIndexUuid)),
+            cursor.getString(columnIndexOwner),
+            cursor.getString(columnIndexWbRegId),
+            cursor.getString(columnIndexTicketUuid)?.let { cursor.createTicket() }
         )
     }
 }
