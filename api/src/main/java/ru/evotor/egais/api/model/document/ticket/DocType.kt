@@ -21,6 +21,8 @@ package ru.evotor.egais.api.model.document.ticket
  * @property ACT_UNFIX_BARCODE Акт отвязки марки от партии
  * @property ACT_CHARGE_ON Акт постановки на склад
  * @property QUERY_UNPROCESSED_DOCUMENTS Запрос необработанных документов
+ * @property REQUEST_REPEAL_WB Запрос на отмену проведения акта для ТТН
+ * @property CONFIRM_REPEAL_WB Ответ на запрос об отмене проведения акта для ТТН
  */
 enum class DocType {
     WAY_BILL,
@@ -40,5 +42,7 @@ enum class DocType {
     ACT_FIX_BARCODE,
     ACT_UNFIX_BARCODE,
     ACT_CHARGE_ON,
-    QUERY_UNPROCESSED_DOCUMENTS
+    QUERY_UNPROCESSED_DOCUMENTS,
+    REQUEST_REPEAL_WB,
+    CONFIRM_REPEAL_WB
 }
