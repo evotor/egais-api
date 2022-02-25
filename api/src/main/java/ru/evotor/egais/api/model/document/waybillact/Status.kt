@@ -5,6 +5,10 @@ package ru.evotor.egais.api.model.document.waybillact
  */
 enum class Status {
     NOT_PROCESSED,
+    WAIT_UTM_ANSWER,
+    WAIT_SENDER_ANSWER,
     FINISH,
-    REJECTED
+    REJECTED,
+    ERROR,
+    REPEALED
 }
