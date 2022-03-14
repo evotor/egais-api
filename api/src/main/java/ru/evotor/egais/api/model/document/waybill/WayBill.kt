@@ -25,6 +25,7 @@ import java.util.*
  *  @property note Заметки
  *  @property status Состояние накладной
  *  @property resolution резолюция по накладной
+ *  @property resolutionComment комментарий по накладной от ЕГАИС
  *  @property ttnInformF2RegUuid uuid формы 2 для накладной
  *  @property wbRegId ИД накладной в системе (присвоенный)
  *  @property direction Направление документа в представлении УТМ (входящий/исходящий)
@@ -32,25 +33,26 @@ import java.util.*
  *  @property replyId Уникальный идентификатор документа (присваивается УТМ); совпадает с идентификатором исходящего документа, который получили в ответе
  */
 data class WayBill(
-        val uuid: UUID,
-        val docOwner: String,
-        val identity: String?,
-        val type: Type,
-        @Deprecated("Use unitType of each position ProductInfo") val unitType: UnitType?,
-        val number: String,
-        val date: Date,
-        val shippingDate: Date,
-        val transport: Transport?,
-        val shipperId: String,
-        val consigneeId: String,
-        val supplierId: String?,
-        val base: String?,
-        val note: String?,
-        val status: Status,
-        val resolution: Resolution,
-        val ttnInformF2RegUuid: UUID?,
-        val wbRegId: String?,
-        val direction: Direction,
-        val version: Version,
-        val replyId: String?
+    val uuid: UUID,
+    val docOwner: String,
+    val identity: String?,
+    val type: Type,
+    @Deprecated("Use unitType of each position ProductInfo") val unitType: UnitType?,
+    val number: String,
+    val date: Date,
+    val shippingDate: Date,
+    val transport: Transport?,
+    val shipperId: String,
+    val consigneeId: String,
+    val supplierId: String?,
+    val base: String?,
+    val note: String?,
+    val status: Status,
+    val resolution: Resolution,
+    val resolutionComment: String?,
+    val ttnInformF2RegUuid: UUID?,
+    val wbRegId: String?,
+    val direction: Direction,
+    val version: Version,
+    val replyId: String?
 ) : EgaisDocument()

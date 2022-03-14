@@ -88,6 +88,11 @@ internal object WayBillContract {
     const val COLUMN_RESOLUTION = "RESOLUTION"
 
     /**
+     * Комментарий к накладной от ЕГАИС
+     */
+    const val COLUMN_RESOLUTION_COMMENT = "RESOLUTION_COMMENT"
+
+    /**
      * uuid справки 2 для накладной.
      */
     const val COLUMN_TTN_INFORM_F2_REG_UUID = "TTN_INFORM_F2_REG_UUID"

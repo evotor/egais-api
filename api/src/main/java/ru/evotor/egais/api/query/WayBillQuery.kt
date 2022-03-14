@@ -14,7 +14,8 @@ import java.util.*
 /**
  * Класс для формирования запроса на получение ТТН
  */
-class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill>(WayBillContract.URI) {
+class WayBillQuery :
+    FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill>(WayBillContract.URI) {
 
     /**
      * UUID накладной.
@@ -57,13 +58,16 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
      * Дата составления.
      */
     @JvmField
-    val date = addFieldFilter<Date, String>(WayBillContract.COLUMN_DATE, { DateConverter.toString(it) })
+    val date =
+        addFieldFilter<Date, String>(WayBillContract.COLUMN_DATE, { DateConverter.toString(it) })
 
     /**
      * Дата отгрузки продукции.
      */
     @JvmField
-    val shippingDate = addFieldFilter<Date, String>(WayBillContract.COLUMN_SHIPPING_DATE, { DateConverter.toString(it) })
+    val shippingDate = addFieldFilter<Date, String>(
+        WayBillContract.COLUMN_SHIPPING_DATE
+    ) { DateConverter.toString(it) }
 
     /**
      * Грузоотправитель.
@@ -106,6 +110,12 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
      */
     @JvmField
     val resolution = addFieldFilter<Resolution>(WayBillContract.COLUMN_RESOLUTION)
+
+    /**
+     * Комментарий к накладной от ЕГАИС
+     */
+    @JvmField
+    val resolutionComment = addFieldFilter<String?>(WayBillContract.COLUMN_RESOLUTION_COMMENT)
 
     /**
      * uuid справки 2 для накладной.
@@ -284,18 +294,29 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val columnNumber = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_NUMBER)
         val columnDate = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_DATE)
         val columnShippingDate = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_SHIPPING_DATE)
-        val columnTransportType = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_TYPE)
-        val columnTransportTransportType = cursor.getColumnIndex(WayBillContract.COLUMN_TRANSPORT_TRANSPORT_TYPE)
-        val columnTransportChangeOwnership = cursor.getColumnIndex(WayBillContract.COLUMN_TRANSPORT_CHANGE_OWNERSHIP)
-        val columnTransportCompany = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_COMPANY)
+        val columnTransportType =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_TYPE)
+        val columnTransportTransportType =
+            cursor.getColumnIndex(WayBillContract.COLUMN_TRANSPORT_TRANSPORT_TYPE)
+        val columnTransportChangeOwnership =
+            cursor.getColumnIndex(WayBillContract.COLUMN_TRANSPORT_CHANGE_OWNERSHIP)
+        val columnTransportCompany =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_COMPANY)
         val columnTransportCar = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_CAR)
-        val columnTransportTrailer = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_TRAILER)
-        val columnTransportCustomer = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_CUSTOMER)
-        val columnTransportDriver = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_DRIVER)
-        val columnTransportLoadPoint = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_LOADPOINT)
-        val columnTransportUnloadPoint = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_UNLOADPOINT)
-        val columnTransportRedirect = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_REDIRECT)
-        val columnTransportForwarder = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_FORWARDER)
+        val columnTransportTrailer =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_TRAILER)
+        val columnTransportCustomer =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_CUSTOMER)
+        val columnTransportDriver =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_DRIVER)
+        val columnTransportLoadPoint =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_LOADPOINT)
+        val columnTransportUnloadPoint =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_UNLOADPOINT)
+        val columnTransportRedirect =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_REDIRECT)
+        val columnTransportForwarder =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TRANSPORT_FORWARDER)
         val columnShipperId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_SHIPPER_ID)
         val columnConsigneeId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_CONSIGNEE_ID)
         val columnSupplierID = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_SUPPLIER_ID)
@@ -303,7 +324,9 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val columnNote = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_NOTE)
         val columnStatus = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_STATUS)
         val columnResolution = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION)
-        val columnTtnInformF2RegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
+        val columnResolutionComment = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION_COMMENT)
+        val columnTtnInformF2RegId =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
         val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
         val columnDirection = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_DIRECTION)
         val columnVersion = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_VERSION)
@@ -327,57 +350,63 @@ class WayBillQuery : FilterBuilder<WayBillQuery, WayBillQuery.SortOrder, WayBill
         val transportForwarder = cursor.getString(columnTransportForwarder)
 
         val transport = if (
-                transportType != null ||
-                transportTransportType != null ||
-                transportChangeOwnership != null ||
-                transportCompany != null ||
-                transportCar != null ||
-                transportTrailer != null ||
-                transportCustomer != null ||
-                transportDriver != null ||
-                transportLoadPoint != null ||
-                transportUnloadPoint != null ||
-                transportRedirect != null ||
-                transportForwarder != null
+            transportType != null ||
+            transportTransportType != null ||
+            transportChangeOwnership != null ||
+            transportCompany != null ||
+            transportCar != null ||
+            transportTrailer != null ||
+            transportCustomer != null ||
+            transportDriver != null ||
+            transportLoadPoint != null ||
+            transportUnloadPoint != null ||
+            transportRedirect != null ||
+            transportForwarder != null
         ) {
             Transport(
-                    type = transportType,
-                    transportType = transportTransportType,
-                    changeOwnership = transportChangeOwnership,
-                    company = transportCompany,
-                    car = transportCar,
-                    trailer = transportTrailer,
-                    customer = transportCustomer,
-                    driver = transportDriver,
-                    loadpoint = transportLoadPoint,
-                    unloadpoint = transportUnloadPoint,
-                    redirect = transportRedirect,
-                    forwarder = transportForwarder
+                type = transportType,
+                transportType = transportTransportType,
+                changeOwnership = transportChangeOwnership,
+                company = transportCompany,
+                car = transportCar,
+                trailer = transportTrailer,
+                customer = transportCustomer,
+                driver = transportDriver,
+                loadpoint = transportLoadPoint,
+                unloadpoint = transportUnloadPoint,
+                redirect = transportRedirect,
+                forwarder = transportForwarder
             )
         } else null
 
         return WayBill(
-                uuid = UUID.fromString(cursor.getString(columnUuid)),
-                docOwner = cursor.getString(columnDocOwner),
-                identity = cursor.getString(columnIdentity),
-                type = Type.valueOf(cursor.getString(columnType)),
-                unitType = cursor.getString(columnUnitType)?.let { UnitType.valueOf(it) },
-                number = cursor.getString(columnNumber),
-                date = DateConverter.toDate(cursor.getString(columnDate)),
-                shippingDate = DateConverter.toDate(cursor.getString(columnShippingDate)),
-                transport = transport,
-                shipperId = cursor.getString(columnShipperId),
-                consigneeId = cursor.getString(columnConsigneeId),
-                supplierId = cursor.getString(columnSupplierID),
-                base = cursor.getString(columnBase),
-                note = cursor.getString(columnNote),
-                status = Status.valueOf(cursor.getString(columnStatus)),
-                resolution = Resolution.valueOf(cursor.getString(columnResolution)),
-                ttnInformF2RegUuid = cursor.getString(columnTtnInformF2RegId)?.let { UUID.fromString(it) },
-                wbRegId = cursor.getString(columnWBRegId),
-                direction = Direction.valueOf(cursor.getString(columnDirection)),
-                version = Version.valueOf(cursor.getString(columnVersion)),
-                replyId = cursor.getString(columnReplyId)
+            uuid = UUID.fromString(cursor.getString(columnUuid)),
+            docOwner = cursor.getString(columnDocOwner),
+            identity = cursor.getString(columnIdentity),
+            type = Type.valueOf(cursor.getString(columnType)),
+            unitType = cursor.getString(columnUnitType)?.let { UnitType.valueOf(it) },
+            number = cursor.getString(columnNumber),
+            date = DateConverter.toDate(cursor.getString(columnDate)),
+            shippingDate = DateConverter.toDate(cursor.getString(columnShippingDate)),
+            transport = transport,
+            shipperId = cursor.getString(columnShipperId),
+            consigneeId = cursor.getString(columnConsigneeId),
+            supplierId = cursor.getString(columnSupplierID),
+            base = cursor.getString(columnBase),
+            note = cursor.getString(columnNote),
+            status = Status.valueOf(cursor.getString(columnStatus)),
+            resolution = Resolution.valueOf(cursor.getString(columnResolution)),
+            resolutionComment = cursor.getString(columnResolutionComment),
+            ttnInformF2RegUuid = cursor.getString(columnTtnInformF2RegId)
+                ?.let { UUID.fromString(it) },
+            wbRegId = cursor.getString(columnWBRegId),
+            direction = Direction.valueOf(cursor.getString(columnDirection)),
+            version = Version.valueOf(cursor.getString(columnVersion)),
+            replyId = cursor.getString(columnReplyId)
         )
+    }
+
+    companion object {
+        const val API_VERSION = 1
     }
 }
