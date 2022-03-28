@@ -147,6 +147,12 @@ class WayBillQuery :
     @JvmField
     val replyId = addFieldFilter<String?>(UtmDocumentContract.COLUMN_REPLY_ID)
 
+    /**
+     * Код ошибки
+     */
+    @JvmField
+    val errorCode = addFieldFilter<WayBillErrorCode?>(WayBillContract.COLUMN_ERROR_CODE)
+
     override val currentQuery: WayBillQuery
         get() = this
 
@@ -276,6 +282,12 @@ class WayBillQuery :
         @JvmField
         val replyId = addFieldSorter(UtmDocumentContract.COLUMN_REPLY_ID)
 
+        /**
+         * Код ошибки
+         */
+        @JvmField
+        val errorCode = addFieldSorter(WayBillContract.COLUMN_ERROR_CODE)
+
         override val currentSortOrder: SortOrder
             get() = this
 
@@ -324,13 +336,15 @@ class WayBillQuery :
         val columnNote = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_NOTE)
         val columnStatus = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_STATUS)
         val columnResolution = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION)
-        val columnResolutionComment = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION_COMMENT)
+        val columnResolutionComment =
+            cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_RESOLUTION_COMMENT)
         val columnTtnInformF2RegId =
             cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_TTN_INFORM_F2_REG_UUID)
         val columnWBRegId = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_WB_REG_ID)
         val columnDirection = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_DIRECTION)
         val columnVersion = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_VERSION)
         val columnReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
+        val columnErrorCode = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_ERROR_CODE)
 
         val transportType = cursor.getString(columnTransportType)
         val transportTransportType = if (columnTransportTransportType != -1)
@@ -348,6 +362,8 @@ class WayBillQuery :
         val transportUnloadPoint = cursor.getString(columnTransportUnloadPoint)
         val transportRedirect = cursor.getString(columnTransportRedirect)
         val transportForwarder = cursor.getString(columnTransportForwarder)
+        val errorCode = if (columnErrorCode != -1)
+            cursor.getString(columnErrorCode)?.let { WayBillErrorCode.valueOf(it) } else null
 
         val transport = if (
             transportType != null ||
@@ -402,7 +418,8 @@ class WayBillQuery :
             wbRegId = cursor.getString(columnWBRegId),
             direction = Direction.valueOf(cursor.getString(columnDirection)),
             version = Version.valueOf(cursor.getString(columnVersion)),
-            replyId = cursor.getString(columnReplyId)
+            replyId = cursor.getString(columnReplyId),
+            errorCode = errorCode
         )
     }
 
