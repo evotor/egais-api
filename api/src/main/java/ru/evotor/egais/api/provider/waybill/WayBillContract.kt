@@ -88,6 +88,11 @@ internal object WayBillContract {
     const val COLUMN_RESOLUTION = "RESOLUTION"
 
     /**
+     * Комментарий к накладной от ЕГАИС
+     */
+    const val COLUMN_RESOLUTION_COMMENT = "RESOLUTION_COMMENT"
+
+    /**
      * uuid справки 2 для накладной.
      */
     const val COLUMN_TTN_INFORM_F2_REG_UUID = "TTN_INFORM_F2_REG_UUID"
@@ -101,46 +106,57 @@ internal object WayBillContract {
      * Транспорт. Тип перевозки.
      */
     const val COLUMN_TRANSPORT_TYPE = "TRANSPORT_TYPE"
+
     /**
      * Транспорт. Тип транспортного средства.
      */
     const val COLUMN_TRANSPORT_TRANSPORT_TYPE = "TRANSPORT_TRANSPORT_TYPE"
+
     /**
      * Транспорт. Право собственности.
      */
     const val COLUMN_TRANSPORT_CHANGE_OWNERSHIP = "TRANSPORT_CHANGE_OWNERSHIP"
+
     /**
      * Транспорт. Название компании перевозчика.
      */
     const val COLUMN_TRANSPORT_COMPANY = "TRANSPORT_COMPANY"
+
     /**
      * Транспорт. Автомобиль.
      */
     const val COLUMN_TRANSPORT_CAR = "TRANSPORT_CAR"
+
     /**
      * Транспорт. Прицеп.
      */
     const val COLUMN_TRANSPORT_TRAILER = "TRANSPORT_TRAILER"
+
     /**
      * Транспорт. Заказчики.
      */
     const val COLUMN_TRANSPORT_CUSTOMER = "TRANSPORT_CUSTOMER"
+
     /**
      * Транспорт. Водитель.
      */
     const val COLUMN_TRANSPORT_DRIVER = "TRANSPORT_DRIVER"
+
     /**
      * Транспорт. Место погрузки.
      */
     const val COLUMN_TRANSPORT_LOADPOINT = "TRANSPORT_LOADPOINT"
+
     /**
      * Транспорт. Место разгрузки.
      */
     const val COLUMN_TRANSPORT_UNLOADPOINT = "TRANSPORT_UNLOADPOINT"
+
     /**
      * Транспорт. Перенаправление.
      */
     const val COLUMN_TRANSPORT_REDIRECT = "TRANSPORT_REDIRECT"
+
     /**
      * Транспорт. Экспедитор.
      */
@@ -150,4 +166,9 @@ internal object WayBillContract {
      * ИД накладной в системе ЕГАИС.
      */
     const val COLUMN_WB_REG_ID = "WB_REG_ID"
+
+    /**
+     * Код ошибки
+     */
+    const val COLUMN_ERROR_CODE = "ERROR_CODE"
 }
