@@ -344,7 +344,7 @@ class WayBillQuery :
         val columnDirection = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_DIRECTION)
         val columnVersion = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_VERSION)
         val columnReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
-        val columnErrorCode = cursor.getColumnIndexOrThrow(WayBillContract.COLUMN_ERROR_CODE)
+        val columnErrorCode = cursor.getColumnIndex(WayBillContract.COLUMN_ERROR_CODE)
 
         val transportType = cursor.getString(columnTransportType)
         val transportTransportType = if (columnTransportTransportType != -1)
