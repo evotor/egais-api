@@ -13,7 +13,8 @@ import java.util.*
 /**
  * Класс для формирования запроса на получение актов ТТН
  */
-class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder, WayBillAct>(WayBillActContract.URI) {
+class WayBillActQuery :
+    FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder, WayBillAct>(WayBillActContract.URI) {
 
     /**
      * Уникальный идентификатор акта
@@ -49,7 +50,9 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
      * Дата составления акта
      */
     @JvmField
-    val creationDate = addFieldFilter<Date, String>(WayBillActContract.COLUMN_CREATION_DATE, { DateConverter.toString(it) })
+    val creationDate = addFieldFilter<Date, String>(
+        WayBillActContract.COLUMN_CREATION_DATE,
+        { DateConverter.toString(it) })
 
     /**
      * Идентификатор накладной в системе
@@ -195,33 +198,43 @@ class WayBillActQuery : FilterBuilder<WayBillActQuery, WayBillActQuery.SortOrder
         val columnAcceptType = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_ACCEPT_TYPE)
         val columnNumber = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_NUMBER)
         val columnDate = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_CREATION_DATE)
-        val columnTransportChangeOwnership = cursor.getColumnIndex(WayBillActContract.COLUMN_TRANSPORT_CHANGE_OWNERSHIP)
+        val columnTransportChangeOwnership =
+            cursor.getColumnIndex(WayBillActContract.COLUMN_TRANSPORT_CHANGE_OWNERSHIP)
         val columnWbRegId = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_WB_REG_ID)
         val columnNote = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_NOTE)
         val columnType = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_TYPE)
         val columnVersion = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_VERSION)
         val columnStatus = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_STATUS)
-        val columnRejectComment = cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_REJECT_COMMENT)
+        val columnRejectComment =
+            cursor.getColumnIndexOrThrow(WayBillActContract.COLUMN_REJECT_COMMENT)
         val columnReplyId = cursor.getColumnIndexOrThrow(UtmDocumentContract.COLUMN_REPLY_ID)
 
+        val status = try {
+            Status.valueOf(cursor.getString(columnStatus))
+        } catch (exception: Exception) {
+            Status.UNKNOWN
+        }
+
         val transportChangeOwnership =
-                if (columnTransportChangeOwnership != -1) cursor.getString(columnTransportChangeOwnership)?.let { ChangeOwnership.valueOf(it) }
-                else null
+            if (columnTransportChangeOwnership != -1) cursor.getString(
+                columnTransportChangeOwnership
+            )?.let { ChangeOwnership.valueOf(it) }
+            else null
         return WayBillAct(
-                UUID.fromString(cursor.getString(columnUuid)),
-                cursor.getString(columnOwner),
-                cursor.getString(columnIdentity),
-                cursor.getString(columnAcceptType)?.let { AcceptType.valueOf(it) },
-                cursor.getString(columnNumber),
-                DateConverter.toDate(cursor.getString(columnDate)),
-                if (transportChangeOwnership != null) Transport(transportChangeOwnership) else null,
-                cursor.getString(columnWbRegId),
-                cursor.getString(columnNote),
-                cursor.getString(columnType)?.let { Type.valueOf(it) },
-                cursor.getString(columnVersion)?.let { Version.valueOf(it) },
-                Status.valueOf(cursor.getString(columnStatus)),
-                cursor.getString(columnRejectComment),
-                cursor.getString(columnReplyId)
+            UUID.fromString(cursor.getString(columnUuid)),
+            cursor.getString(columnOwner),
+            cursor.getString(columnIdentity),
+            cursor.getString(columnAcceptType)?.let { AcceptType.valueOf(it) },
+            cursor.getString(columnNumber),
+            DateConverter.toDate(cursor.getString(columnDate)),
+            if (transportChangeOwnership != null) Transport(transportChangeOwnership) else null,
+            cursor.getString(columnWbRegId),
+            cursor.getString(columnNote),
+            cursor.getString(columnType)?.let { Type.valueOf(it) },
+            cursor.getString(columnVersion)?.let { Version.valueOf(it) },
+            status,
+            cursor.getString(columnRejectComment),
+            cursor.getString(columnReplyId)
         )
     }
 }
