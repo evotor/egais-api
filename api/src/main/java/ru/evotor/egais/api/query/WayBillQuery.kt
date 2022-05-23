@@ -395,6 +395,12 @@ class WayBillQuery :
             )
         } else null
 
+        val status = try {
+            Status.valueOf(cursor.getString(columnStatus))
+        } catch (exception: Exception) {
+            Status.UNKNOWN
+        }
+
         return WayBill(
             uuid = UUID.fromString(cursor.getString(columnUuid)),
             docOwner = cursor.getString(columnDocOwner),
@@ -410,7 +416,7 @@ class WayBillQuery :
             supplierId = cursor.getString(columnSupplierID),
             base = cursor.getString(columnBase),
             note = cursor.getString(columnNote),
-            status = Status.valueOf(cursor.getString(columnStatus)),
+            status = status,
             resolution = Resolution.valueOf(cursor.getString(columnResolution)),
             resolutionComment = cursor.getString(columnResolutionComment),
             ttnInformF2RegUuid = cursor.getString(columnTtnInformF2RegId)
