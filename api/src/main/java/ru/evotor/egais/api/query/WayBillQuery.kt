@@ -362,8 +362,6 @@ class WayBillQuery :
         val transportUnloadPoint = cursor.getString(columnTransportUnloadPoint)
         val transportRedirect = cursor.getString(columnTransportRedirect)
         val transportForwarder = cursor.getString(columnTransportForwarder)
-        val errorCode = if (columnErrorCode != -1)
-            cursor.getString(columnErrorCode)?.let { WayBillErrorCode.valueOf(it) } else null
 
         val transport = if (
             transportType != null ||
@@ -401,6 +399,13 @@ class WayBillQuery :
             Status.UNKNOWN
         }
 
+        val errorCode = try {
+            if (columnErrorCode != -1)
+                cursor.getString(columnErrorCode)?.let { WayBillErrorCode.valueOf(it) } else null
+        } catch (exception: Exception) {
+            null
+        }
+
         return WayBill(
             uuid = UUID.fromString(cursor.getString(columnUuid)),
             docOwner = cursor.getString(columnDocOwner),
@@ -430,6 +435,6 @@ class WayBillQuery :
     }
 
     companion object {
-        const val API_VERSION = 1
+        const val API_VERSION = 2
     }
 }
