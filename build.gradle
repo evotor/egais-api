@@ -6,6 +6,9 @@ buildscript {
         maven {
             url = uri("http://10.12.76.10:8080/content/groups/public-release")
         }
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
         google()
     }
 
