@@ -1,31 +1,31 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    ext.kotlin_version = '1.6.0'
     repositories {
         maven {
             url = uri("http://10.12.76.10:8080/content/groups/public-release")
+            isAllowInsecureProtocol = true
         }
         maven {
             url = uri("https://plugins.gradle.org/m2/")
         }
         google()
+
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.6.0"
+        classpath("com.android.tools.build:gradle:4.2.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.6.0")
     }
 }
 
 allprojects {
     repositories {
         google()
-        maven { url 'https://jitpack.io' }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register("clean",Delete::class){
+    delete(rootProject.buildDir)
 }
