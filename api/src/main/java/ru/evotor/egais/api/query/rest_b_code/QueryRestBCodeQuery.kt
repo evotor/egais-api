@@ -1,6 +1,7 @@
 package ru.evotor.egais.api.query.rest_b_code
 
-import ru.evotor.egais.api.model.document.reply.ResendDocumentStatus
+import ru.evotor.egais.api.model.dictionary.QueryRestBCodeRequestType
+import ru.evotor.egais.api.model.dictionary.QueryStatus
 import ru.evotor.egais.api.model.document.rest_b_code.QueryRestBCode
 import ru.evotor.egais.api.provider.rest_b_code.QueryRestBCodeContract
 import ru.evotor.query.Cursor
@@ -20,7 +21,7 @@ class QueryRestBCodeQuery :
      * UUID документа.
      */
     @JvmField
-    val uuid = addFieldFilter<String>(QueryRestBCodeContract.COLUMN_UUID)
+    val uuid = addFieldFilter<UUID>(QueryRestBCodeContract.COLUMN_UUID)
 
     /**
      * Отправитель запроса
@@ -38,7 +39,7 @@ class QueryRestBCodeQuery :
      * Статус запроса
      */
     @JvmField
-    val status = addFieldFilter<ResendDocumentStatus?>(QueryRestBCodeContract.COLUMN_STATUS)
+    val status = addFieldFilter<QueryStatus?>(QueryRestBCodeContract.COLUMN_STATUS)
 
     /**
      * Комментарий от ЕГАИС
@@ -56,7 +57,7 @@ class QueryRestBCodeQuery :
      * Тип запроса
      */
     @JvmField
-    val requestType = addFieldFilter<String?>(QueryRestBCodeContract.COLUMN_REQUEST_TYPE)
+    val requestType = addFieldFilter<QueryRestBCodeRequestType?>(QueryRestBCodeContract.COLUMN_REQUEST_TYPE)
 
     override val currentQuery: QueryRestBCodeQuery
         get() = this
@@ -114,10 +115,10 @@ class QueryRestBCodeQuery :
             UUID.fromString(cursor.getString(columnIndexUuid)),
             cursor.getString(columnIndexOwner),
             cursor.getString(columnIndexInformF2RegId),
-            cursor.getString(columnIndexStatus),
+            QueryStatus.valueOf(cursor.getString(columnIndexStatus)),
             cursor.getString(columnIndexRejectComment),
             UUID.fromString(cursor.getString(columnIndexUtmDocumentUuid)),
-            cursor.getString(columnRequestType),
+            QueryRestBCodeRequestType.valueOf(cursor.getString(columnRequestType)),
         )
     }
 }
