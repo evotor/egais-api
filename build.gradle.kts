@@ -1,13 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        maven {
-            url = uri("http://10.12.76.10:8080/content/groups/public-release")
-            isAllowInsecureProtocol = true
-        }
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
+        mavenCentral()
         google()
 
     }
@@ -21,10 +15,7 @@ buildscript {
 
 allprojects {
     repositories {
-        maven {
-            url = uri("http://10.12.76.10:8080/content/groups/public-release")
-            isAllowInsecureProtocol = true
-        }
+        mavenCentral()
         google()
         maven {
             url = uri("https://jitpack.io")
