@@ -21,8 +21,14 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url = uri("http://10.12.76.10:8080/content/groups/public-release")
+            isAllowInsecureProtocol = true
+        }
         google()
-        maven { url = uri("https://jitpack.io") }
+        maven {
+            url = uri("https://jitpack.io")
+        }
     }
 }
 
