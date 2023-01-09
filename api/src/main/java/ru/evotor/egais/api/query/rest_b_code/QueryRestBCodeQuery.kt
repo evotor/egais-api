@@ -57,7 +57,8 @@ class QueryRestBCodeQuery :
      * Тип запроса
      */
     @JvmField
-    val requestType = addFieldFilter<QueryRestBCodeRequestType?>(QueryRestBCodeContract.COLUMN_REQUEST_TYPE)
+    val requestType =
+        addFieldFilter<QueryRestBCodeRequestType?>(QueryRestBCodeContract.COLUMN_REQUEST_TYPE)
 
     override val currentQuery: QueryRestBCodeQuery
         get() = this
@@ -115,10 +116,18 @@ class QueryRestBCodeQuery :
             UUID.fromString(cursor.getString(columnIndexUuid)),
             cursor.getString(columnIndexOwner),
             cursor.getString(columnIndexInformF2RegId),
-            QueryStatus.valueOf(cursor.getString(columnIndexStatus)),
+            try {
+                QueryStatus.valueOf(cursor.getString(columnIndexStatus))
+            } catch (e: Exception) {
+                QueryStatus.UNKNOWN
+            },
             cursor.getString(columnIndexRejectComment),
             UUID.fromString(cursor.getString(columnIndexUtmDocumentUuid)),
-            QueryRestBCodeRequestType.valueOf(cursor.getString(columnRequestType)),
+            try {
+                QueryRestBCodeRequestType.valueOf(cursor.getString(columnRequestType))
+            } catch (e: Exception) {
+                QueryRestBCodeRequestType.UNKNOWN
+            }
         )
     }
 }
