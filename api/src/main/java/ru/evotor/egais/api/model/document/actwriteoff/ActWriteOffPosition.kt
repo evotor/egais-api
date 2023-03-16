@@ -15,7 +15,7 @@ import java.util.*
  * @property informF2MarkInfoJson Информация о марках в формате JSON
  * @property productInfo Информация о продукции
  * @property sumSale Сумма продажи. Обязательно для заполнения при причине списания "Реализация"
- * @property receiptUuid UUID чека продажи
+ * @property receiptUuid UUID чека продажи (доступен с версии VERSION = 1)
  * @property markList Перечень считанных кодов марок
  */
 data class ActWriteOffPosition(
@@ -27,6 +27,11 @@ data class ActWriteOffPosition(
     @JvmField val informF2MarkInfoJson: String?,
     @JvmField val productInfo: ProductInfo,
     @JvmField val sumSale: BigDecimal?,
-    @JvmField val receiptUuid: String?,
     @JvmField val markList: List<String>
-)
+) {
+    var receiptUuid: String? = null
+
+    companion object {
+        const val VERSION = 1
+    }
+}

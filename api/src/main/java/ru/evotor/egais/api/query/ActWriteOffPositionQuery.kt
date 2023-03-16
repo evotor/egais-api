@@ -169,7 +169,7 @@ class ActWriteOffPositionQuery :
         val columnIndexReceiptUuid =
             cursor.getColumnIndex(ActWriteOffPositionContract.COLUMN_RECEIPT_UUID)
 
-        return ActWriteOffPosition(
+        val result = ActWriteOffPosition(
             UUID.fromString(cursor.getString(columnIndexUuid)),
             UUID.fromString(cursor.getString(columnIndexActUuid)),
             cursor.getString(columnIndexIdentity),
@@ -183,10 +183,19 @@ class ActWriteOffPositionQuery :
             if (cursor.isNull(columnIndexSumSale)) null else MoneyBigDecimalConverter.toBigDecimal(
                 cursor.getLong(columnIndexSumSale)
             ),
-            if (cursor.isNull(columnIndexReceiptUuid)) null else cursor.getString(
-                columnIndexReceiptUuid
-            ),
             MarkListConverter.toMarkList(cursor.getString(columnIndexMarkList))
         )
+        val version = try {
+            ActWriteOffPosition.VERSION
+        } catch (exception: Exception) {
+            0
+        }
+        if (version == 1) {
+            val receiptUuid = if (cursor.isNull(columnIndexReceiptUuid)) null else cursor.getString(
+                columnIndexReceiptUuid
+            )
+            result.receiptUuid = receiptUuid
+        }
+        return result
     }
 }
