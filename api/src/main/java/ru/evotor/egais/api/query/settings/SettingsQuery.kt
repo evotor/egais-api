@@ -84,21 +84,17 @@ class SettingsQuery {
     }
 
     fun isBeerTapsEnabled(context: Context): Boolean {
-        return try {
-            context.contentResolver.query(
-                SettingsContract.BEER_TAPS_ENABLED_URI,
-                null,
-                null,
-                null,
-                null
-            )
-                ?.use { cursor ->
-                    cursor.moveToFirst()
-                    cursor.getString(cursor.getColumnIndex(SettingsContract.BEER_TAPS_ENABLED_COLUMN_NAME))
-                        ?.toBoolean()
-                } ?: false
-        } catch (exception: Exception) {
-            false
-        }
+        return context.contentResolver.query(
+            SettingsContract.BEER_TAPS_ENABLED_URI,
+            null,
+            null,
+            null,
+            null
+        )
+            ?.use { cursor ->
+                cursor.moveToFirst()
+                cursor.getString(cursor.getColumnIndex(SettingsContract.BEER_TAPS_ENABLED_COLUMN_NAME))
+                    ?.toBoolean()
+            } ?: false
     }
 }
