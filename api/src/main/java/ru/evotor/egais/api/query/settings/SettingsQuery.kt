@@ -95,6 +95,6 @@ class SettingsQuery {
                 cursor.moveToFirst()
                 cursor.getString(cursor.getColumnIndex(SettingsContract.BEER_TAPS_ENABLED_COLUMN_NAME))
                     ?.toBoolean()
-            } ?: true
+            } ?: false
     }
 }
