@@ -97,4 +97,19 @@ class SettingsQuery {
                     ?.toBoolean()
             } ?: false
     }
+
+    fun isExciseAlcoholOnTapEnabled(context: Context): Boolean {
+        return context.contentResolver.query(
+            SettingsContract.EXCISE_ALCOHOL_ON_TAP_ENABLED_URI,
+            null,
+            null,
+            null,
+            null
+        )
+            ?.use { cursor ->
+                cursor.moveToFirst()
+                cursor.getString(cursor.getColumnIndex(SettingsContract.EXCISE_ALCOHOL_ON_TAP_ENABLED_COLUMN_NAME))
+                    ?.toBoolean()
+            } ?: false
+    }
 }
