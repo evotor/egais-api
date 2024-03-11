@@ -97,4 +97,33 @@ class SettingsQuery {
                     ?.toBoolean()
             } ?: false
     }
+
+    fun isCodesCheckEnabled(context: Context): Boolean {
+        return context.contentResolver.query(
+            SettingsContract.BEER_TAPS_SETTINGS_CODES_CHECK_ENABLED_URI,
+            null,
+            null,
+            null,
+            null
+        )
+            ?.use { cursor ->
+                cursor.moveToFirst()
+                cursor.getString(cursor.getColumnIndex(SettingsContract.ONLINE_CHECK_ENABLED_COLUMN_NAME))
+                    ?.toBoolean()
+            } ?: false
+    }
+
+    fun getXApiKey(context: Context): String? {
+        return context.contentResolver.query(
+            SettingsContract.BEER_TAPS_SETTINGS_X_API_KEY_URI,
+            null,
+            null,
+            null,
+            null
+        )
+            ?.use { cursor ->
+                cursor.moveToFirst()
+                cursor.getString(cursor.getColumnIndex(SettingsContract.X_API_KEY_COLUMN_NAME))
+            }
+    }
 }
