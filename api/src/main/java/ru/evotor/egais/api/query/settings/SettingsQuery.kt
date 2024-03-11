@@ -98,6 +98,21 @@ class SettingsQuery {
             } ?: false
     }
 
+    fun isExciseAlcoholOnTapEnabled(context: Context): Boolean {
+        return context.contentResolver.query(
+            SettingsContract.EXCISE_ALCOHOL_ON_TAP_ENABLED_URI,
+            null,
+            null,
+            null,
+            null
+        )
+            ?.use { cursor ->
+                cursor.moveToFirst()
+                cursor.getString(cursor.getColumnIndex(SettingsContract.EXCISE_ALCOHOL_ON_TAP_ENABLED_COLUMN_NAME))
+                    ?.toBoolean()
+            } ?: false
+    }
+
     fun isCodesCheckEnabled(context: Context): Boolean {
         return context.contentResolver.query(
             SettingsContract.BEER_TAPS_SETTINGS_CODES_CHECK_ENABLED_URI,

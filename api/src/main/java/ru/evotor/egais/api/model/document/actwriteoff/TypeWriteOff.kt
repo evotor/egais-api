@@ -10,6 +10,8 @@ package ru.evotor.egais.api.model.document.actwriteoff
  * @property ARREST Арест. Списание арестованной продукции, изъятой из оборота продукции, конфискованной продукции по решению суда
  * @property OTHER Иные цели. Списание продукции, когда ФСМ/АМ не возможно считать
  * @property SELLING Реализация. Розничная реализация продукции, не подлежащей фиксации в ЕГАИС
+ * @property PRODUCTION_LOSSES Производственные потери. Списание продукции при производственных потерях
+ * @property COOKING Приготовление. Использовано для приготовления коктейлей (блюд)
  */
 enum class TypeWriteOff {
     RESORTING,
@@ -20,5 +22,7 @@ enum class TypeWriteOff {
     TEST,
     ARREST,
     OTHER,
-    SELLING
+    SELLING,
+    PRODUCTION_LOSSES,
+    COOKING
 }
