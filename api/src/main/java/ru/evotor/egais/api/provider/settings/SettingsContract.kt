@@ -14,8 +14,8 @@ internal object SettingsContract {
     const val CLOUD_SYNCHRONIZATION_COLUMN_NAME = "CLOUD_SYNCHRONIZATION"
     const val BEER_TAPS_ENABLED_COLUMN_NAME = "BEER_TAPS"
     const val EXCISE_ALCOHOL_ON_TAP_ENABLED_COLUMN_NAME = "EXCISE_ALCOHOL_ON_TAP"
-    const val ONLINE_CHECK_ENABLED_COLUMN_NAME = "beerTapsSettingsCodesCheckEnabled"
-    const val X_API_KEY_COLUMN_NAME = "beerTapsSettingsXApiKey"
+    const val BEER_TAPS_SETTINGS_CODES_CHECK_ENABLED_COLUMN_NAME = "beerTapsSettingsCodesCheckEnabled"
+    const val BEER_TAPS_SETTINGS_X_API_KEY_COLUMN_NAME = "beerTapsSettingsXApiKey"
 
     private const val ALCOHOL_ENABLED_PATH = "AlcoholEnabled"
     private const val ALCOHOL_CONTROL_TYPE_PATH = "AlcoholControlType"
@@ -24,8 +24,8 @@ internal object SettingsContract {
     private const val CLOUD_SYNCHRONIZATION_PATH = "CloudSynchronization"
     private const val BEER_TAPS_ENABLED_PATH = "BeerTapsEnabled"
     private const val EXCISE_ALCOHOL_ON_TAP_ENABLED_PATH = "ExciseAlcoholOnTapEnabled"
-    private const val BEER_TAPS_SETTINGS_CODES_CHECK_ENABLED_PATH= "CodesCheckEnabled"
-    private const val BEER_TAPS_SETTINGS_X_API_KEY_PATH = "XAPiKey"
+    private const val CODES_CHECK_ENABLED_PATH= "CodesCheckEnabled"
+    private const val X_API_KEY_PATH = "XApiKey"
 
     private val BASE_URI: Uri = Uri.parse("content://$AUTHORITY")
     private val BASE_URI_FROM_EGAIS_UI: Uri = Uri.parse("content://$AUTHORITY_EGAIS_UI")
@@ -36,6 +36,6 @@ internal object SettingsContract {
     val CLOUD_SYNCHRONIZATION_URI: Uri  = Uri.withAppendedPath(BASE_URI, CLOUD_SYNCHRONIZATION_PATH)
     val BEER_TAPS_ENABLED_URI: Uri  = Uri.withAppendedPath(BASE_URI, BEER_TAPS_ENABLED_PATH)
     val EXCISE_ALCOHOL_ON_TAP_ENABLED_URI: Uri  = Uri.withAppendedPath(BASE_URI, EXCISE_ALCOHOL_ON_TAP_ENABLED_PATH)
-    val BEER_TAPS_SETTINGS_CODES_CHECK_ENABLED_URI: Uri = Uri.withAppendedPath(BASE_URI_FROM_EGAIS_UI, BEER_TAPS_SETTINGS_CODES_CHECK_ENABLED_PATH)
-    val BEER_TAPS_SETTINGS_X_API_KEY_URI: Uri = Uri.withAppendedPath(BASE_URI_FROM_EGAIS_UI, BEER_TAPS_SETTINGS_X_API_KEY_PATH)
+    val CODES_CHECK_ENABLED_URI: Uri = Uri.withAppendedPath(BASE_URI_FROM_EGAIS_UI, CODES_CHECK_ENABLED_PATH)
+    val X_API_KEY_URI: Uri = Uri.withAppendedPath(BASE_URI_FROM_EGAIS_UI, X_API_KEY_PATH)
 }
