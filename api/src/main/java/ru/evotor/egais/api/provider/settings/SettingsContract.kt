@@ -16,6 +16,7 @@ internal object SettingsContract {
     const val EXCISE_ALCOHOL_ON_TAP_ENABLED_COLUMN_NAME = "EXCISE_ALCOHOL_ON_TAP"
     const val BEER_TAPS_SETTINGS_CODES_CHECK_ENABLED_COLUMN_NAME = "beerTapsSettingsCodesCheckEnabled"
     const val BEER_TAPS_SETTINGS_X_API_KEY_COLUMN_NAME = "beerTapsSettingsXApiKey"
+    const val BEER_TAPS_SETTINGS_INN_FROM_BEER_TAPS_COLUMN_NAME = "beerTapsSettingsInnFromBeerTaps"
 
     private const val ALCOHOL_ENABLED_PATH = "AlcoholEnabled"
     private const val ALCOHOL_CONTROL_TYPE_PATH = "AlcoholControlType"
@@ -26,6 +27,7 @@ internal object SettingsContract {
     private const val EXCISE_ALCOHOL_ON_TAP_ENABLED_PATH = "ExciseAlcoholOnTapEnabled"
     private const val CODES_CHECK_ENABLED_PATH= "CodesCheckEnabled"
     private const val X_API_KEY_PATH = "XApiKey"
+    private const val INN_FROM_BEER_TAPS_PATH = "InnFromBeerTaps"
 
     private val BASE_URI: Uri = Uri.parse("content://$AUTHORITY")
     private val BASE_URI_FROM_EGAIS_UI: Uri = Uri.parse("content://$AUTHORITY_EGAIS_UI")
@@ -38,4 +40,5 @@ internal object SettingsContract {
     val EXCISE_ALCOHOL_ON_TAP_ENABLED_URI: Uri  = Uri.withAppendedPath(BASE_URI, EXCISE_ALCOHOL_ON_TAP_ENABLED_PATH)
     val CODES_CHECK_ENABLED_URI: Uri = Uri.withAppendedPath(BASE_URI_FROM_EGAIS_UI, CODES_CHECK_ENABLED_PATH)
     val X_API_KEY_URI: Uri = Uri.withAppendedPath(BASE_URI_FROM_EGAIS_UI, X_API_KEY_PATH)
+    val INN_FROM_BEER_TAPS_URI: Uri = Uri.withAppendedPath(BASE_URI_FROM_EGAIS_UI, INN_FROM_BEER_TAPS_PATH)
 }

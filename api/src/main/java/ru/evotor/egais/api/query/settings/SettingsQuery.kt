@@ -141,4 +141,18 @@ class SettingsQuery {
                 cursor.getString(cursor.getColumnIndex(SettingsContract.BEER_TAPS_SETTINGS_X_API_KEY_COLUMN_NAME))
             }
     }
+
+    fun getInnFromBeerTapsSettings(context: Context): String? {
+        return context.contentResolver.query(
+            SettingsContract.INN_FROM_BEER_TAPS_URI,
+            null,
+            null,
+            null,
+            null
+        )
+            ?.use { cursor ->
+                cursor.moveToFirst()
+                cursor.getString(cursor.getColumnIndex(SettingsContract.BEER_TAPS_SETTINGS_INN_FROM_BEER_TAPS_COLUMN_NAME))
+            }
+    }
 }
