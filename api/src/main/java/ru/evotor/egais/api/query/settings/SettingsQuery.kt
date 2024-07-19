@@ -80,7 +80,7 @@ class SettingsQuery {
                 cursor.moveToFirst()
                 cursor.getString(cursor.getColumnIndex(SettingsContract.RSA_CONNECTION_STATE_COLUMN_NAME))
                     ?.toBoolean()
-            } ?: true
+            } ?: false
     }
 
     fun isCloudSyncEnabled(context: Context): Boolean {
