@@ -17,6 +17,5 @@ data class MarkRest(
     @JvmField val mark: String
 ) : EgaisDocument() {
 
-    @JvmField
     var volume: String? = null
 }
