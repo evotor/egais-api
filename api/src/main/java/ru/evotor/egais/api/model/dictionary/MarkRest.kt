@@ -9,9 +9,14 @@ import java.util.*
  * @property documentUuid uuid документа основания
  * @property informF2RegId справка 2
  * @property mark Марка
+ * @property volume Остаток акцизных марок
  */
 data class MarkRest(
-        @JvmField val documentUuid: UUID,
-        @JvmField val informF2RegId: String,
-        @JvmField val mark: String
-) : EgaisDocument()
+    @JvmField val documentUuid: UUID,
+    @JvmField val informF2RegId: String,
+    @JvmField val mark: String
+) : EgaisDocument() {
+
+    @JvmField
+    var volume: String? = null
+}
