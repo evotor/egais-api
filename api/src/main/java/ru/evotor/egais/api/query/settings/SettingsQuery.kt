@@ -170,7 +170,7 @@ class SettingsQuery {
             }
     }
 
-    fun isOnlineCheckEnabled(context: Context): String? {
+    fun isOnlineCheckEnabled(context: Context): Boolean {
         return context.contentResolver.query(
             SettingsContract.ONLINE_CHECK_ENABLED_FROM_IMPL_URI,
             null,
@@ -181,10 +181,11 @@ class SettingsQuery {
             ?.use { cursor ->
                 cursor.moveToFirst()
                 cursor.getString(cursor.getColumnIndex(SettingsContract.ONLINE_CHECK_ENABLED_COLUMN_NAME))
-            }
+                    ?.toBoolean()
+            } ?: false
     }
 
-    fun isOnlineCheckSellMarkEnabled(context: Context): String? {
+    fun isOnlineCheckSellMarkEnabled(context: Context): Boolean {
         return context.contentResolver.query(
             SettingsContract.ONLINE_CHECK_SELL_MARK_SETTINGS_ENABLED_FROM_IMPL_URI,
             null,
@@ -195,10 +196,11 @@ class SettingsQuery {
             ?.use { cursor ->
                 cursor.moveToFirst()
                 cursor.getString(cursor.getColumnIndex(SettingsContract.ONLINE_CHECK_SELL_MARK_SETTINGS_ENABLED_COLUMN_NAME))
-            }
+                    ?.toBoolean()
+            } ?: false
     }
 
-    fun isOnlineCheckBindKegEnabled(context: Context): String? {
+    fun isOnlineCheckBindKegEnabled(context: Context): Boolean {
         return context.contentResolver.query(
             SettingsContract.ONLINE_CHECK_BIND_KEG_SETTINGS_ENABLED_FROM_IMPL_URI,
             null,
@@ -209,6 +211,7 @@ class SettingsQuery {
             ?.use { cursor ->
                 cursor.moveToFirst()
                 cursor.getString(cursor.getColumnIndex(SettingsContract.ONLINE_CHECK_BIND_KEG_SETTINGS_ENABLED_COLUMN_NAME))
-            }
+                    ?.toBoolean()
+            } ?: false
     }
 }
