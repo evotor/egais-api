@@ -68,6 +68,21 @@ class SettingsQuery {
             } ?: true
     }
 
+    fun isRsaConnectionStateEnabled(context: Context): Boolean {
+        return context.contentResolver.query(
+            SettingsContract.RSA_CONNECTION_STATE_URI,
+            null,
+            null,
+            null,
+            null
+        )
+            ?.use { cursor ->
+                cursor.moveToFirst()
+                cursor.getString(cursor.getColumnIndex(SettingsContract.RSA_CONNECTION_STATE_COLUMN_NAME))
+                    ?.toBoolean()
+            } ?: false
+    }
+
     fun isCloudSyncEnabled(context: Context): Boolean {
         return context.contentResolver.query(
             SettingsContract.CLOUD_SYNCHRONIZATION_URI,
