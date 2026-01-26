@@ -29,6 +29,12 @@ class MarkRestQuery : FilterBuilder<MarkRestQuery, MarkRestQuery.SortOrder, Mark
     @JvmField
     val mark = addFieldFilter<String>(MarkRestContract.COLUMN_MARK)
 
+    /**
+     * Остаток акцизных марок
+     */
+    @JvmField
+    val volume = addFieldFilter<String?>(MarkRestContract.COLUMN_VOLUME_BALANCE)
+
     override val currentQuery: MarkRestQuery
         get() = this
 
@@ -55,6 +61,12 @@ class MarkRestQuery : FilterBuilder<MarkRestQuery, MarkRestQuery.SortOrder, Mark
         @JvmField
         val mark = addFieldSorter(MarkRestContract.COLUMN_MARK)
 
+        /**
+         * Остаток акцизных марок
+         */
+        @JvmField
+        val volume = addFieldSorter(MarkRestContract.COLUMN_VOLUME_BALANCE)
+
         override val currentSortOrder: SortOrder
             get() = this
     }
@@ -67,10 +79,20 @@ class MarkRestQuery : FilterBuilder<MarkRestQuery, MarkRestQuery.SortOrder, Mark
         val columnIndexDocUuid = cursor.getColumnIndex(MarkRestContract.COLUMN_DOCUMENT_UUID)
         val columnIndexInformF2RegId = cursor.getColumnIndex(MarkRestContract.COLUMN_NAME_INFORM_F2_REG_ID)
         val columnIndexMark = cursor.getColumnIndex(MarkRestContract.COLUMN_MARK)
-        return MarkRest(
+        val columnIndexVolume = try {
+            cursor.getColumnIndex(MarkRestContract.COLUMN_VOLUME_BALANCE)
+        } catch (exception: Exception) {
+            null
+        }
+        val markRest =  MarkRest(
                 UUID.fromString(cursor.getString(columnIndexDocUuid)),
                 cursor.getString(columnIndexInformF2RegId),
                 cursor.getString(columnIndexMark)
         )
+        columnIndexVolume?.let {
+            markRest.volume = cursor.getString(columnIndexVolume)
+        }
+
+        return markRest
     }
 }
