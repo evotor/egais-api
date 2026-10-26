@@ -24,6 +24,7 @@ package ru.evotor.egais.api.model.document.ticket
  * @property REQUEST_REPEAL_WB Запрос на отмену проведения акта для ТТН
  * @property CONFIRM_REPEAL_WB Ответ на запрос об отмене проведения акта для ТТН
  * @property JSON_STRING Документ json в формате String
+ * @property QUERY_REST_B_CODE Запрос акцизных марок по номеру партии и остатков по каждой марке в миллилитрах
  */
 enum class DocType {
     WAY_BILL,
@@ -46,5 +47,6 @@ enum class DocType {
     QUERY_UNPROCESSED_DOCUMENTS,
     REQUEST_REPEAL_WB,
     CONFIRM_REPEAL_WB,
-    JSON_STRING
+    JSON_STRING,
+    QUERY_REST_B_CODE
 }
