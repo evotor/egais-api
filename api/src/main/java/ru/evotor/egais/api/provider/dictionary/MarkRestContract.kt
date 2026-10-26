@@ -26,4 +26,9 @@ internal object MarkRestContract {
      * Марка
      */
     const val COLUMN_MARK = "MARK"
+
+    /**
+     * Остаток акцизных марок
+     */
+    const val COLUMN_VOLUME_BALANCE = "VOLUME_BALANCE"
 }
